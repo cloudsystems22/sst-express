@@ -59,9 +59,9 @@ const Usuario = (sequelize, DataTypes) => {
 
     usuario.associate = (models) => {
         
-        // usuario.hasMany(models.nivelacesso, {
-        //     foreignKey:'usuario_id', as: 'niveis_acesso'
-        // });
+    // usuario.hasMany(models.niveisAcesso, {
+    //     foreignKey:'usuario_id', as: 'niveisAcesso'
+    // });
 
     //     usuario.hasMany(models.Contato, {
     //         foreignKey:'fk_usuario', as: 'contatos'

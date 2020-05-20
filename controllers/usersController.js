@@ -1,8 +1,10 @@
 const bcrypt = require('bcrypt');
-let { sequelize, Usuario } = require('../models');
+let { sequelize,  Usuario, niveisAcesso, nivelAcessoUsuario } = require('../models');
 const usersController = {
-    index:(req, res) =>{
-        res.render('index', {title: "SST-EXPRESS"})
+    index: async(req, res) =>{
+        let { id } = req.session.usuario;
+        let usuarioAcesso = await nivelAcessoUsuario.findAll({include:['Usuario', 'niveisAcesso'], where: { id }});
+        res.render('index', {title: "SST-EXPRESS", usuarioAcesso})
     },
 
     cadastro: (req, res) =>{

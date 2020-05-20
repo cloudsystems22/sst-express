@@ -21,12 +21,14 @@ CREATE TABLE IF NOT EXISTS `jsst`.`usuario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(50) NOT NULL,
   `senha` VARCHAR(256) NOT NULL,
-  `nome` VARCHAR(100) NOT NULL,
+  `nome` VARCHAR(100) NULL,
   `sobrenome` VARCHAR(100) NULL,
   `rg` VARCHAR(15) NULL,
   `cpf` VARCHAR(15) NULL,
-  `email` VARCHAR(150) NULL,
+  `email` VARCHAR(60) NULL,
   `cell` VARCHAR(20) NULL,
+  `data_nascimento` DATE NULL,
+  `genero` VARCHAR(1) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -35,7 +37,7 @@ ENGINE = InnoDB;
 -- Table `jsst`.`niveis_acesso`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `jsst`.`niveis_acesso` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `niveis` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -45,19 +47,20 @@ ENGINE = InnoDB;
 -- Table `jsst`.`niveis_acesso_usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `jsst`.`niveis_acesso_usuario` (
-  `niveis_acesso_id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `usuario_id` INT NOT NULL,
-  PRIMARY KEY (`niveis_acesso_id`, `usuario_id`),
-  INDEX `fk_niveis_acesso_has_usuario_usuario1_idx` (`usuario_id` ASC) VISIBLE,
-  INDEX `fk_niveis_acesso_has_usuario_niveis_acesso_idx` (`niveis_acesso_id` ASC) VISIBLE,
-  CONSTRAINT `fk_niveis_acesso_has_usuario_niveis_acesso`
-    FOREIGN KEY (`niveis_acesso_id`)
-    REFERENCES `jsst`.`niveis_acesso` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_niveis_acesso_has_usuario_usuario1`
+  `niveis_acesso_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_niveis_acesso_usuario_usuario1_idx` (`usuario_id` ASC) VISIBLE,
+  INDEX `fk_niveis_acesso_usuario_niveis_acesso1_idx` (`niveis_acesso_id` ASC) VISIBLE,
+  CONSTRAINT `fk_niveis_acesso_usuario_usuario1`
     FOREIGN KEY (`usuario_id`)
     REFERENCES `jsst`.`usuario` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_niveis_acesso_usuario_niveis_acesso1`
+    FOREIGN KEY (`niveis_acesso_id`)
+    REFERENCES `jsst`.`niveis_acesso` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -85,11 +88,12 @@ CREATE TABLE IF NOT EXISTS `jsst`.`licensa` (
   `logo` VARCHAR(150) NULL,
   `niveis_acesso_usuario_niveis_acesso_id` INT NOT NULL,
   `niveis_acesso_usuario_usuario_id` INT NOT NULL,
+  `niveis_acesso_usuario_id` INT NOT NULL,
   PRIMARY KEY (`id`, `niveis_acesso_usuario_niveis_acesso_id`, `niveis_acesso_usuario_usuario_id`),
-  INDEX `fk_licensa_niveis_acesso_usuario1_idx` (`niveis_acesso_usuario_niveis_acesso_id` ASC, `niveis_acesso_usuario_usuario_id` ASC) VISIBLE,
+  INDEX `fk_licensa_niveis_acesso_usuario1_idx` (`niveis_acesso_usuario_id` ASC) VISIBLE,
   CONSTRAINT `fk_licensa_niveis_acesso_usuario1`
-    FOREIGN KEY (`niveis_acesso_usuario_niveis_acesso_id` , `niveis_acesso_usuario_usuario_id`)
-    REFERENCES `jsst`.`niveis_acesso_usuario` (`niveis_acesso_id` , `usuario_id`)
+    FOREIGN KEY (`niveis_acesso_usuario_id`)
+    REFERENCES `jsst`.`niveis_acesso_usuario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -116,30 +120,6 @@ CREATE TABLE IF NOT EXISTS `jsst`.`clientes` (
   `email` VARCHAR(50) NULL,
   `logo` VARCHAR(150) NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `jsst`.`clientes_has_licensa`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`clientes_has_licensa` (
-  `clientes_id` INT NOT NULL,
-  `licensa_id` INT NOT NULL,
-  `licensa_niveis_acesso_usuario_niveis_acesso_id` INT NOT NULL,
-  `licensa_niveis_acesso_usuario_usuario_id` INT NOT NULL,
-  PRIMARY KEY (`clientes_id`, `licensa_id`, `licensa_niveis_acesso_usuario_niveis_acesso_id`, `licensa_niveis_acesso_usuario_usuario_id`),
-  INDEX `fk_clientes_has_licensa_licensa1_idx` (`licensa_id` ASC, `licensa_niveis_acesso_usuario_niveis_acesso_id` ASC, `licensa_niveis_acesso_usuario_usuario_id` ASC) VISIBLE,
-  INDEX `fk_clientes_has_licensa_clientes1_idx` (`clientes_id` ASC) VISIBLE,
-  CONSTRAINT `fk_clientes_has_licensa_clientes1`
-    FOREIGN KEY (`clientes_id`)
-    REFERENCES `jsst`.`clientes` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_clientes_has_licensa_licensa1`
-    FOREIGN KEY (`licensa_id` , `licensa_niveis_acesso_usuario_niveis_acesso_id` , `licensa_niveis_acesso_usuario_usuario_id`)
-    REFERENCES `jsst`.`licensa` (`id` , `niveis_acesso_usuario_niveis_acesso_id` , `niveis_acesso_usuario_usuario_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -175,29 +155,6 @@ CREATE TABLE IF NOT EXISTS `jsst`.`cargos` (
   `num_func_m` VARCHAR(5) NULL,
   `num_func_f` VARCHAR(5) NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `jsst`.`cargos_setores`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`cargos_setores` (
-  `cargos_id` INT NOT NULL,
-  `setores_id` INT NOT NULL,
-  `setores_clientes_id` INT NOT NULL,
-  PRIMARY KEY (`cargos_id`, `setores_id`, `setores_clientes_id`),
-  INDEX `fk_cargos_has_setores_setores1_idx` (`setores_id` ASC, `setores_clientes_id` ASC) VISIBLE,
-  INDEX `fk_cargos_has_setores_cargos1_idx` (`cargos_id` ASC) VISIBLE,
-  CONSTRAINT `fk_cargos_has_setores_cargos1`
-    FOREIGN KEY (`cargos_id`)
-    REFERENCES `jsst`.`cargos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cargos_has_setores_setores1`
-    FOREIGN KEY (`setores_id` , `setores_clientes_id`)
-    REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -338,6 +295,55 @@ CREATE TABLE IF NOT EXISTS `jsst`.`inventario` (
   CONSTRAINT `fk_inventario_setores1`
     FOREIGN KEY (`setores_id` , `setores_clientes_id`)
     REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `jsst`.`clientes_has_licensa`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `jsst`.`clientes_has_licensa` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `licensa_id` INT NOT NULL,
+  `licensa_niveis_acesso_usuario_niveis_acesso_id` INT NOT NULL,
+  `licensa_niveis_acesso_usuario_usuario_id` INT NOT NULL,
+  `clientes_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_clientes_has_licensa_licensa1_idx` (`licensa_id` ASC, `licensa_niveis_acesso_usuario_niveis_acesso_id` ASC, `licensa_niveis_acesso_usuario_usuario_id` ASC) VISIBLE,
+  INDEX `fk_clientes_has_licensa_clientes1_idx` (`clientes_id` ASC) VISIBLE,
+  CONSTRAINT `fk_clientes_has_licensa_licensa1`
+    FOREIGN KEY (`licensa_id` , `licensa_niveis_acesso_usuario_niveis_acesso_id` , `licensa_niveis_acesso_usuario_usuario_id`)
+    REFERENCES `jsst`.`licensa` (`id` , `niveis_acesso_usuario_niveis_acesso_id` , `niveis_acesso_usuario_usuario_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_clientes_has_licensa_clientes1`
+    FOREIGN KEY (`clientes_id`)
+    REFERENCES `jsst`.`clientes` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `jsst`.`cargos_setores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `jsst`.`cargos_setores` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `setores_id` INT NOT NULL,
+  `setores_clientes_id` INT NOT NULL,
+  `cargos_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_cargos_setores_setores1_idx` (`setores_id` ASC, `setores_clientes_id` ASC) VISIBLE,
+  INDEX `fk_cargos_setores_cargos1_idx` (`cargos_id` ASC) VISIBLE,
+  CONSTRAINT `fk_cargos_setores_setores1`
+    FOREIGN KEY (`setores_id` , `setores_clientes_id`)
+    REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cargos_setores_cargos1`
+    FOREIGN KEY (`cargos_id`)
+    REFERENCES `jsst`.`cargos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

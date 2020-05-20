@@ -1,6 +1,6 @@
 const niveisAcesso = (sequelize, DataTypes) =>{
     let niveisacesso = sequelize.define(
-        'niveisacesso',
+        'niveisAcesso',
         {
             id:{
                 type:DataTypes.INTEGER(),
@@ -18,6 +18,12 @@ const niveisAcesso = (sequelize, DataTypes) =>{
         }
     
     );
+    // niveisacesso.associate = (models) => {
+    //     niveisAcesso.hasMany(models.nivelAcessoUsuario, {
+    //         foreignKey:'nivel_acesso_id', as: 'niveis_acesso_usuario'
+    //     })
+
+    // }
     return niveisacesso;
 }
 
