@@ -18,15 +18,15 @@ const Usuario = (sequelize, DataTypes) => {
             },
             nome: {
                 type: DataTypes.STRING(100),
-                allowNull: false
+                allowNull: true
             },
             sobrenome:{
                 type:DataTypes.STRING(100),
-                allowNull: false
+                allowNull: true
             },
             rg:{
                 type:DataTypes.STRING(15),
-                allowNull: false
+                allowNull: true
             },
             cpf: {
                 type: DataTypes.STRING(15),
@@ -35,12 +35,12 @@ const Usuario = (sequelize, DataTypes) => {
             },
             email: {
                 type: DataTypes.STRING(60),
-                allowNull: false,
+                allowNull: true,
                 unique: true
             },
             cell: {
                 type: DataTypes.STRING(20),
-                allowNull: false,
+                allowNull: true,
             },
             data_nascimento: {
                 type: DataTypes.DATEONLY,
@@ -57,11 +57,11 @@ const Usuario = (sequelize, DataTypes) => {
         }
     );
 
-    // usuario.associate = (models) => {
+    usuario.associate = (models) => {
         
-    //     usuario.hasOne(models.DadoProfissional, {
-    //         foreignKey:'fk_usuario', as: 'dado_profissional'
-    //     });
+        // usuario.hasMany(models.nivelacesso, {
+        //     foreignKey:'usuario_id', as: 'niveis_acesso'
+        // });
 
     //     usuario.hasMany(models.Contato, {
     //         foreignKey:'fk_usuario', as: 'contatos'
@@ -108,7 +108,7 @@ const Usuario = (sequelize, DataTypes) => {
     //     usuario.hasMany(models.AvaliacaoUsuario, {
     //         foreignKey:'fk_usuario', as: 'avaliacoes'
     //     });
-    // };
+    };
 
     return usuario;
 }

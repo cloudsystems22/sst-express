@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-const authController = require('../controllers/usersController');
+const usersController = require('../controllers/usersController');
+const authMiddlewares = require('../middlewares/authMiddleware');
 
 /* GET home page. */
-router.get('/', authController.index);
+router.get('/', authMiddlewares, usersController.index);
+
+
 
 module.exports = router;
