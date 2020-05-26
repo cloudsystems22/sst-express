@@ -29,7 +29,7 @@ const Licensa = (sequelize, DataTypes) => {
             fone: { type:DataTypes.STRING(15) },
             email: { type:DataTypes.STRING(50) },
             logo: { type:DataTypes.STRING(150)},
-            niveis_acesso_usuario_id: {
+            usuario_id: {
                 type:DataTypes.INTEGER,
                 allowNull: false
             }

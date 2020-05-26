@@ -4,8 +4,8 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Licensa</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Atualizar Dados</button>
+          <div class="btn-group mr-2" id='menu-interno'>
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Atualizar Dados</button> -->
             <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Exportar</button> -->
           </div>
           <!-- <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
@@ -16,10 +16,11 @@
      </div>
      <div class="row">
        <div class='col-md-6'>
-         <form action="">
+         <form action="" id="frmDadosLicensa">
            <div class="row">
              <div class="col-md-6">
-               <input type="hidden" name="niveis_acesso_usuario_id" value='<%=usuarioAcesso[0].Usuario[0].id %>'>
+               <input type="hidden" id="hddUserId" name="usuario_id" value='<%=usuarioAcesso[0].Usuario.id %>'>
+               <input type="hidden" id="hddId" name="id">
                <label for="">CNPJ</label>
                <input type="text" name="cnpj" id="txtCnpj" class="form-control">
              </div>
@@ -80,16 +81,18 @@
 
        </div>
        <div class="col-md-6">
-         <form action="" id="frmLogo">
+         <form action="" id="frmLogo" enctype="multipart/form-data">
+          <input type="hidden" name='id' id='hddIdUplogo'>
            <div class="row">
-             <div class="col-md-12">
-               <div id='logo-marca' style="background-image: url('../images/imginexist.png');">
-                   <!-- <img src="./images/inexistente.png" alt=""> -->
-               </div>
+             <div class="col-md-12" id='contImag'>
+               <!-- <div id='logo-marca' style="background-image: url('../images/imginexist.png');">
+                   <img src="./images/inexistente.png" alt="">
+               </div> -->
 
              </div>
              <div class="col-md-12">
-                <input type="file" name="file" id="inputFile" class="form-control">
+                <input type="file" name="files" id="inputFile" class="form-control">
+                <button type="button" class="btn btn-outline-primary btn-block" id="btn-upload" onclick="uploadLogo()"><i class="fas fa-upload"></i></button>
              </div>
 
            </div>
@@ -100,8 +103,6 @@
 
 </main>
 
- <!-- Requisições ajax -->
- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
- <script src="./javascripts/crudLicensa.js"></script>
+ 
 
 <%- include('./shared/footer') %>

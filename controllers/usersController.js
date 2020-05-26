@@ -3,7 +3,8 @@ let { sequelize,  Usuario, niveisAcesso, nivelAcessoUsuario } = require('../mode
 const usersController = {
     index: async(req, res) =>{
         let { id } = req.session.usuario;
-        let usuarioAcesso = await nivelAcessoUsuario.findAll({include:['Usuario', 'niveisAcesso'], where: { id }});
+        let usuarioAcesso = await nivelAcessoUsuario.findAll({include:['Usuario', 'niveisAcesso'], where: { usuario_id:id }});
+        console.log(usuarioAcesso);
         res.render('index', {title: "SST-EXPRESS", usuarioAcesso})
     },
 
@@ -46,7 +47,7 @@ const usersController = {
             res.redirect('/users?error=1');
         }
         
-        console.log(user);
+        //console.log(user);
         //setando uma sessiona com o usuário
         req.session.usuario = user;
 

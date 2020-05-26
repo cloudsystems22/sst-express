@@ -7,13 +7,13 @@ const nivelAcessoUsuario = (sequelize, DataType) => {
                 autoIncrement: true,
                 allowNull: false
             },
-            niveis_acesso_id:
-            { 
+            usuario_id:
+            {
                 type: DataType.INTEGER(),
                 allowNull: false
             },
-            usuario_id:
-            {
+            niveis_acesso_id:
+            { 
                 type: DataType.INTEGER(),
                 allowNull: false
             }
@@ -27,7 +27,7 @@ const nivelAcessoUsuario = (sequelize, DataType) => {
 
     acessoUsuario.associate = (models) => {
         acessoUsuario.hasMany(models.niveisAcesso, { foreignKey:'id', as: 'niveisAcesso'});
-        acessoUsuario.hasMany(models.Usuario, { foreignKey:'id', as: 'Usuario'});
+        acessoUsuario.belongsTo(models.Usuario, { foreignKey:'usuario_id', as: 'Usuario'});
     }
     return acessoUsuario;
 
