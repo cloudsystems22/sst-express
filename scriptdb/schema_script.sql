@@ -5,345 +5,243 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema jsst
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema ciadascompras
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema jsst
+-- Schema ciadascompras
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `jsst` DEFAULT CHARACTER SET utf8 ;
-USE `jsst` ;
+CREATE SCHEMA IF NOT EXISTS `ciadascompras` DEFAULT CHARACTER SET utf8 ;
+USE `ciadascompras` ;
 
 -- -----------------------------------------------------
--- Table `jsst`.`usuario`
+-- Table `ciadascompras`.`subseller_pf`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`usuario` (
+CREATE TABLE IF NOT EXISTS `ciadascompras`.`subseller_pf` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(50) NOT NULL,
-  `senha` VARCHAR(256) NOT NULL,
-  `nome` VARCHAR(100) NULL,
-  `sobrenome` VARCHAR(100) NULL,
-  `rg` VARCHAR(15) NULL,
-  `cpf` VARCHAR(15) NULL,
-  `email` VARCHAR(60) NULL,
-  `cell` VARCHAR(20) NULL,
-  `data_nascimento` DATE NULL,
-  `genero` VARCHAR(1) NULL,
+  `subseller_id` INT NULL DEFAULT NULL,
+  `cpf` VARCHAR(11) NOT NULL,
+  `razao_social` VARCHAR(255) NOT NULL,
+  `nascimento` DATE NOT NULL,
+  `nome_mae` VARCHAR(200) NOT NULL,
+  `ocupacao` VARCHAR(200) NOT NULL,
+  `renda` DECIMAL(5,2) NOT NULL,
+  `endereco_corresp` VARCHAR(1) NULL DEFAULT NULL,
+  `logradouro` VARCHAR(200) NOT NULL,
+  `numero` INT NULL DEFAULT NULL,
+  `district` VARCHAR(200) NOT NULL,
+  `cidade` VARCHAR(200) NOT NULL,
+  `estado` VARCHAR(200) NOT NULL,
+  `cep` INT NOT NULL,
+  `complemento` VARCHAR(200) NULL DEFAULT NULL,
+  `logradouro_corresp` VARCHAR(200) NULL DEFAULT NULL,
+  `numero_corresp` INT NULL DEFAULT NULL,
+  `district_corresp` VARCHAR(200) NULL DEFAULT NULL,
+  `cidade_corresp` VARCHAR(200) NULL DEFAULT NULL,
+  `estado_corresp` VARCHAR(200) NULL DEFAULT NULL,
+  `cep_corresp` INT NULL DEFAULT NULL,
+  `complemento_corresp` VARCHAR(200) NULL DEFAULT NULL,
+  `pais_corresp` VARCHAR(150) NULL DEFAULT NULL,
+  `code_area` INT NOT NULL,
+  `phone_number` INT NOT NULL,
+  `code_area_cell` INT NOT NULL,
+  `cellphone` INT NOT NULL,
+  `email` VARCHAR(200) NOT NULL,
+  `cod_dom_getnet` VARCHAR(200) NULL DEFAULT NULL,
+  `contrato_aceito` VARCHAR(1) NOT NULL,
+  `responsabilidade_chargeback` VARCHAR(1) NOT NULL,
+  `planos_pagamento` INT NOT NULL,
+  `marketplace_store` VARCHAR(1) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `jsst`.`niveis_acesso`
+-- Table `ciadascompras`.`subseller_pj`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`niveis_acesso` (
+CREATE TABLE IF NOT EXISTS `ciadascompras`.`subseller_pj` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `niveis` VARCHAR(150) NOT NULL,
+  `subseller_id` INT NULL DEFAULT NULL,
+  `cnpj` VARCHAR(14) NOT NULL,
+  `ie` VARCHAR(20) NULL DEFAULT NULL,
+  `razao_social` VARCHAR(255) NOT NULL,
+  `nome_fantasia` VARCHAR(200) NOT NULL,
+  `email` VARCHAR(150) NOT NULL,
+  `code_area` INT NOT NULL,
+  `phone_number` INT NOT NULL,
+  `code_area_cell` INT NOT NULL,
+  `cellphone` INT NOT NULL,
+  `logradouro` VARCHAR(200) NOT NULL,
+  `numero` INT NULL DEFAULT NULL,
+  `district` VARCHAR(200) NOT NULL,
+  `cidade` VARCHAR(200) NOT NULL,
+  `estado` VARCHAR(200) NOT NULL,
+  `cep` INT NOT NULL,
+  `complemento` VARCHAR(200) NULL DEFAULT NULL,
+  `contrato_aceito` VARCHAR(1) NOT NULL,
+  `responsabilidade_chargeback` VARCHAR(1) NOT NULL,
+  `marketplace_store` VARCHAR(1) NULL DEFAULT NULL,
+  `planos_pagamento` INT NOT NULL,
+  `business_entity_type` INT NULL DEFAULT NULL,
+  `atividade_economica` INT NULL DEFAULT NULL,
+  `monthly_gross_income` INT NULL DEFAULT NULL,
+  `federal_registration_status` VARCHAR(200) NULL DEFAULT NULL,
+  `data_fundacao` VARCHAR(100) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `jsst`.`niveis_acesso_usuario`
+-- Table `ciadascompras`.`contas_bancarias`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`niveis_acesso_usuario` (
+CREATE TABLE IF NOT EXISTS `ciadascompras`.`contas_bancarias` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `usuario_id` INT NOT NULL,
-  `niveis_acesso_id` INT NOT NULL,
+  `bandeira` VARCHAR(150) NOT NULL,
+  `banco` VARCHAR(10) NOT NULL,
+  `agencia` VARCHAR(10) NOT NULL,
+  `conta` VARCHAR(15) NOT NULL,
+  `tipo_conta` VARCHAR(1) NOT NULL,
+  `digito` VARCHAR(1) NOT NULL,
+  `subseller_pj_id` INT NULL,
+  `subseller_pf_id` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_niveis_acesso_usuario_usuario1_idx` (`usuario_id` ASC) VISIBLE,
-  INDEX `fk_niveis_acesso_usuario_niveis_acesso1_idx` (`niveis_acesso_id` ASC) VISIBLE,
-  CONSTRAINT `fk_niveis_acesso_usuario_usuario1`
-    FOREIGN KEY (`usuario_id`)
-    REFERENCES `jsst`.`usuario` (`id`)
+  INDEX `fk_contas_bancarias_subseller_pj_idx` (`subseller_pj_id` ASC) VISIBLE,
+  INDEX `fk_contas_bancarias_subseller_pf1_idx` (`subseller_pf_id` ASC) VISIBLE,
+  CONSTRAINT `fk_contas_bancarias_subseller_pj`
+    FOREIGN KEY (`subseller_pj_id`)
+    REFERENCES `ciadascompras`.`subseller_pj` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_niveis_acesso_usuario_niveis_acesso1`
-    FOREIGN KEY (`niveis_acesso_id`)
-    REFERENCES `jsst`.`niveis_acesso` (`id`)
+  CONSTRAINT `fk_contas_bancarias_subseller_pf1`
+    FOREIGN KEY (`subseller_pf_id`)
+    REFERENCES `ciadascompras`.`subseller_pf` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `jsst`.`licensa`
+-- Table `ciadascompras`.`lista_comissoes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`licensa` (
+CREATE TABLE IF NOT EXISTS `ciadascompras`.`lista_comissoes` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `cnpj` VARCHAR(15) NOT NULL,
-  `razao_social` VARCHAR(250) NOT NULL,
-  `nome_fantasia` VARCHAR(150) NULL,
-  `ie` VARCHAR(15) NULL,
-  `cnae` VARCHAR(15) NULL,
-  `logradouro` VARCHAR(150) NULL,
-  `numero` VARCHAR(5) NULL,
-  `bairro` VARCHAR(50) NULL,
-  `cep` VARCHAR(15) NULL,
-  `municipio` VARCHAR(50) NULL,
-  `estado` VARCHAR(50) NULL,
-  `site` VARCHAR(50) NULL,
-  `fone` VARCHAR(15) NULL,
-  `email` VARCHAR(50) NULL,
-  `logo` VARCHAR(150) NULL,
-  `niveis_acesso_usuario_niveis_acesso_id` INT NOT NULL,
-  `niveis_acesso_usuario_usuario_id` INT NOT NULL,
-  `niveis_acesso_usuario_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `niveis_acesso_usuario_niveis_acesso_id`, `niveis_acesso_usuario_usuario_id`),
-  INDEX `fk_licensa_niveis_acesso_usuario1_idx` (`niveis_acesso_usuario_id` ASC) VISIBLE,
-  CONSTRAINT `fk_licensa_niveis_acesso_usuario1`
-    FOREIGN KEY (`niveis_acesso_usuario_id`)
-    REFERENCES `jsst`.`niveis_acesso_usuario` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `jsst`.`clientes`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`clientes` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `cnpj` VARCHAR(15) NOT NULL,
-  `razao_social` VARCHAR(250) NOT NULL,
-  `nome_fantasia` VARCHAR(150) NULL,
-  `ie` VARCHAR(15) NULL,
-  `cnae` VARCHAR(15) NULL,
-  `logradouro` VARCHAR(150) NULL,
-  `numero` VARCHAR(5) NULL,
-  `bairro` VARCHAR(50) NULL,
-  `cep` VARCHAR(15) NULL,
-  `municipio` VARCHAR(50) NULL,
-  `estado` VARCHAR(50) NULL,
-  `site` VARCHAR(50) NULL,
-  `fone` VARCHAR(15) NULL,
-  `email` VARCHAR(50) NULL,
-  `logo` VARCHAR(150) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `jsst`.`setores`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`setores` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `setores` VARCHAR(150) NOT NULL,
-  `descricao` VARCHAR(450) NULL,
-  `num_func_m` VARCHAR(5) NULL,
-  `num_func_f` VARCHAR(5) NULL,
-  `clientes_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `clientes_id`),
-  INDEX `fk_setores_clientes1_idx` (`clientes_id` ASC) VISIBLE,
-  CONSTRAINT `fk_setores_clientes1`
-    FOREIGN KEY (`clientes_id`)
-    REFERENCES `jsst`.`clientes` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `jsst`.`cargos`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`cargos` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `cargo` VARCHAR(150) NOT NULL,
-  `cbo` VARCHAR(45) NULL,
-  `funcao` VARCHAR(150) NULL,
-  `descricao` VARCHAR(450) NULL,
-  `num_func_m` VARCHAR(5) NULL,
-  `num_func_f` VARCHAR(5) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `jsst`.`funcionarios`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`funcionarios` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(250) NOT NULL,
-  `rg` VARCHAR(15) NOT NULL,
-  `cpf` VARCHAR(15) NULL,
-  `ctps` VARCHAR(45) NULL,
-  `logradouro` VARCHAR(150) NULL,
-  `numero` VARCHAR(5) NULL,
-  `bairro` VARCHAR(50) NULL,
-  `cep` VARCHAR(15) NULL,
-  `municipio` VARCHAR(50) NULL,
-  `estado` VARCHAR(50) NULL,
-  `data_nasc` DATE NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `jsst`.`contrato_trabalho`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`contrato_trabalho` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `funcionarios_id` INT NOT NULL,
-  `setores_id` INT NOT NULL,
-  `setores_clientes_id` INT NOT NULL,
-  `cargos_id` INT NOT NULL,
-  `dataadm` DATE NULL,
-  `status` INT NULL,
-  `datadesl` DATE NULL,
-  PRIMARY KEY (`id`, `funcionarios_id`, `setores_id`, `setores_clientes_id`, `cargos_id`),
-  INDEX `fk_contrato_trabalho_funcionarios1_idx` (`funcionarios_id` ASC) VISIBLE,
-  INDEX `fk_contrato_trabalho_setores1_idx` (`setores_id` ASC, `setores_clientes_id` ASC) VISIBLE,
-  INDEX `fk_contrato_trabalho_cargos1_idx` (`cargos_id` ASC) VISIBLE,
-  CONSTRAINT `fk_contrato_trabalho_funcionarios1`
-    FOREIGN KEY (`funcionarios_id`)
-    REFERENCES `jsst`.`funcionarios` (`id`)
+  `bandeira` VARCHAR(150) NOT NULL,
+  `produto` VARCHAR(150) NOT NULL,
+  `porcentagem` DECIMAL(5,2) NOT NULL,
+  `plano` INT NOT NULL,
+  `subseller_pj_id` INT NULL,
+  `subseller_pf_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_lista_comissoes_subseller_pj1_idx` (`subseller_pj_id` ASC) VISIBLE,
+  INDEX `fk_lista_comissoes_subseller_pf1_idx` (`subseller_pf_id` ASC) VISIBLE,
+  CONSTRAINT `fk_lista_comissoes_subseller_pj1`
+    FOREIGN KEY (`subseller_pj_id`)
+    REFERENCES `ciadascompras`.`subseller_pj` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contrato_trabalho_setores1`
-    FOREIGN KEY (`setores_id` , `setores_clientes_id`)
-    REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contrato_trabalho_cargos1`
-    FOREIGN KEY (`cargos_id`)
-    REFERENCES `jsst`.`cargos` (`id`)
+  CONSTRAINT `fk_lista_comissoes_subseller_pf1`
+    FOREIGN KEY (`subseller_pf_id`)
+    REFERENCES `ciadascompras`.`subseller_pf` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `jsst`.`agentes_riscos`
+-- Table `ciadascompras`.`response_subseller`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`agentes_riscos` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `risco` VARCHAR(50) NOT NULL,
-  `danos` VARCHAR(450) NULL,
-  PRIMARY KEY (`id`))
+CREATE TABLE IF NOT EXISTS `ciadascompras`.`response_subseller` (
+  `subseller_id` INT NULL,
+  `legal_document_number` INT NULL,
+  `fiscal_type` VARCHAR(50) NULL,
+  `enabled` VARCHAR(1) NULL,
+  `status` VARCHAR(150) NULL,
+  `payment_plan` INT NULL,
+  `capture_payments_enabled` VARCHAR(1) NULL,
+  `anticipation_enabled` VARCHAR(1) NULL,
+  `accepted_contract` VARCHAR(1) NULL,
+  `lock_schedule` DATETIME NULL,
+  `lock_capture_payments` DATETIME NULL,
+  `create_date` DATETIME NULL,
+  `subseller_pj_id` INT NULL,
+  `subseller_pf_id` INT NULL,
+  PRIMARY KEY (`subseller_id`),
+  INDEX `fk_response_subseller_subseller_pj1_idx` (`subseller_pj_id` ASC) VISIBLE,
+  INDEX `fk_response_subseller_subseller_pf1_idx` (`subseller_pf_id` ASC) VISIBLE,
+  CONSTRAINT `fk_response_subseller_subseller_pj1`
+    FOREIGN KEY (`subseller_pj_id`)
+    REFERENCES `ciadascompras`.`subseller_pj` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_response_subseller_subseller_pf1`
+    FOREIGN KEY (`subseller_pf_id`)
+    REFERENCES `ciadascompras`.`subseller_pf` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `jsst`.`perigos_ges`
+-- Table `ciadascompras`.`sharehoders`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`perigos_ges` (
+CREATE TABLE IF NOT EXISTS `ciadascompras`.`sharehoders` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `fiscal_type` VARCHAR(100) NOT NULL,
+  `name` VARCHAR(250) NOT NULL,
   `data` DATE NOT NULL,
-  `fase` VARCHAR(45) NULL,
-  `agentes_riscos_id` INT NOT NULL,
-  `danos` VARCHAR(150) NULL,
-  `lim_expo` VARCHAR(45) NULL,
-  `fonte_geradora` VARCHAR(450) NULL,
-  `intesidade` VARCHAR(5) NULL,
-  `tecnica_util` VARCHAR(50) NULL,
-  `risco` VARCHAR(50) NULL,
-  `monitoramento` VARCHAR(50) NULL,
-  `setores_id` INT NOT NULL,
-  `setores_clientes_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `agentes_riscos_id`, `setores_id`, `setores_clientes_id`),
-  INDEX `fk_perigos_ges_agentes_riscos1_idx` (`agentes_riscos_id` ASC) VISIBLE,
-  INDEX `fk_perigos_ges_setores1_idx` (`setores_id` ASC, `setores_clientes_id` ASC) VISIBLE,
-  CONSTRAINT `fk_perigos_ges_agentes_riscos1`
-    FOREIGN KEY (`agentes_riscos_id`)
-    REFERENCES `jsst`.`agentes_riscos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_perigos_ges_setores1`
-    FOREIGN KEY (`setores_id` , `setores_clientes_id`)
-    REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `jsst`.`controle_exposicao`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`controle_exposicao` (
-  `ind` INT NOT NULL AUTO_INCREMENT,
-  `pcdaepc` VARCHAR(250) NULL,
-  `eficaz` VARCHAR(45) NULL,
-  `epi` VARCHAR(45) NULL,
-  `ca` VARCHAR(45) NULL,
-  `perigos_ges_id` INT NOT NULL,
-  `perigos_ges_agentes_riscos_id` INT NOT NULL,
-  `perigos_ges_setores_id` INT NOT NULL,
-  `perigos_ges_setores_clientes_id` INT NOT NULL,
-  PRIMARY KEY (`ind`, `perigos_ges_id`, `perigos_ges_agentes_riscos_id`, `perigos_ges_setores_id`, `perigos_ges_setores_clientes_id`),
-  INDEX `fk_controle_exposicao_perigos_ges1_idx` (`perigos_ges_id` ASC, `perigos_ges_agentes_riscos_id` ASC, `perigos_ges_setores_id` ASC, `perigos_ges_setores_clientes_id` ASC) VISIBLE,
-  CONSTRAINT `fk_controle_exposicao_perigos_ges1`
-    FOREIGN KEY (`perigos_ges_id` , `perigos_ges_agentes_riscos_id` , `perigos_ges_setores_id` , `perigos_ges_setores_clientes_id`)
-    REFERENCES `jsst`.`perigos_ges` (`id` , `agentes_riscos_id` , `setores_id` , `setores_clientes_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `jsst`.`inventario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`inventario` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nome_rotulo` VARCHAR(150) NULL,
-  `substancia` VARCHAR(150) NULL,
-  `etapa_processo` VARCHAR(45) NULL,
-  `forma_contaminante` VARCHAR(150) NULL,
-  `setores_id` INT NOT NULL,
-  `setores_clientes_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `setores_id`, `setores_clientes_id`),
-  INDEX `fk_inventario_setores1_idx` (`setores_id` ASC, `setores_clientes_id` ASC) VISIBLE,
-  CONSTRAINT `fk_inventario_setores1`
-    FOREIGN KEY (`setores_id` , `setores_clientes_id`)
-    REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `jsst`.`clientes_has_licensa`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`clientes_has_licensa` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `licensa_id` INT NOT NULL,
-  `licensa_niveis_acesso_usuario_niveis_acesso_id` INT NOT NULL,
-  `licensa_niveis_acesso_usuario_usuario_id` INT NOT NULL,
-  `clientes_id` INT NOT NULL,
+  `mothers_name` VARCHAR(150) NULL,
+  `legal_document_number` VARCHAR(14) NOT NULL,
+  `subseller_pj_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_clientes_has_licensa_licensa1_idx` (`licensa_id` ASC, `licensa_niveis_acesso_usuario_niveis_acesso_id` ASC, `licensa_niveis_acesso_usuario_usuario_id` ASC) VISIBLE,
-  INDEX `fk_clientes_has_licensa_clientes1_idx` (`clientes_id` ASC) VISIBLE,
-  CONSTRAINT `fk_clientes_has_licensa_licensa1`
-    FOREIGN KEY (`licensa_id` , `licensa_niveis_acesso_usuario_niveis_acesso_id` , `licensa_niveis_acesso_usuario_usuario_id`)
-    REFERENCES `jsst`.`licensa` (`id` , `niveis_acesso_usuario_niveis_acesso_id` , `niveis_acesso_usuario_usuario_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_clientes_has_licensa_clientes1`
-    FOREIGN KEY (`clientes_id`)
-    REFERENCES `jsst`.`clientes` (`id`)
+  INDEX `fk_sharehoders_subseller_pj1_idx` (`subseller_pj_id` ASC) VISIBLE,
+  CONSTRAINT `fk_sharehoders_subseller_pj1`
+    FOREIGN KEY (`subseller_pj_id`)
+    REFERENCES `ciadascompras`.`subseller_pj` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `jsst`.`cargos_setores`
+-- Table `ciadascompras`.`legal_representative`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jsst`.`cargos_setores` (
+CREATE TABLE IF NOT EXISTS `ciadascompras`.`legal_representative` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `setores_id` INT NOT NULL,
-  `setores_clientes_id` INT NOT NULL,
-  `cargos_id` INT NOT NULL,
+  `name` VARCHAR(150) NOT NULL,
+  `birth_date` DATE NOT NULL,
+  `legal_document_number` VARCHAR(12) NOT NULL,
+  `subseller_pj_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_cargos_setores_setores1_idx` (`setores_id` ASC, `setores_clientes_id` ASC) VISIBLE,
-  INDEX `fk_cargos_setores_cargos1_idx` (`cargos_id` ASC) VISIBLE,
-  CONSTRAINT `fk_cargos_setores_setores1`
-    FOREIGN KEY (`setores_id` , `setores_clientes_id`)
-    REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
+  INDEX `fk_legal_representative_subseller_pj1_idx` (`subseller_pj_id` ASC) VISIBLE,
+  CONSTRAINT `fk_legal_representative_subseller_pj1`
+    FOREIGN KEY (`subseller_pj_id`)
+    REFERENCES `ciadascompras`.`subseller_pj` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cargos_setores_cargos1`
-    FOREIGN KEY (`cargos_id`)
-    REFERENCES `jsst`.`cargos` (`id`)
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ciadascompras`.`report_details`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ciadascompras`.`report_details` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `detail_attribute` VARCHAR(50) NULL,
+  `detail_code` VARCHAR(50) NULL,
+  `detail_type` VARCHAR(50) NULL,
+  `detail_description` VARCHAR(50) NULL,
+  `response_subseller_subseller_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_report_details_response_subseller1_idx` (`response_subseller_subseller_id` ASC) VISIBLE,
+  CONSTRAINT `fk_report_details_response_subseller1`
+    FOREIGN KEY (`response_subseller_subseller_id`)
+    REFERENCES `ciadascompras`.`response_subseller` (`subseller_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
