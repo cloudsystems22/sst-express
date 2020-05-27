@@ -5,7 +5,7 @@
         <h1 class="h2"><span data-feather="users"></span> Clientes</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2" id='menu-interno'>
-          <button type="button" onclick="javascript(window.open('/clientes/update'))" class="btn btn-sm btn-outline-secondary">Novo Cliente</button>
+          <a type="button" href="/clientes/form" class="btn btn-sm btn-outline-secondary">Novo Cliente</a>
             <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Exportar</button> -->
           </div>
           <!-- <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
@@ -28,18 +28,24 @@
                 <th scope="col">Nome Fantasia</th>
                 <th scope="col">Email</th>
                 <th scope="col">Telefone</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
+              <% for(let c of clientesLicensa) { %>
               <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td></td>
-                <td></td>
+                <th scope="row"><%=c.Clientes.id %></th>
+                <td><%=c.Clientes.cnpj %></td>
+                <td><%=c.Clientes.razao_social %></td>
+                <td><%=c.Clientes.nome_fantasia %></td>
+                <td><%=c.Clientes.email %></td>
+                <td><%=c.Clientes.fone %></td>
+                <td>
+                    <a href="#" onclick="carregaForm('<%=c.Clientes.id %>')" title='Editar Cliente'><i class="fas fa-edit"></i></a>
+                    <a href="#" title='Detalhes Cliente'><i class="fas fa-archive"></i></a>
+                </td>
               </tr>
-             
+             <% } %>
             </tbody>
           </table>
           
@@ -61,6 +67,6 @@
        
         <!-- Requisições ajax -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        
+        <script src="../javascripts/crudCliente.js"></script>
         <script src="../javascripts/dashboard.js"></script></body>
 </html>

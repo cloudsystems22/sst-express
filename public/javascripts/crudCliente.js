@@ -1,39 +1,46 @@
-$(document).ready(function (){
+$(document).ready(function (e){
     let userId = document.getElementById('hddUserId').value;
-    carregarLicensa(userId);
+    let clienteId = (document.getElementById('hddId')) ? document.getElementById('hddId').value : 0;
+    //console.log(clienteId);
+    carregarCliente(clienteId);
    
 });
 
-let frmLicensa = document.getElementById('frmDadosLicensa');
+function carregaForm(e){
+    location.href = '/clientes/form';
+    console.log(e);
+    carregarCliente(1);
+
+}
+
+let frmCliente = document.getElementById('frmDadosCliente');
 let menuInterno = document.getElementById('menu-interno');
 
-function createLicensa(){
-    let cnpj = frmLicensa.cnpj.value;
-    let ie = frmLicensa.ie.value;
-    let razao_social = frmLicensa.razao_social.value;
-    let nome_fantasia = frmLicensa.nome_fantasia.value;
-    let cnae = frmLicensa.cnae.value;
-    let cep = frmLicensa.cep.value;
-    let logradouro = frmLicensa.logradouro.value;
-    let numero = frmLicensa.numero.value;
-    let bairro = frmLicensa.bairro.value;
-    let municipio = frmLicensa.municipio.value;
-    let estado = frmLicensa.estado.value;
-    let site = frmLicensa.site.value;
-    let fone = frmLicensa.fone.value;
-    let email = frmLicensa.email.value;
-    let usuario_id = frmLicensa.usuario_id.value;
+function createCliente(){
+    let cnpj = frmCliente.cnpj.value;
+    let ie = frmCliente.ie.value;
+    let razao_social = frmCliente.razao_social.value;
+    let nome_fantasia = frmCliente.nome_fantasia.value;
+    let cnae = frmCliente.cnae.value;
+    let cep = frmCliente.cep.value;
+    let logradouro = frmCliente.logradouro.value;
+    let numero = frmCliente.numero.value;
+    let bairro = frmCliente.bairro.value;
+    let municipio = frmCliente.municipio.value;
+    let estado = frmCliente.estado.value;
+    let site = frmCliente.site.value;
+    let fone = frmCliente.fone.value;
+    let email = frmCliente.email.value;
+    //let usuario_id = frmCliente.usuario_id.value;
 
     $.ajax({
         type:'POST',
-        url: '/licensa',
-        data: { cnpj, ie, razao_social, nome_fantasia, cnae, cep, logradouro, numero, bairro, municipio, estado, site, fone, email, usuario_id },
+        url: '/clientes/create',
+        data: { cnpj, ie, razao_social, nome_fantasia, cnae, cep, logradouro, numero, bairro, municipio, estado, site, fone, email },
         success: function(data){
-            alert('Sua licensa foi criada com sucesso');
+            alert('Cliente cadastrado com sucesso');
             let menuInterno = document.getElementById('menu-interno');
             menuInterno.innerText = '';
-            //document.getElementById('hddId').value = data.id;
-            //hddId.setAttribute('value', data.id);
             Atualizar(data.id);
 
         },
@@ -45,18 +52,20 @@ function createLicensa(){
 
 }
 
-function carregarLicensa(e){
+function carregarCliente(e){
+    console.log(e);
     $.ajax({
         type:'POST',
-        url: '/show',
+        url: '/clientes/show',
         data: { id: e },
         success: function (data){
+            console.log(data);
             if(data[0] != undefined){
                 Atualizar();
                 let urlImag = data[0].logo ? data[0].logo : '/images/imginexist.png';
                 carregaImg(urlImag);
             } else if(data[0] == undefined) {
-                CriarLicensa();
+                CriarCliente();
                 carregaImg('/images/imginexist.png');
             }
             document.getElementById('hddId').value = data[0].id;
@@ -85,28 +94,28 @@ function carregarLicensa(e){
 }
 
 function atualizarDados(){
-    let id = frmLicensa.id.value;
-    let cnpj = frmLicensa.cnpj.value;
-    let ie = frmLicensa.ie.value;
-    let razao_social = frmLicensa.razao_social.value;
-    let nome_fantasia = frmLicensa.nome_fantasia.value;
-    let cnae = frmLicensa.cnae.value;
-    let cep = frmLicensa.cep.value;
-    let logradouro = frmLicensa.logradouro.value;
-    let numero = frmLicensa.numero.value;
-    let bairro = frmLicensa.bairro.value;
-    let municipio = frmLicensa.municipio.value;
-    let estado = frmLicensa.estado.value;
-    let site = frmLicensa.site.value;
-    let fone = frmLicensa.fone.value;
-    let email = frmLicensa.email.value;
-    let usuario_id = frmLicensa.usuario_id.value;
+    let id = frmCliente.id.value;
+    let cnpj = frmCliente.cnpj.value;
+    let ie = frmCliente.ie.value;
+    let razao_social = frmCliente.razao_social.value;
+    let nome_fantasia = frmCliente.nome_fantasia.value;
+    let cnae = frmCliente.cnae.value;
+    let cep = frmCliente.cep.value;
+    let logradouro = frmCliente.logradouro.value;
+    let numero = frmCliente.numero.value;
+    let bairro = frmCliente.bairro.value;
+    let municipio = frmCliente.municipio.value;
+    let estado = frmCliente.estado.value;
+    let site = frmCliente.site.value;
+    let fone = frmCliente.fone.value;
+    let email = frmCliente.email.value;
+    let usuario_id = frmCliente.usuario_id.value;
 
     console.log(id);
     console.log(cnpj);
     $.ajax({
         type:'POST',
-        url: '/update',
+        url: '/clientes/update',
         data: { id, cnpj, ie, razao_social, nome_fantasia, cnae, cep, logradouro, numero, bairro, municipio, estado, site, fone, email, usuario_id },
         success: function(data){
             alert('Sua licensa foi atualizada com sucesso');
@@ -187,6 +196,11 @@ function Atualizar(e){
     inputHddId.setAttribute('id', 'hddIdUplogo');
     inputHddId.setAttribute('value', e);
 
+    let hddId = document.createElement('hddId');
+    hddId.setAttribute('value', data.id);
+
+    frmCliente.appendChild(hddId);
+
     frmLogo.appendChild(inputHddId);
 
     menuInterno.appendChild(buttonAtualizar);
@@ -198,12 +212,12 @@ function Atualizar(e){
 
 }
 
-function CriarLicensa(){
+function CriarCliente(){
     let buttonAtualizar = document.createElement('button');
     buttonAtualizar.setAttribute('class', 'btn btn-sm btn-outline-secondary');
-    buttonAtualizar.setAttribute('id', 'btnCriarLicensa');
-    buttonAtualizar.setAttribute('onclick', 'createLicensa()')
-    buttonAtualizar.innerText = "Criar Licensa";
+    buttonAtualizar.setAttribute('id', 'btnCriarCliente');
+    buttonAtualizar.setAttribute('onclick', 'createCliente()')
+    buttonAtualizar.innerText = "Criar Cliente";
 
     menuInterno.appendChild(buttonAtualizar);
 

@@ -22,7 +22,7 @@ const ClientesLicensa = (sequelize, DataTypes) => {
         }
     );
     clientesLicensa.associate = (models) => {
-        clientesLicensa.hasMany(models.Clientes, { foreignKey:'id', as: 'Clientes'});
+        clientesLicensa.belongsTo(models.Clientes, { foreignKey:'id', as: 'Clientes'});
         clientesLicensa.hasMany(models.Licensa, { foreignKey:'id', as: 'Licensa'});
     }
     return clientesLicensa;
