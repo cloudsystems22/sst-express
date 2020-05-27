@@ -14,8 +14,16 @@ const clientesController = {
     details:async(req, res) => {
         res.send('Detalhes');
     },
+    form:async(req, res) => {
+        let { id } = req.session.usuario;
+
+        let usuarioAcesso = await nivelAcessoUsuario.findAll({include:['Usuario', 'niveisAcesso'], where: { usuario_id: id }});
+        let licensa = await Licensa.findOne({where: { usuario_id: id }});
+        res.render('clientes/formulario', {title:'Cliente', usuarioAcesso});
+    },
     update:async(req, res) => {
-        res.send('Update');
+       
+        res.send();
     },
     delete:async(req, res) => {
         res.send('Delete');

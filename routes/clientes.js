@@ -19,6 +19,7 @@ const authMiddlewares = require('../middlewares/authMiddleware');
 router.get('/', authMiddlewares, clientesController.index);
 router.post('/create', authMiddlewares, clientesController.create);
 router.get('/details', authMiddlewares, clientesController.details);
+router.get('/form', authMiddlewares, clientesController.form);
 router.post('/update', authMiddlewares, clientesController.update);
 router.post('/delete', authMiddlewares, clientesController.delete);
 
