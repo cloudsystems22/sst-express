@@ -17,13 +17,19 @@ const usersController = {
         let hashPassword = bcrypt.hashSync(senha, 10);
 
         let usuario = await Usuario.create({username, senha:hashPassword});
-        console.log(usuario);
-        res.redirect('/users');
+        let nivelAcessUs = await nivelAcessoUsuario.create({usuario_id: usuario.id, niveis_acesso_id: 1});
+        //console.log(usuario);
+        res.redirect('/users/login');
     },
 
     login:(req, res) =>{
-        
-        res.render('login', {title: 'Login'});
+        let error
+        if(req.query.error == 1)
+            error = 'Login e senha não encontrados!';
+        else if(req.query.error == 2)
+            error = 'Você precisa estar logado para acessar o sistema!';
+
+        res.render('login', {title: 'Login', error });
     },
 
     logar: async(req, res) =>{
@@ -39,12 +45,12 @@ const usersController = {
         
         //redirecionando para tela de erro se o usuário não existir
         if(!user) {
-            res.redirect('/users?error=1');
+            res.redirect('/users/login?error=1');
         }
         
         //validar senha
         if(!bcrypt.compareSync(senha, user.senha)){
-            res.redirect('/users?error=1');
+            res.redirect('/users/login?error=1');
         }
         
         //console.log(user);

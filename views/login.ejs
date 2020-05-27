@@ -18,18 +18,29 @@
                 <form action="/users/login" method="post" id='formLogin'>
                     <div class="row">
                         <div class="col-md-12">
+                        <p style="text-align: center;"><%=error %></p>
+                        </div>
+                        <div class="col-md-12">
                             <label for="">Usuário </label>
-                            <input type="text" name='username' class="form-control" placeholder="Usuário...">
+                            <input type="text" name='username' class="form-control input-login" placeholder="Usuário...">
                         </div>
                         <div class="col-md-12">
                             <br>
                             <label for="">Senha</label>
-                            <input type="password" name='senha' class="form-control" placeholder="Senha...">
+                            <input type="password" name='senha' class="form-control input-login" placeholder="Senha...">
                         </div>
                         
                         <div class="col-md-12">
                             <hr>
                             <button class="btn text-color-primary" id='btnLogin'>Login</button>
+                        </div>
+                        <div class="col-md-6">
+                            <br>
+                            <p><input type="checkbox" name="" id="checkLogin"> Mantenha-me conectado.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <br>
+                            <p>Cadastre-se <a href="/users/cadastro">aqui</a></p>
                         </div>
                         
                     </div>

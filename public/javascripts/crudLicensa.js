@@ -30,6 +30,11 @@ function createLicensa(){
         data: { cnpj, ie, razao_social, nome_fantasia, cnae, cep, logradouro, numero, bairro, municipio, estado, site, fone, email, usuario_id },
         success: function(data){
             alert('Sua licensa foi criada com sucesso');
+            let menuInterno = document.getElementById('menu-interno');
+            menuInterno.innerText = '';
+            //document.getElementById('hddId').value = data.id;
+            //hddId.setAttribute('value', data.id);
+            Atualizar(data.id);
 
         },
         erro: function(ex){
@@ -46,12 +51,13 @@ function carregarLicensa(e){
         url: '/show',
         data: { id: e },
         success: function (data){
-            if(data){
+            if(data[0] != undefined){
                 Atualizar();
-                carregaImg(data[0].logo);
-            } else {
+                let urlImag = data[0].logo ? data[0].logo : '/images/imginexist.png';
+                carregaImg(urlImag);
+            } else if(data[0] == undefined) {
                 CriarLicensa();
-                carregaImg();
+                carregaImg('/images/imginexist.png');
             }
             document.getElementById('hddId').value = data[0].id;
             document.getElementById('txtCnpj').value = data[0].cnpj;
@@ -140,32 +146,55 @@ function uploadLogo(e){
 
 const carregaImg = (e) => {
     let contImag = document.getElementById('contImag');
-    
-    if(e){
-        contImag.innerText = '';
-        let logoMarca = document.createElement('div');
-        logoMarca.setAttribute('id', 'logo-marca');
-        logoMarca.setAttribute('style', "background-image: url('.." + e + "')");
-        contImag.appendChild(logoMarca);
-    } else {
-        contImag.innerText = '';
-        let logoMarca = document.createElement('div');
-        logoMarca.setAttribute('id', 'logo-marca');
-        logoMarca.setAttribute('style', "background-image: url('../images/imginexist.png')");
-        contImag.appendChild(logoMarca);
-    }
+
+    contImag.innerText = '';
+    let logoMarca = document.createElement('div');
+    logoMarca.setAttribute('id', 'logo-marca');
+    logoMarca.setAttribute('style', "background-image: url('.." + e + "')");
+    contImag.appendChild(logoMarca);
 
 }
 
 
-function Atualizar(){
+function Atualizar(e){
     let buttonAtualizar = document.createElement('button');
     buttonAtualizar.setAttribute('class', 'btn btn-sm btn-outline-secondary');
     buttonAtualizar.setAttribute('id', 'btnAtualizar');
     buttonAtualizar.setAttribute('onclick', 'atualizarDados()');
     buttonAtualizar.innerText = "Atualizar";
 
+    let divCommUp = document.getElementById('commUpload');
+
+    let inputFile = document.createElement('input');
+    inputFile.setAttribute('type', 'file');
+    inputFile.setAttribute('name', 'files');
+    inputFile.setAttribute('id', 'inputFile');
+    inputFile.setAttribute('class', 'form-control');
+
+    let buttonUpload = document.createElement('button');
+    buttonUpload.setAttribute('class', 'btn btn-outline-primary btn-block');
+    buttonUpload.setAttribute('id', 'btn-upload');
+    buttonUpload.setAttribute('onclick', 'uploadLogo()');
+    buttonUpload.setAttribute('type', 'button');
+
+    let i = document.createElement('i');
+    i.setAttribute('class', 'fas fa-upload');
+
+    let frmLogo = document.getElementById('frmLogo');
+    let inputHddId = document.createElement('input');
+    inputHddId.setAttribute('type', 'hidden');
+    inputHddId.setAttribute('name', 'id');
+    inputHddId.setAttribute('id', 'hddIdUplogo');
+    inputHddId.setAttribute('value', e);
+
+    frmLogo.appendChild(inputHddId);
+
     menuInterno.appendChild(buttonAtualizar);
+
+    buttonUpload.appendChild(i);
+    divCommUp.appendChild(inputFile);
+    divCommUp.appendChild(buttonUpload);
+
 
 }
 

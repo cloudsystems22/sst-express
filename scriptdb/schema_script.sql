@@ -160,14 +160,13 @@ CREATE TABLE IF NOT EXISTS `jsst`.`contrato_trabalho` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `funcionarios_id` INT NOT NULL,
   `setores_id` INT NOT NULL,
-  `setores_clientes_id` INT NOT NULL,
   `cargos_id` INT NOT NULL,
   `dataadm` DATE NULL,
   `status` INT NULL,
   `datadesl` DATE NULL,
-  PRIMARY KEY (`id`, `funcionarios_id`, `setores_id`, `setores_clientes_id`, `cargos_id`),
+  PRIMARY KEY (`id`, `funcionarios_id`, `setores_id`, `cargos_id`),
   INDEX `fk_contrato_trabalho_funcionarios1_idx` (`funcionarios_id` ASC) VISIBLE,
-  INDEX `fk_contrato_trabalho_setores1_idx` (`setores_id` ASC, `setores_clientes_id` ASC) VISIBLE,
+  INDEX `fk_contrato_trabalho_setores1_idx` (`setores_id` ASC) VISIBLE,
   INDEX `fk_contrato_trabalho_cargos1_idx` (`cargos_id` ASC) VISIBLE,
   CONSTRAINT `fk_contrato_trabalho_funcionarios1`
     FOREIGN KEY (`funcionarios_id`)
@@ -175,8 +174,8 @@ CREATE TABLE IF NOT EXISTS `jsst`.`contrato_trabalho` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contrato_trabalho_setores1`
-    FOREIGN KEY (`setores_id` , `setores_clientes_id`)
-    REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
+    FOREIGN KEY (`setores_id`)
+    REFERENCES `jsst`.`setores` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contrato_trabalho_cargos1`
@@ -214,18 +213,17 @@ CREATE TABLE IF NOT EXISTS `jsst`.`perigos_ges` (
   `risco` VARCHAR(50) NULL,
   `monitoramento` VARCHAR(50) NULL,
   `setores_id` INT NOT NULL,
-  `setores_clientes_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `agentes_riscos_id`, `setores_id`, `setores_clientes_id`),
+  PRIMARY KEY (`id`, `agentes_riscos_id`, `setores_id`),
   INDEX `fk_perigos_ges_agentes_riscos1_idx` (`agentes_riscos_id` ASC) VISIBLE,
-  INDEX `fk_perigos_ges_setores1_idx` (`setores_id` ASC, `setores_clientes_id` ASC) VISIBLE,
+  INDEX `fk_perigos_ges_setores1_idx` (`setores_id` ASC) VISIBLE,
   CONSTRAINT `fk_perigos_ges_agentes_riscos1`
     FOREIGN KEY (`agentes_riscos_id`)
     REFERENCES `jsst`.`agentes_riscos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_perigos_ges_setores1`
-    FOREIGN KEY (`setores_id` , `setores_clientes_id`)
-    REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
+    FOREIGN KEY (`setores_id`)
+    REFERENCES `jsst`.`setores` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -241,14 +239,11 @@ CREATE TABLE IF NOT EXISTS `jsst`.`controle_exposicao` (
   `epi` VARCHAR(45) NULL,
   `ca` VARCHAR(45) NULL,
   `perigos_ges_id` INT NOT NULL,
-  `perigos_ges_agentes_riscos_id` INT NOT NULL,
-  `perigos_ges_setores_id` INT NOT NULL,
-  `perigos_ges_setores_clientes_id` INT NOT NULL,
-  PRIMARY KEY (`ind`, `perigos_ges_id`, `perigos_ges_agentes_riscos_id`, `perigos_ges_setores_id`, `perigos_ges_setores_clientes_id`),
-  INDEX `fk_controle_exposicao_perigos_ges1_idx` (`perigos_ges_id` ASC, `perigos_ges_agentes_riscos_id` ASC, `perigos_ges_setores_id` ASC, `perigos_ges_setores_clientes_id` ASC) VISIBLE,
+  PRIMARY KEY (`ind`),
+  INDEX `fk_controle_exposicao_perigos_ges1_idx` (`perigos_ges_id` ASC) VISIBLE,
   CONSTRAINT `fk_controle_exposicao_perigos_ges1`
-    FOREIGN KEY (`perigos_ges_id` , `perigos_ges_agentes_riscos_id` , `perigos_ges_setores_id` , `perigos_ges_setores_clientes_id`)
-    REFERENCES `jsst`.`perigos_ges` (`id` , `agentes_riscos_id` , `setores_id` , `setores_clientes_id`)
+    FOREIGN KEY (`perigos_ges_id`)
+    REFERENCES `jsst`.`perigos_ges` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -264,12 +259,11 @@ CREATE TABLE IF NOT EXISTS `jsst`.`inventario` (
   `etapa_processo` VARCHAR(45) NULL,
   `forma_contaminante` VARCHAR(150) NULL,
   `setores_id` INT NOT NULL,
-  `setores_clientes_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `setores_id`, `setores_clientes_id`),
-  INDEX `fk_inventario_setores1_idx` (`setores_id` ASC, `setores_clientes_id` ASC) VISIBLE,
+  PRIMARY KEY (`id`, `setores_id`),
+  INDEX `fk_inventario_setores1_idx` (`setores_id` ASC) VISIBLE,
   CONSTRAINT `fk_inventario_setores1`
-    FOREIGN KEY (`setores_id` , `setores_clientes_id`)
-    REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
+    FOREIGN KEY (`setores_id`)
+    REFERENCES `jsst`.`setores` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -304,11 +298,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `jsst`.`clientes_has_licensa` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `licensa_id` INT NOT NULL,
-  `licensa_niveis_acesso_usuario_niveis_acesso_id` INT NOT NULL,
-  `licensa_niveis_acesso_usuario_usuario_id` INT NOT NULL,
   `clientes_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_clientes_has_licensa_licensa1_idx` (`licensa_id` ASC, `licensa_niveis_acesso_usuario_niveis_acesso_id` ASC, `licensa_niveis_acesso_usuario_usuario_id` ASC) VISIBLE,
+  INDEX `fk_clientes_has_licensa_licensa1_idx` (`licensa_id` ASC) VISIBLE,
   INDEX `fk_clientes_has_licensa_clientes1_idx` (`clientes_id` ASC) VISIBLE,
   CONSTRAINT `fk_clientes_has_licensa_licensa1`
     FOREIGN KEY (`licensa_id`)
@@ -329,14 +321,13 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `jsst`.`cargos_setores` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `setores_id` INT NOT NULL,
-  `setores_clientes_id` INT NOT NULL,
   `cargos_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_cargos_setores_setores1_idx` (`setores_id` ASC, `setores_clientes_id` ASC) VISIBLE,
+  INDEX `fk_cargos_setores_setores1_idx` (`setores_id` ASC) VISIBLE,
   INDEX `fk_cargos_setores_cargos1_idx` (`cargos_id` ASC) VISIBLE,
   CONSTRAINT `fk_cargos_setores_setores1`
-    FOREIGN KEY (`setores_id` , `setores_clientes_id`)
-    REFERENCES `jsst`.`setores` (`id` , `clientes_id`)
+    FOREIGN KEY (`setores_id`)
+    REFERENCES `jsst`.`setores` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cargos_setores_cargos1`
