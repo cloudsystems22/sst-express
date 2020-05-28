@@ -1,17 +1,10 @@
-$(document).ready(function (e){
+$(document).ready(function (){
     let userId = document.getElementById('hddUserId').value;
     let clienteId = (document.getElementById('hddId')) ? document.getElementById('hddId').value : 0;
-    //console.log(clienteId);
     carregarCliente(clienteId);
    
 });
 
-function carregaForm(e){
-    location.href = '/clientes/form';
-    console.log(e);
-    carregarCliente(1);
-
-}
 
 let frmCliente = document.getElementById('frmDadosCliente');
 let menuInterno = document.getElementById('menu-interno');
@@ -45,7 +38,7 @@ function createCliente(){
 
         },
         erro: function(ex){
-            alert('Erro ao inserir dados licensa' + ex);
+            alert('Erro ao inserir cliente' + ex);
         }
         
     });
@@ -53,42 +46,41 @@ function createCliente(){
 }
 
 function carregarCliente(e){
-    console.log(e);
     $.ajax({
         type:'POST',
         url: '/clientes/show',
         data: { id: e },
         success: function (data){
-            console.log(data);
-            if(data[0] != undefined){
+            //console.log(data);
+            if(data != undefined){
                 Atualizar();
-                let urlImag = data[0].logo ? data[0].logo : '/images/imginexist.png';
+                let urlImag = data.logo ? data.logo : '/images/imginexist.png';
                 carregaImg(urlImag);
-            } else if(data[0] == undefined) {
+            } else if(data == undefined) {
                 CriarCliente();
                 carregaImg('/images/imginexist.png');
             }
-            document.getElementById('hddId').value = data[0].id;
-            document.getElementById('txtCnpj').value = data[0].cnpj;
-            //textCNPJ.setAttribute('value', data[0].cnpj);
-            document.getElementById('txtIe').value = data[0].ie;
-            document.getElementById('txtRazaoSocial').value = data[0].razao_social;
-            document.getElementById('txtNomeFantasia').value = data[0].nome_fantasia;
-            document.getElementById('txtCNAE').value = data[0].cnae;
-            document.getElementById('txtCEP').value = data[0].cep;
-            document.getElementById('txtLograd').value = data[0].logradouro;
-            document.getElementById('txtNumero').value = data[0].numero;
-            document.getElementById('txtBairro').value = data[0].bairro;
-            document.getElementById('txtMunicipio').value = data[0].municipio;
-            document.getElementById('txtEstado').value = data[0].estado;
-            document.getElementById('txtSite').value = data[0].site;
-            document.getElementById('txtFone').value = data[0].fone;
-            document.getElementById('txtEmail').value = data[0].email;
-            document.getElementById('hddIdUplogo').value = data[0].id;
+            //document.getElementById('hddId').value = data.id;
+            document.getElementById('txtCnpj').value = data.cnpj;
+            //textCNPJ.setAttribute('value', data.cnpj);
+            document.getElementById('txtIe').value = data.ie;
+            document.getElementById('txtRazaoSocial').value = data.razao_social;
+            document.getElementById('txtNomeFantasia').value = data.nome_fantasia;
+            document.getElementById('txtCNAE').value = data.cnae;
+            document.getElementById('txtCEP').value = data.cep;
+            document.getElementById('txtLograd').value = data.logradouro;
+            document.getElementById('txtNumero').value = data.numero;
+            document.getElementById('txtBairro').value = data.bairro;
+            document.getElementById('txtMunicipio').value = data.municipio;
+            document.getElementById('txtEstado').value = data.estado;
+            document.getElementById('txtSite').value = data.site;
+            document.getElementById('txtFone').value = data.fone;
+            document.getElementById('txtEmail').value = data.email;
+            document.getElementById('hddIdUplogo').value = data.id;
 
         },
         erro: function (ex){
-            alert('Erro ao carregar licensa');
+            alert('Erro ao carregar cliente');
         }
     });
 }
@@ -118,11 +110,11 @@ function atualizarDados(){
         url: '/clientes/update',
         data: { id, cnpj, ie, razao_social, nome_fantasia, cnae, cep, logradouro, numero, bairro, municipio, estado, site, fone, email, usuario_id },
         success: function(data){
-            alert('Sua licensa foi atualizada com sucesso');
+            alert('Seu cliente foi atualizada com sucesso');
 
         },
         erro: function(ex){
-            alert('Erro ao inserir dados licensa' + ex);
+            alert('Erro ao inserir cliente' + ex);
         }
         
     });
@@ -137,7 +129,7 @@ function uploadLogo(e){
     console.log(dados);
     $.ajax({
         type: 'POST',
-        url: '/uplogo',
+        url: '/clientes/uplogo',
         enctype: 'multipart/form-data',
         processData: false,
         contentType: false,
@@ -196,8 +188,8 @@ function Atualizar(e){
     inputHddId.setAttribute('id', 'hddIdUplogo');
     inputHddId.setAttribute('value', e);
 
-    let hddId = document.createElement('hddId');
-    hddId.setAttribute('value', data.id);
+    // let hddId = document.createElement('hddId2');
+    // hddId.setAttribute('value', data.id);
 
     frmCliente.appendChild(hddId);
 

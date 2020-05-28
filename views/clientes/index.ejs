@@ -41,7 +41,7 @@
                 <td><%=c.Clientes.email %></td>
                 <td><%=c.Clientes.fone %></td>
                 <td>
-                    <a href="#" onclick="carregaForm('<%=c.Clientes.id %>')" title='Editar Cliente'><i class="fas fa-edit"></i></a>
+                    <a href="/clientes/form?idcli=<%=c.Clientes.id %>" title='Editar Cliente'><i class="fas fa-edit"></i></a>
                     <a href="#" title='Detalhes Cliente'><i class="fas fa-archive"></i></a>
                 </td>
               </tr>

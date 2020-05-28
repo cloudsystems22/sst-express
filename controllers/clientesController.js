@@ -28,14 +28,24 @@ const clientesController = {
     },
     form:async(req, res) => {
         let { id } = req.session.usuario;
-
+        let { idcli } = req.query;
         let usuarioAcesso = await nivelAcessoUsuario.findAll({include:['Usuario', 'niveisAcesso'], where: { usuario_id: id }});
         let licensa = await Licensa.findOne({where: { usuario_id: id }});
-        res.render('clientes/formulario', {title:'Cliente', usuarioAcesso});
+        res.render('clientes/formulario', {title:'Cliente', usuarioAcesso, idcli});
     },
     update:async(req, res) => {
        
         res.send();
+    },
+    uplogo:async(req, res) => {
+        let { id } = req.body;
+        let { files } = req;
+        //console.log(files);
+        await Clientes.update({  logo: '/images/logos/' + files[0].originalname }, {
+            where: { id }
+        });
+        let clienteUpdated = await Clientes.findAll({ where: { id }});
+        res.send(clienteUpdated); 
     },
     delete:async(req, res) => {
         res.send('Delete');

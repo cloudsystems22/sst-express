@@ -55,6 +55,10 @@
     
       <ul class="navbar-nav my-2 my-lg-0">
         <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-user-circle"></i> <%=usuarioAcesso[0].Usuario.username %></a>
+
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/licensa"><i class="fab fa-keycdn"></i> Licensa</a>
         </li>
         <li class="nav-item">
@@ -70,13 +74,7 @@
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">
-              <span style="font-size:8pt; margin:0; padding:0"><%=usuarioAcesso[0].Usuario.username %></span><br>
-              <!-- <span style="font-size:8pt; margin:0; padding:0"><%=usuarioAcesso[0].niveisAcesso[0].niveis %></span> -->
-            </a>
-
-          </li>
+         
           <li class="nav-item">
             <a class="nav-link active" href="/">
               <span data-feather="home"></span>

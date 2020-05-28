@@ -22,6 +22,7 @@ router.post('/show', authMiddlewares, clientesController.show);
 router.get('/details', authMiddlewares, clientesController.details);
 router.get('/form', authMiddlewares, clientesController.form);
 router.post('/update', authMiddlewares, clientesController.update);
+router.post('/uplogo', authMiddlewares, upload.any(), clientesController.uplogo)
 router.post('/delete', authMiddlewares, clientesController.delete);
 
 module.exports = router;
