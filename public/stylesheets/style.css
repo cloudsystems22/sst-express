@@ -110,6 +110,13 @@ main{
   /* background-image: url('../images/inexistente.png'); */
 }
 
+.logo-tabela{
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  border: solid 2px dimgray;
+}
+
 
 #inputFile {
   width: 500px;
@@ -125,6 +132,126 @@ main{
   margin-right: auto;
 }
 
+
+/* Organograma Empresa */
+
+.logo-orgempresa{
+  border-radius: 100%;
+  width: 90px;
+  height: 90px;
+  border: solid 2px dimgray;
+}
+
+.capsula-empresa{
+  border-radius: 7px;
+  width: 200px;
+  height: 40px;
+  background-color: dodgerblue;
+  padding: 7px;
+}
+
+.capsula-empresa p{
+  margin: 0;
+  padding: 0;
+  color: #FFFFFF;
+  font-size: 9pt;
+}
+
+.capsula-empresa a {
+  color:#FFFFFF;
+}
+
+.capsula-novosetor{
+  margin-top: 50px;
+  border-radius: 7px;
+  width: 200px;
+  height: 50px;
+  background-color: dimgray;
+  padding: 3px;
+
+}
+
+.capsula-novosetor p {
+  color: #FFFFFF;
+  font-weight: bold;
+  text-align: center;
+}
+
+.capsula-novosetor a{
+  color:#FFFFFF;
+}
+
+.coluna-setor{
+  width: 250px;
+  height: auto;
+}
+
+.capsula-setor{
+  margin-top: 50px;
+  margin-bottom: 5px;
+  border-radius: 7px;
+  width: 200px;
+  height: 30px;
+  background-color: blueviolet;
+  padding: 7px;
+}
+
+.capsula-setor p{
+  margin: 0;
+  padding: 0;
+  color: #FFFFFF;
+  font-size: 9pt;
+}
+
+.capsula-setor a{
+  color: #FFFFFF;
+}
+
+/* Riscos Ocupacionais */
+.riscos-fisicos{
+  border-radius: 10px;
+  background-color: #29bd04;
+  color:#FFFFFF;
+  font-weight: bold;
+  padding: 3px;
+
+}
+.riscos-quimicos{
+  border-radius: 10px;
+  background-color: hsl(0, 96%, 38%);
+  color:#FFFFFF;
+  font-weight: bold;
+  padding: 3px;
+
+}
+.riscos-ergonomico{
+  border-radius: 10px;
+  background-color: hsl(51, 91%, 44%);
+  color:#FFFFFF;
+  font-weight: bold;
+  padding: 3px;
+
+}
+.riscos-biologico{
+  border-radius: 10px;
+  background-color: hsl(27, 93%, 42%);
+  color:#FFFFFF;
+  font-weight: bold;
+  padding: 3px;
+
+}
+.riscos-acidentes{
+  border-radius: 10px;
+  background-color: hsl(224, 91%, 47%);
+  color:#FFFFFF;
+  font-weight: bold;
+  padding: 3px;
+
+}
+
+.li-riscos{
+  padding: 2px;
+}
 
 @media (max-width: 1440px) and (max-height: 1024px){
     #formCadastro{

@@ -25,7 +25,7 @@ const licensaController = {
     uplogo:async(req, res) => {
         let { id } = req.body;
         let { files } = req;
-        console.log(files);
+        //console.log(files);
         await Licensa.update({  logo: '/images/logos/' + files[0].originalname }, {
             where: { id }
         });

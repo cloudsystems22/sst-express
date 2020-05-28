@@ -24,7 +24,12 @@ const clientesController = {
         res.send(cliente);
     },
     details:async(req, res) => {
-        res.send('Detalhes');
+        let { id } = req.session.usuario;
+        let { idcli } = req.query;
+        let usuarioAcesso = await nivelAcessoUsuario.findAll({include:['Usuario', 'niveisAcesso'], where: { usuario_id: id }});
+        let licensa = await Licensa.findOne({where: { usuario_id: id }});
+        let cliente = await Clientes.findOne({include:['Setores'], where: { id:idcli }});
+        res.render('clientes/detalhes', { title:'Detalhes - ', cliente, usuarioAcesso });
     },
     form:async(req, res) => {
         let { id } = req.session.usuario;
@@ -34,8 +39,9 @@ const clientesController = {
         res.render('clientes/formulario', {title:'Cliente', usuarioAcesso, idcli});
     },
     update:async(req, res) => {
-       
-        res.send();
+        let { id, cnpj, razao_social, nome_fantasia, ie, cnae, logradouro, numero, bairro, cep, municipio, estado, site, fone, email } = req.body;
+        let cliente = await Clientes.update({cnpj, razao_social, nome_fantasia, ie, cnae, logradouro, numero, bairro, cep, municipio, estado, site, fone, email }, { where: { id }});
+        res.send(cliente);
     },
     uplogo:async(req, res) => {
         let { id } = req.body;

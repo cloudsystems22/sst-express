@@ -51,32 +51,33 @@ function carregarCliente(e){
         url: '/clientes/show',
         data: { id: e },
         success: function (data){
-            //console.log(data);
-            if(data != undefined){
+            console.log(data.id);
+            if(data.id != undefined){
                 Atualizar();
                 let urlImag = data.logo ? data.logo : '/images/imginexist.png';
                 carregaImg(urlImag);
-            } else if(data == undefined) {
+                //document.getElementById('hddId').value = data.id;
+                document.getElementById('txtCnpj').value = data.cnpj;
+                //textCNPJ.setAttribute('value', data.cnpj);
+                document.getElementById('txtIe').value = data.ie;
+                document.getElementById('txtRazaoSocial').value = data.razao_social;
+                document.getElementById('txtNomeFantasia').value = data.nome_fantasia;
+                document.getElementById('txtCNAE').value = data.cnae;
+                document.getElementById('txtCEP').value = data.cep;
+                document.getElementById('txtLograd').value = data.logradouro;
+                document.getElementById('txtNumero').value = data.numero;
+                document.getElementById('txtBairro').value = data.bairro;
+                document.getElementById('txtMunicipio').value = data.municipio;
+                document.getElementById('txtEstado').value = data.estado;
+                document.getElementById('txtSite').value = data.site;
+                document.getElementById('txtFone').value = data.fone;
+                document.getElementById('txtEmail').value = data.email;
+                document.getElementById('hddIdUplogo').value = data.id;
+                
+            } else if(data.id == undefined) {
                 CriarCliente();
                 carregaImg('/images/imginexist.png');
             }
-            //document.getElementById('hddId').value = data.id;
-            document.getElementById('txtCnpj').value = data.cnpj;
-            //textCNPJ.setAttribute('value', data.cnpj);
-            document.getElementById('txtIe').value = data.ie;
-            document.getElementById('txtRazaoSocial').value = data.razao_social;
-            document.getElementById('txtNomeFantasia').value = data.nome_fantasia;
-            document.getElementById('txtCNAE').value = data.cnae;
-            document.getElementById('txtCEP').value = data.cep;
-            document.getElementById('txtLograd').value = data.logradouro;
-            document.getElementById('txtNumero').value = data.numero;
-            document.getElementById('txtBairro').value = data.bairro;
-            document.getElementById('txtMunicipio').value = data.municipio;
-            document.getElementById('txtEstado').value = data.estado;
-            document.getElementById('txtSite').value = data.site;
-            document.getElementById('txtFone').value = data.fone;
-            document.getElementById('txtEmail').value = data.email;
-            document.getElementById('hddIdUplogo').value = data.id;
 
         },
         erro: function (ex){
@@ -103,8 +104,8 @@ function atualizarDados(){
     let email = frmCliente.email.value;
     let usuario_id = frmCliente.usuario_id.value;
 
-    console.log(id);
-    console.log(cnpj);
+    // console.log(id);
+    // console.log(cnpj);
     $.ajax({
         type:'POST',
         url: '/clientes/update',

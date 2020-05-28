@@ -22,6 +22,7 @@
         <table class="table">
             <thead class="thead-dark">
               <tr>
+                <th></th>
                 <th scope="col">#</th>
                 <th scope="col">CNPJ</th>
                 <th scope="col">Razão Social</th>
@@ -34,6 +35,17 @@
             <tbody>
               <% for(let c of clientesLicensa) { %>
               <tr>
+                <td>
+                   <% if(c.Clientes.logo) { %>
+                    <a href="/clientes/details?idcli=<%=c.Clientes.id %>">
+                      <img src="<%=c.Clientes.logo %>" alt="" class="logo-tabela">
+                    </a>
+                   <% } else { %>
+                    <a href="/clientes/details?idcli=<%=c.Clientes.id %>">
+                      <img src="./images/imginexist.png" alt="" class="logo-tabela">
+                    </a>
+                   <% } %>
+                </td>
                 <th scope="row"><%=c.Clientes.id %></th>
                 <td><%=c.Clientes.cnpj %></td>
                 <td><%=c.Clientes.razao_social %></td>
@@ -42,7 +54,7 @@
                 <td><%=c.Clientes.fone %></td>
                 <td>
                     <a href="/clientes/form?idcli=<%=c.Clientes.id %>" title='Editar Cliente'><i class="fas fa-edit"></i></a>
-                    <a href="#" title='Detalhes Cliente'><i class="fas fa-archive"></i></a>
+                    <a href="/clientes/details?idcli=<%=c.Clientes.id %>" title='Detalhes Cliente'><i class="fas fa-archive"></i></a>
                 </td>
               </tr>
              <% } %>

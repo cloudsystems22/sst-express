@@ -1,0 +1,121 @@
+<%- include('../shared/header') %>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">
+            <span>
+                <% if(cliente.logo) { %>
+                    <img src="<%=cliente.logo %>" alt="" class="logo-orgempresa">
+                <% } else { %>
+                    <img src="./images/imginexist.png" alt="" class="logo-orgempresa">
+                <% } %>
+            </span>
+             <%=cliente.razao_social %>
+        </h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2" id='menu-interno'>
+            
+          </div>
+        
+        </div>
+     </div>
+     <div class="container-flex">
+         <div class="capsula-empresa">
+             <div class="row">
+                 <div class="col-md-9">
+                     <p><%=cliente.razao_social %></p>
+                     <p><%=cliente.cnpj %></p>
+                 </div>
+                 <div class="col-md-3">
+                     <a href="" title='Novo Setor'><i class="fas fa-plus-circle fa-2x"></i></a>
+                 </div>
+             </div>
+         </div>
+         <!-- <div class="capsula-novosetor">
+            <p>
+                <br>
+                Novo Setor
+            </p>
+         </div> -->
+         <div class="flex">
+         <% for(let s of cliente.Setores) { %>
+            <div class="coluna-setor">
+                <div class="capsula-setor">
+                    <p><%=s.setores %> <a href="#" title='Novo Risco'><i class="fas fa-plus-circle"></i></a></p>
+                </div>
+            </div>
+         <% } %>
+            <div class="coluna-setor">
+                <div class="capsula-setor">
+                    <p>SETOR - Descrição <a href="#" title='Novo Risco'><i class="fas fa-plus-circle"></i></a></p>
+                </div>
+                <div class="arvore-setor">
+                   <ul>
+                       <li class="li-riscos"><span class="riscos-fisicos">Riscos Físicos</span>
+                           <ul>
+                               <li class="li-riscos">Ruídos</li>
+                               <li class="li-riscos">Vibrações</li>
+                           </ul>
+                       </li>
+                       <li class="li-riscos"><span class="riscos-quimicos">Riscos Químicos</span>
+                           <ul>
+                               <li class="li-riscos">Substâncias compostas</li>
+                               <li class="li-riscos">Óleos</li>
+                           </ul>
+                       </li>
+                       <li class="li-riscos"><span class="riscos-acidentes">Riscos Acidentes</span>
+                           <ul>
+                               <li class="li-riscos">Perfuro cortantes</li>
+                               <li class="li-riscos">Acidentes em geral</li>
+                           </ul>
+                       </li>
+                   </ul>
+                </div>
+            </div>
+            <div class="coluna-setor">
+               <div class="capsula-setor">
+                   <p>SETOR - Descrição <a href="#" title='Novo Risco'><i class="fas fa-plus-circle"></i></a></p>
+               </div>
+               <div class="arvore-setor">
+                  <ul>
+                      <li class="li-riscos"><span class="riscos-fisicos">Riscos Físicos</span>
+                          <ul>
+                              <li class="li-riscos">Ruídos</li>
+                              <li class="li-riscos">Vibrações</li>
+                          </ul>
+                      </li>
+                      <li class="li-riscos"><span class="riscos-quimicos">Riscos Químicos</span>
+                          <ul>
+                              <li class="li-riscos">Substâncias compostas</li>
+                              <li class="li-riscos">Óleos</li>
+                          </ul>
+                      </li>
+                      <li class="li-riscos"><span class="riscos-acidentes">Riscos Acidentes</span>
+                          <ul>
+                              <li class="li-riscos">Perfuro cortantes</li>
+                              <li class="li-riscos">Acidentes em geral</li>
+                          </ul>
+                      </li>
+                  </ul>
+               </div>
+           </div>
+         </div>
+         
+     </div>
+
+</main>
+
+</div>
+</div>
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+        <script src="../assets/dist/js/bootstrap.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+       
+        <!-- Requisições ajax -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="../javascripts/crudCliente.js"></script>
+        <script src="../javascripts/dashboard.js"></script></body>
+</html>

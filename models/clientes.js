@@ -35,6 +35,9 @@ const Clientes = (sequelize, DataTypes) => {
             timestamps: false
         }
     );
+    clientes.associate = (models) => {
+        clientes.hasMany(models.Setores, {foreignKey:'clientes_id', as:'Setores'})
+    }
     return clientes;
 }
 
