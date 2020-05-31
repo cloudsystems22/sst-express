@@ -18,3 +18,6 @@ const authMiddlewares = require('../middlewares/authMiddleware');
 
 router.post('/create', authMiddlewares, setoresController.create);
 router.post('/update', authMiddlewares, setoresController.update);
+router.post('/delete', authMiddlewares, setoresController.delete);
+
+module.exports = router;
