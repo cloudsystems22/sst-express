@@ -1,5 +1,5 @@
 $(document).ready(function (){
-    let userId = document.getElementById('hddUserId').value;
+    //let userId = document.getElementById('hddUserId').value;
     let clienteId = (document.getElementById('hddId')) ? document.getElementById('hddId').value : 0;
     carregarCliente(clienteId);
    
@@ -149,7 +149,7 @@ function uploadLogo(e){
 const carregaImg = (e) => {
     let contImag = document.getElementById('contImag');
 
-    contImag.innerText = '';
+    contImag.innerText = "";
     let logoMarca = document.createElement('div');
     logoMarca.setAttribute('id', 'logo-marca');
     logoMarca.setAttribute('style', "background-image: url('.." + e + "')");
