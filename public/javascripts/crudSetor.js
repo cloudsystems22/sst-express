@@ -123,6 +123,7 @@ function insertSetor(b){
 }
 
 function carregarSetor(e){
+    let frmSetor = document.getElementById('formSetor');
     let setorId = { id: e };
     let settings = {
         method: "POST",
@@ -134,7 +135,12 @@ function carregarSetor(e){
         return response.json();
     })
     .then(function (data){
-        console.log(data);
+        //console.log(data[0].setores);
+        frmSetor.setores.value = data[0].setores;
+        let modalFooter = document.getElementById('modalFooter');
+        let incluirSetor = document.getElementById('incluirSetor');
+        modalFooter.removeChild(incluirSetor);
+
     }).catch(function (error){
         alert('Erro ao carregar setor!' + error)
     })

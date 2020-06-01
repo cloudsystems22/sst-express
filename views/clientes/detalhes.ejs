@@ -27,7 +27,8 @@
                      <p><%=cliente.cnpj %></p>
                  </div>
                  <div class="col-md-3">
-                     <a href="#" onclick='abrir()' title='Novo Setor' data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus-circle fa-2x"></i></a>
+                     <a href="#" id="btnNSetor" title='Novo Setor' data-toggle="modal" data-target="#modalSetor"><i class="fas fa-plus-circle fa-2x"></i></a>
+                     <!-- <a href="#" id="btnNSetor" title='Novo Setor'><i class="fas fa-plus-circle fa-2x"></i></a> -->
                  </div>
              </div>
          </div>
@@ -45,7 +46,7 @@
                         <div class="col-md-9">
                             <p>
                                 <%=s.setores %> 
-                                <a href="#" onclick="carregarSetor('<%=s.id %>')"><i class="fas fa-edit"></i></a>
+                                <a href="#" onclick="carregarSetor('<%=s.id %>')" data-toggle="modal" data-target="#modalSetor"><i class="fas fa-edit"></i></a>
                                 <a href="#" onclick="removSetor('<%=s.id %>')"><i class="fas fa-times"></i></a> 
                             </p>
                         </div>
@@ -117,12 +118,12 @@
 
   
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="modalSetor" tabindex="-1" role="dialog" aria-labelledby="modalSetorLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <form action="" id='formSetor'>
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Setor - <span class="small" id='spndetalhes'></span></h5>
+          <h5 class="modal-title" id="modalSetorLabel">Setor - <span class="small" id='spndetalhes'></span></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -138,9 +139,9 @@
 
                </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" id='modalFooter'>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Incluir Setor</button>
+                <button type="submit" class="btn btn-primary" id='incluirSetor'>Incluir Setor</button>
             </div>
         </form>
       </div>
