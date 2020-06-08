@@ -1,0 +1,35 @@
+.caixa-dialogo{
+    background-color: #fafafa;
+    border: solid 1px hsl(0, 3%, 87%);
+    width: 250px;
+    height: auto;
+    position: relative;
+    border-radius: 7px;
+    top: -7px;
+    left: 25px;
+    opacity: 0;
+}
+
+.caixa-dialogo.visivel{
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.caixa-dialogo p{
+    padding: 7px;
+    color: #696868;
+    font-weight: bold;
+}
+
+.caixa-dialogo::after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-top: solid hsl(0, 3%, 87%) 10px;
+  bottom: -10px;
+  content: " ";
+  height: 0;
+  left: 25%;
+  margin-left: -13px;
+  position: absolute;
+  width: 0;
+}

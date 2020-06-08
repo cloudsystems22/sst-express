@@ -17,7 +17,10 @@ const setoresController = {
     },
     update:async(req,res) =>{
         let { id, setores, descricao, num_func_m, num_func_f, clientes_id } = req.body;
-        let setor = await Setores.update({setores, descricao, num_func_m, num_func_f, clientes_id, where: { id } });
+        //console.log(req.body);
+        await Setores.update({setores, descricao, num_func_m, num_func_f, clientes_id }, {where: { id }});
+        let setor = await Setores.findAll({ where: { id }})
+        //console.log(setor);
         res.send(setor);
 
     },

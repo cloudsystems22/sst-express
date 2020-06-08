@@ -164,11 +164,28 @@ main{
 .capsula-novosetor{
   margin-top: 50px;
   border-radius: 7px;
-  width: 200px;
-  height: 50px;
+  width: auto;
+  height: auto;
   background-color: dimgray;
-  padding: 3px;
+  padding: 5px;
+  position: relative;
+  top: -48px;
+  
+}
 
+
+.capsula-novosetor button{
+  margin-top: 2px;
+  display: block;
+  width: 100%;
+  background-color: #29bd04;
+  color: #FFFFFF;
+  height: 35px;
+  border: none;
+}
+
+.capsula-novosetor input{
+  width: 250px;
 }
 
 .capsula-novosetor p {
@@ -181,9 +198,32 @@ main{
   color:#FFFFFF;
 }
 
-.coluna-setor{
-  width: 250px;
+
+#coluna-setornovo{
+  width: auto;
   height: auto;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#coluna-setornovo.visivel{
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.coluna-setor{
+  width: auto;
+  height: auto;
+  padding: 10px;
+  opacity: 1;
+  transition: opacity 1s;
+
+}
+
+.coluna-setor.ocultar{
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .capsula-setor{
@@ -194,6 +234,7 @@ main{
   height: 30px;
   background-color: blueviolet;
   padding: 5px;
+  transition: all 500ms linear;
 }
 
 .capsula-setor p{
@@ -205,6 +246,36 @@ main{
 
 .capsula-setor a{
   color: #FFFFFF;
+}
+
+.capsula-editar{
+  margin-top: 50px;
+  border-radius: 7px;
+  width: auto;
+  height: auto;
+  background-color: blueviolet;
+  padding: 5px;
+  position: absolute;
+  z-index: -5;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+}
+
+.capsula-editar.visivel{
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 0.3s;
+
+}
+
+#btnCancelEdiSetor{
+  left: 46px;
+  position: absolute;
+}
+
+.input-setor{
+  width: 250px;
 }
 
 /* Riscos Ocupacionais */

@@ -1,10 +1,10 @@
 
 let spnDetal = document.getElementById('spndetalhes');
 
-window.addEventListener('load', function (){
-    showBtnDetalhes();
+// window.addEventListener('load', function (){
+//     showBtnDetalhes();
   
-});
+// });
 
  //Detalhes setor
  let corpo = document.getElementById('corpo')

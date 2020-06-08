@@ -10,27 +10,94 @@
 //forma 2
 //seletor.onclick = function(){};
 
+let btnNSetor = document.getElementById('btnNSetor');
+let colunaSetorNovo = document.getElementById('coluna-setornovo');
+let caixaDialogo = document.getElementById('cxdSetor');
 
-//requisição ajax por baixo do capo
-let frmSetor = document.getElementById('formSetor')
+function creatNovoSetor(){
+    let flexStores = document.getElementById('flex-setores');
 
-frmSetor.addEventListener('submit', function(e){
-    e.preventDefault();
-    let bodyForm = {
-        //id: 1,
-        setores: frmSetor.setores.value,
-        //descricao: (!frmSetor.descricao.value) ? frmSetor.descricao.value : '',
-        //num_func_m: (!frmSetor.num_func_m.value) ? frmSetor.num_func_m.value : '',
-        //num_func_f: (!frmSetor.num_func_f.value) ? frmSetor.num_func_f.value : '',
-        clientes_id: frmSetor.clientes_id.value
+    let divColNSetor = document.createElement('div');
+    divColNSetor.setAttribute('id', 'coluna-setornovo');
+
+    let caixaDlg = document.createElement('div');
+    caixaDlg.setAttribute('class', 'caixa-dialogo visivel');
+    caixaDlg.setAttribute('id', 'cxdSetor');
+
+    let p = document.createElement('p');
+    p.innerText = 'Insira aqui o nome do setor ';
+
+    let btnCancel = document.createElement('a');
+    btnCancel.setAttribute('href', '#');
+    btnCancel.setAttribute('title', 'Cancelar');
+    btnCancel.setAttribute('onclick', 'cancelInsertSetor()');
+
+    let faTimes = document.createElement('i');
+    faTimes.setAttribute('class', 'fas fa-times');
+
+    btnCancel.appendChild(faTimes);
+    p.appendChild(btnCancel);
+
+    let cpslNovoSetor = document.createElement('div');
+    cpslNovoSetor.setAttribute('class', 'capsula-novosetor');
+    cpslNovoSetor.setAttribute('id', 'frmNovosetor');
+
+    let formSetor = document.createElement('form');
+    formSetor.setAttribute('id', 'formSetor');
+
+    let inputSetores = document.createElement('input');
+    inputSetores.setAttribute('type', 'text');
+    inputSetores.setAttribute('class', 'form-control');
+    inputSetores.setAttribute('name', 'setores');
+    inputSetores.setAttribute('id', 'txtSetor');
+    inputSetores.setAttribute('autocomplete', 'off');
+    inputSetores.setAttribute('onfocus', 'cxaDialogo()');
+    inputSetores.setAttribute('onblur', 'cxaDialogo()');
+    inputSetores.setAttribute('placeholder', 'Descrição setor')
+
+    let button = document.createElement('button');
+    button.setAttribute('type', 'button');
+    button.setAttribute('onclick', 'insertSetor()');
+    button.innerText = 'Inserir';
+
+    caixaDlg.appendChild(p);
+
+    divColNSetor.appendChild(caixaDlg);
+
+    formSetor.appendChild(inputSetores);
+    formSetor.appendChild(button);
+    cpslNovoSetor.appendChild(formSetor);
+    divColNSetor.appendChild(cpslNovoSetor);
+
+    flexStores.appendChild(divColNSetor);
+
+    divColNSetor.classList.toggle('visivel');
+    //caixaDialogo.classList.toggle('visivel');
+
+}
+
+function editarSetor(e){
+    let setor = document.getElementById('col-setor-' + e);
+    setor.classList.toggle('ocultar');
     
-    };
-    insertSetor(bodyForm);
+}
 
-});
+
+function cxaDialogo(){
+    document.getElementById('cxdSetor').classList.toggle('visivel');
+}
+
+function cancelInsertSetor(){
+    let flexStores = document.getElementById('flex-setores');
+    let novoSetor = document.getElementById('coluna-setornovo');
+    flexStores.removeChild(novoSetor);
+}
 
 function creatSetorCol(e, setor){
     let flexStores = document.getElementById('flex-setores');
+    let colSetorNovo = document.getElementById('coluna-setornovo');
+    colSetorNovo.setAttribute('class', 'coluna-setor')
+    colSetorNovo.setAttribute('id', 'col-setor-' + e);
     
     let divColSetor = document.createElement('div');
     divColSetor.setAttribute('class', 'coluna-setor');
@@ -89,13 +156,26 @@ function creatSetorCol(e, setor){
     row.appendChild(colmd9);
     row.appendChild(colmd3);
     cpsSetor.appendChild(row);
-    divColSetor.appendChild(cpsSetor);
-    flexStores.appendChild(divColSetor);
+    //divColSetor.appendChild(cpsSetor);
+    colSetorNovo.appendChild(cpsSetor);
+    //flexStores.appendChild(divColSetor);
 
 }
 
-function insertSetor(b){
+//requisição ajax por baixo do capo
+let frmSetor = document.getElementById('formSetor')
+function insertSetor(){
     //console.log(JSON.stringify(b));
+    let txtSetor = document.getElementById('txtSetor').value;
+    let bodyForm = {
+        //id: 1,
+        setores: txtSetor,
+        //descricao: (!frmSetor.descricao.value) ? frmSetor.descricao.value : '',
+        //num_func_m: (!frmSetor.num_func_m.value) ? frmSetor.num_func_m.value : '',
+        //num_func_f: (!frmSetor.num_func_f.value) ? frmSetor.num_func_f.value : '',
+        clientes_id: document.getElementById('hddIdCliente').value
+    
+    };
     let settings = {
         method: "POST",
         headers: {
@@ -103,27 +183,38 @@ function insertSetor(b){
             "Content-Type":"application/json",
             //"x-api-key":""
         },
-        body: JSON.stringify(b)
+        body: JSON.stringify(bodyForm)
     };
-    
-    fetch('/setores/create', settings)
-        .then(function (response){
-            return response.json();
-        })
-        .then(function(info) {
-            //console.log(info);
-            creatSetorCol(info.id, info.setores);
-            let textSetor = document.getElementById('textSetor');
-            textSetor.value = '';
 
-        }).catch(function (error) {
-            alert("Erro ao criar um novo setor" + error);
-        });
+    if(txtSetor.length != 0){
+        fetch('/setores/create', settings)
+            .then(function (response){
+                return response.json();
+            })
+            .then(function(info) {
+                //console.log(info);
+                let colSetornovo = document.getElementById('coluna-setornovo');
+                colSetornovo.innerText = '';
+                creatSetorCol(info.id, info.setores);
+                creatNovoSetor();
+                
+                let txtSetor = document.getElementById('txtSetor');
+                txtSetor.focus();
+    
+    
+            }).catch(function (error) {
+                alert("Erro ao criar um novo setor" + error);
+            });
+    }
+    else {
+        alert('O campo texto precisa ser preenchido!')
+    }
+    
 
 }
 
 function carregarSetor(e){
-    let frmSetor = document.getElementById('formSetor');
+    let { setores } = document.getElementById('formSetor');
     let setorId = { id: e };
     let settings = {
         method: "POST",
@@ -136,22 +227,59 @@ function carregarSetor(e){
     })
     .then(function (data){
         //console.log(data[0].setores);
-        frmSetor.setores.value = data[0].setores;
+        setores.setAttribute('value', data[0].setores);
         let modalFooter = document.getElementById('modalFooter');
         let incluirSetor = document.getElementById('incluirSetor');
         modalFooter.removeChild(incluirSetor);
 
+        let atualizarSetor = document.createElement('button');
+        atualizarSetor.setAttribute('type', 'submit');
+        atualizarSetor.setAttribute('class', 'btn btn-primary');
+        atualizarSetor.setAttribute('id', 'atualizarSetor');
+        atualizarSetor.innerText = 'Atualizar Setor';
+
+        modalFooter.appendChild(atualizarSetor);
+
+
     }).catch(function (error){
-        alert('Erro ao carregar setor!' + error)
+        //console.log('Erro ao carregar setor!' + error)
     })
+}
+
+function atualizar(e){
+    let atualSetor = {
+        id: e,
+        setores: document.getElementById('textSetores-' + e).value,
+        clientes_id: document.getElementById('hddIdCliente').value
+    };
+    let settings = {
+        method: "POST",
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body:JSON.stringify(atualSetor)
+    }
+    fetch('/setores/update', settings)
+        .then(function (response){
+            return response.json();
+        })
+        .then(function (dados){
+            //console.log(dados[0]);
+            document.getElementById('setor-'+ e).innerText = dados[0].setores;
+            let setorEdit = document.getElementById('cpsl-edit-' + e);
+            setorEdit.classList.toggle('visivel');
+            
+        }).catch(function (error){
+            alert("Erro ao apagar setor!" + error);
+        })
 }
 
  
 function removSetor(e){
-    let frmSetor = document.getElementById('formSetor');
+    
     let idSetor = {
         id:e,
-        idCliente: frmSetor.clientes_id.value
+        idCliente: document.getElementById('hddIdCliente').value
     }
 
     if(window.confirm('Deseja excluir o setor ' + e + ' ?')){
@@ -178,6 +306,22 @@ function removSetor(e){
     }
 
 }
+
+function posicao(e) {
+    var el = document.getElementById('cpsl-' + e);
+    var coordenadas = el.getBoundingClientRect();
+    let setorEdit = document.getElementById('cpsl-edit-' + e);
+    setorEdit.style.top = (coordenadas.top - 100) + 'px';
+    //setorEdit.style.left = coordenadas.left;
+    setorEdit.classList.toggle('visivel');
+    //console.log('posição x', coordenadas.left, 'posição y', coordenadas.top, 'elemento ' + el);
+}
+
+function cancelar(e){
+    let setorEdit = document.getElementById('cpsl-edit-' + e);
+    setorEdit.classList.toggle('visivel');
+}
+
 
 
    

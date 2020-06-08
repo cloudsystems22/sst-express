@@ -24,129 +24,57 @@
              <div class="row">
                  <div class="col-md-9">
                      <p><%=cliente.razao_social %></p>
-                     <p><%=cliente.cnpj %></p>
+                     <p><%=cliente.cnpj %></p><input type="hidden" value='<%=cliente.id %>' id='hddIdCliente'>
                  </div>
                  <div class="col-md-3">
-                     <a href="#" id="btnNSetor" title='Novo Setor' data-toggle="modal" data-target="#modalSetor"><i class="fas fa-plus-circle fa-2x"></i></a>
-                     <!-- <a href="#" id="btnNSetor" title='Novo Setor'><i class="fas fa-plus-circle fa-2x"></i></a> -->
+                     <a href="#" onclick="creatNovoSetor()" id="btnNSetor" title='Novo Setor'><i class="fas fa-plus-circle fa-2x"></i></a>
                  </div>
              </div>
          </div>
-         <!-- <div class="capsula-novosetor">
-            <p>
-                <br>
-                Novo Setor
-            </p>
-         </div> -->
+        
          <div class="flex flex-wrap" id='flex-setores'>
+             
          <% for(let s of cliente.Setores) { %>
             <div class="coluna-setor" id='col-setor-<%=s.id %>'>
-                <div class="capsula-setor">
+                <div class="capsula-setor" id="cpsl-<%=s.id %>">
                     <div class="row">
                         <div class="col-md-9">
                             <p>
-                                <%=s.setores %> 
-                                <a href="#" onclick="carregarSetor('<%=s.id %>')" data-toggle="modal" data-target="#modalSetor"><i class="fas fa-edit"></i></a>
+                                <span id='setor-<%=s.id %>'><%=s.setores %> </span> 
+                                <a href="#" onclick="posicao('<%=s.id %>')" data-toggle="modal" data-target="#modalSetor"><i class="fas fa-edit"></i></a>
                                 <a href="#" onclick="removSetor('<%=s.id %>')"><i class="fas fa-times"></i></a> 
                             </p>
+                            
                         </div>
                         <div class="col-md-3">
                             <a href="#" title='Novo Risco'><i class="fas fa-plus-circle"></i></a>
                         </div>
                     </div>
                 </div>
+                <div class="capsula-editar" id="cpsl-edit-<%=s.id %>">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <form action="">
+                                <input type="text" id='textSetores-<%=s.id%>' class="form-control input-setor" value="<%=s.setores %>">
+                            </form>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#" title="Cancelar" id="" onclick="cancelar('<%=s.id %>')"><i class="fas fa-times"></i></a>
+                            <a href="#" title="Salvar" onclick="atualizar('<%=s.id %>')"><i class="fas fa-check"></i></a>
+                            <a href="#" title="Detalhes"><i class="fas fa-info-circle"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+                
             </div>
          <% } %>
-            <!-- <div class="coluna-setor">
-                <div class="capsula-setor">
-                    <p>SETOR - Descrição <a href="#" title='Novo Risco'><i class="fas fa-plus-circle"></i></a></p>
-                </div>
-                <div class="arvore-setor">
-                   <ul>
-                       <li class="li-riscos"><span class="riscos-fisicos">Riscos Físicos</span>
-                           <ul>
-                               <li class="li-riscos">Ruídos</li>
-                               <li class="li-riscos">Vibrações</li>
-                           </ul>
-                       </li>
-                       <li class="li-riscos"><span class="riscos-quimicos">Riscos Químicos</span>
-                           <ul>
-                               <li class="li-riscos">Substâncias compostas</li>
-                               <li class="li-riscos">Óleos</li>
-                           </ul>
-                       </li>
-                       <li class="li-riscos"><span class="riscos-acidentes">Riscos Acidentes</span>
-                           <ul>
-                               <li class="li-riscos">Perfuro cortantes</li>
-                               <li class="li-riscos">Acidentes em geral</li>
-                           </ul>
-                       </li>
-                   </ul>
-                </div>
-            </div>
-            <div class="coluna-setor">
-               <div class="capsula-setor">
-                   <p>SETOR - Descrição <a href="#" title='Novo Risco'><i class="fas fa-plus-circle"></i></a></p>
-               </div>
-               <div class="arvore-setor">
-                  <ul>
-                      <li class="li-riscos"><span class="riscos-fisicos">Riscos Físicos</span>
-                          <ul>
-                              <li class="li-riscos">Ruídos</li>
-                              <li class="li-riscos">Vibrações</li>
-                          </ul>
-                      </li>
-                      <li class="li-riscos"><span class="riscos-quimicos">Riscos Químicos</span>
-                          <ul>
-                              <li class="li-riscos">Substâncias compostas</li>
-                              <li class="li-riscos">Óleos</li>
-                          </ul>
-                      </li>
-                      <li class="li-riscos"><span class="riscos-acidentes">Riscos Acidentes</span>
-                          <ul>
-                              <li class="li-riscos">Perfuro cortantes</li>
-                              <li class="li-riscos">Acidentes em geral</li>
-                          </ul>
-                      </li>
-                  </ul>
-               </div>
-           </div> -->
+           
+           
          </div>
          
      </div>
-     <!-- Button trigger modal -->
-
-  
-  <!-- Modal -->
-  <div class="modal fade" id="modalSetor" tabindex="-1" role="dialog" aria-labelledby="modalSetorLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form action="" id='formSetor'>
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalSetorLabel">Setor - <span class="small" id='spndetalhes'></span></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-               <div class="row"><input type="hidden" value="<%=cliente.id %>" name='clientes_id'>
-                    <div class="col-md-12">
-                        <label for="">Setor</label>
-                        <input type="text" class="form-control" name='setores' id='textSetor'>
-                    </div>
-               </div>
-               <div class="row" id='corpo'>
-
-               </div>
-            </div>
-            <div class="modal-footer" id='modalFooter'>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id='incluirSetor'>Incluir Setor</button>
-            </div>
-        </form>
-      </div>
-    </div>
-  </div>
+   
 
 </main>
 
