@@ -61,12 +61,44 @@
                         <div class="col-md-3">
                             <a href="#" title="Cancelar" id="" onclick="cancelar('<%=s.id %>')"><i class="fas fa-times"></i></a>
                             <a href="#" title="Salvar" onclick="atualizar('<%=s.id %>')"><i class="fas fa-check"></i></a>
-                            <a href="#" title="Detalhes"><i class="fas fa-info-circle"></i></a>
+                            <a href="#" title="Detalhes" onclick="visualDetalhes('<%=s.id %>')"><i class="fas fa-info-circle"></i></a>
                         </div>
 
                     </div>
                 </div>
                 
+            </div>
+            <div class="detalhes-setor" id="detailSetor<%=s.id %>">
+                <div class="row">
+                   
+                        <div class="col-md-12">
+                            <h3>Detalhes do Setor</h3>
+                            <a href="#" onclick="cancelDetalhes('<%=s.id %>')"><i class="fas fa-times fa-2x"></i></a>
+                            <hr>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Setor</label>
+                            <input type="text" id="txtDSetor<%=s.id %>" class="form-control" value="<%=s.setores %>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Nº Func Masculinos</label>
+                            <input type="text" id="txtDNFM<%=s.id %>" class="form-control" value="<%=s.num_func_m %>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Nº Func Femininos</label>
+                            <input type="text" id="txtDNFF<%=s.id %>" class="form-control" value="<%=s.num_func_f %>">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Descrição</label>
+                            <textarea name="" id="txtareaDSetor<%=s.id %>" class="form-control"><%=s.descricao %></textarea>
+                            <hr>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="button" onclick="atualizarDetalhes('<%=s.id %>')" class="btnAtualDSetor">Atualizar</button>
+                        </div>
+
+                    
+                </div>
             </div>
          <% } %>
            

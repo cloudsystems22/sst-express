@@ -246,10 +246,14 @@ function carregarSetor(e){
     })
 }
 
-function atualizar(e){
-    let atualSetor = {
+
+function atualizarDetalhes(e){
+    let atualDSetor = {
         id: e,
-        setores: document.getElementById('textSetores-' + e).value,
+        setores: document.getElementById('txtDSetor' + e).value,
+        descricao: document.getElementById('txtareaDSetor' + e).value,
+        num_func_m: document.getElementById('txtDNFM'+ e).value,
+        num_func_f: document.getElementById('txtDNFF' + e).velue,
         clientes_id: document.getElementById('hddIdCliente').value
     };
     let settings = {
@@ -257,7 +261,7 @@ function atualizar(e){
         headers:{
             "Content-Type":"application/json",
         },
-        body:JSON.stringify(atualSetor)
+        body:JSON.stringify(atualDSetor)
     }
     fetch('/setores/update', settings)
         .then(function (response){
@@ -266,8 +270,8 @@ function atualizar(e){
         .then(function (dados){
             //console.log(dados[0]);
             document.getElementById('setor-'+ e).innerText = dados[0].setores;
-            let setorEdit = document.getElementById('cpsl-edit-' + e);
-            setorEdit.classList.toggle('visivel');
+            let setorDetail = document.getElementById('detailSetor' + e);
+            setorDetail.classList.toggle('visivel');
             
         }).catch(function (error){
             alert("Erro ao apagar setor!" + error);
@@ -322,6 +326,18 @@ function cancelar(e){
     setorEdit.classList.toggle('visivel');
 }
 
+function visualDetalhes(e){
+    let setorEdit = document.getElementById('cpsl-edit-' + e);
+    setorEdit.classList.toggle('visivel');
+
+    let setorDetail = document.getElementById('detailSetor' + e);
+    setorDetail.classList.toggle('visivel');
+}
+
+function cancelDetalhes(e){
+    let setorDetail = document.getElementById('detailSetor' + e);
+    setorDetail.classList.toggle('visivel');
+}
 
 
    
