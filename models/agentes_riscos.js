@@ -1,6 +1,6 @@
-const AgentesRiscos = (sequelize, DataTypes) => {
+const agentes_riscos = (sequelize, DataTypes) => {
     let agentesRiscos = sequelize.define(
-        'AgentesRiscos',
+        'agentes_riscos',
         {
             id:{
                 type: DataTypes.INTEGER,
@@ -24,4 +24,4 @@ const AgentesRiscos = (sequelize, DataTypes) => {
 
 }
 
-module.exports = AgentesRiscos;
+module.exports = agentes_riscos;
