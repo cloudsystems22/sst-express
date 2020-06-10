@@ -33,3 +33,37 @@
   position: absolute;
   width: 0;
 }
+
+.barra-riscos{
+    height: 100vh;
+    width: 650px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #FFFFFF;
+    /* box-shadow: 0 0 10px #696868; */
+    border-left: solid 1px hsl(0, 2%, 78%) ;
+    padding: 7px;
+    opacity: 0;
+    z-index: -7;
+    transition: opacity 0.1s;
+}
+
+.barra-riscos.visivel{
+    opacity: 1;
+    transition: opacity 0.1s;
+    z-index: 12;
+}
+
+.barra-riscos span{
+    color: #696868;
+    font-weight: bold;
+    font-size: 11pt;
+    text-align: center;
+}
+
+.fechar-barra-riscos{
+    position: absolute;
+    right: 20px;
+    text-decoration: none;
+}
