@@ -4,6 +4,7 @@ var router = express.Router();
 const riscosController = require('../controllers/riscosController');
 const authMiddlewares = require('../middlewares/authMiddleware');
 
-router.post('/list', authMiddlewares, riscosController.lista);
+router.post('/', authMiddlewares, riscosController.riscos);
+router.post('/grupoRiscos', authMiddlewares, riscosController.grupoRiscos);
 
 module.exports = router;

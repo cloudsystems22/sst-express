@@ -3,11 +3,17 @@ const riscosController = {
     index:(req, res) =>{
 
     },
-    lista:async(req,res) => {
+    grupoRiscos:async(req,res) => {
         let { id } = req.session.usuario;
+        let gruposRiscos = await agentes_riscos.findAll({ attributes:['tipo'], group:['tipo'] });
+        //let riscos = await agentes_riscos.findAll();
+        res.send(gruposRiscos);
+    },
+    riscos:async(req, res) => {
         let riscos = await agentes_riscos.findAll();
         res.send(riscos);
     }
+
 }
 
 module.exports = riscosController;

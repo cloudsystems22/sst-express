@@ -104,18 +104,27 @@
             <div class="barra-riscos" id="brRiscos<%=s.id %>">
                 <div class="row">
                     <div class="col-md-12">
-                        <span>Riscos - NR-5 Anexo IV</span>
-                        <a href="#" class="fechar-barra-riscos" onclick="fechaBarra('<%=s.id %>')"><i class="fas fa-times"></i></a>
-                        <hr>
+                        <a href="#" class="fechar-barra-riscos" onclick="fechaBarra('<%=s.id %>')"><i class="fas fa-times fa-2x"></i></a>
                     </div>
-                </div>
+                </div> 
+               <!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="capsula-setor-riscos">
+                            <p>
+                                <%=s.setores %>
+                            </p>
+                        </div>
+                    </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-12">
-                        <span><%=s.setores %></span>
+                        <div class="flex flex-wrap" id="lstgruposRisco<%=s.id %>">
+                          
+                        </div>
                     </div>
-
                 </div>
             </div>
+          
          <% } %>
        
            

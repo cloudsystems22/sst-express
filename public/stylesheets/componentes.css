@@ -35,18 +35,29 @@
 }
 
 .barra-riscos{
-    height: 100vh;
-    width: 650px;
+    height: 500px;
+    left: 440px;
+    top: 300px;
+    width: 680px;
     position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #FFFFFF;
+    /* background-color: #FFFFFF; */
     /* box-shadow: 0 0 10px #696868; */
-    border-left: solid 1px hsl(0, 2%, 78%) ;
+    /* border: solid 1px hsl(0, 2%, 78%) ; */
     padding: 7px;
     opacity: 0;
     z-index: -7;
     transition: opacity 0.1s;
+}
+
+.barra-grupos{
+    margin-left: 5px;
+    height: auto;
+    left: 256px;
+    width: 200px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 10px #696868;
+    border: solid 1px hsl(0, 2%, 78%);
+    margin: 7px;
 }
 
 .barra-riscos.visivel{
@@ -65,5 +76,30 @@
 .fechar-barra-riscos{
     position: absolute;
     right: 20px;
+    top: -40px;
     text-decoration: none;
 }
+
+
+/* Riscos Ocupacionais */
+.grupo-fisicos{
+    border-radius: 100%;
+    background-color: #29bd04;
+    color:#FFFFFF;
+    font-weight: bold;
+    padding: 3px;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    top: 92px;
+    left: -250px;
+}
+
+@media (max-width:1440px){
+    .barra-riscos{
+        height: auto;
+        left: 256px;
+        width: 667px;
+    }
+}
+  

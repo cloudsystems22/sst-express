@@ -5,8 +5,22 @@ const { agentes_riscos } = require('../models');
 //         console.log(data.map(s => s.toJSON()));
 //     }
 // )
-agentes_riscos.findAll().then(
+agentes_riscos.findAll({ attributes:['tipo'], group:['tipo'] }).then(
     data => {
         console.log(data.map(r => r.toJSON()));
     }
 )
+
+// agentes_riscos.findAll({where:{ tipo:'Físicos'}}).then(
+//     data => {
+//         console.log(data.map(r => r.toJSON()))
+//     }
+// )
+
+// let print = async() => {
+//     let riscos = await agentes_riscos.findAll();
+//     let riscosFisicos = riscos.filter( r => r.tipo == 'Físicos');
+//     console.log(riscosFisicos);
+// }
+
+// print();
