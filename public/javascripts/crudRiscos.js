@@ -5,6 +5,9 @@ function fechaBarra(e){
 
     let lstGrupoRisco = document.getElementById('lstgruposRisco'+e);
     lstGrupoRisco.innerText = '';
+
+    let ulGRiscos = document.getElementById('ulGruposRisco' + e);
+    ulGRiscos.innerText = '';
 }
 function barraRiscos(e){
     // var el = document.getElementById('cpsl-' + e);
@@ -14,7 +17,7 @@ function barraRiscos(e){
     barraRisco.classList.toggle('visivel');
 
     gruposRiscos(e);
-
+    gruposAded(e);
     // barraRisco.style.top = (coordenadas.top - 56) + 'px';
     // barraRisco.style.left = (coordenadas.left - 241.99) + 'px';
     // console.log("top:" + coordenadas.top + " left:" + coordenadas.left );
@@ -152,8 +155,6 @@ function listaRiscos(grupo, e, filtro){
 
 
 function addRisco(e, s){
-    let a = document.getElementById('linkRs'+e);
-    let i = document.getElementById('ico'+e);
     let riscoSetor = {
         agentes_riscos_id:e,
         setores_id:s
@@ -183,6 +184,7 @@ function addRisco(e, s){
 }
 
 function gruposAded(e){
+    console.log(e)
     let settings = {
         method:'POST',
         headers:{
@@ -195,6 +197,9 @@ function gruposAded(e){
         return response.json();
     })
     .then(function (dados){
+        console.log(dados);
+        let ulGRiscos = document.getElementById('ulGruposRisco' + e);
+        ulGRiscos.innerText = '';
         dados.forEach(element => {
             listGroupRiscos(element.setores_id, element.agentes_riscos.tipo);
         })
@@ -203,7 +208,6 @@ function gruposAded(e){
 
 
 function listGroupRiscos(e, tipo){
-    console.log('Setor: ' + e + ' grupo: ' + tipo);
     let ul = document.getElementById('ulGruposRisco' + e);
     let liGrupo = document.createElement('li');
    
@@ -222,30 +226,79 @@ function listGroupRiscos(e, tipo){
         grupo = 'fisico';
         divLiGrupo.innerText = 'Físicos';
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
+        divLiGrupo.setAttribute('id', 'li-' + grupo + e)
     }
     if(tipo == "Químicos"){
         grupo = 'quimico';
         divLiGrupo.innerText = 'Químicos';
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
+        divLiGrupo.setAttribute('id', 'li-' + grupo + e)
+    }
+    if(tipo == "Biológicos"){
+        grupo = 'biologico';
+        divLiGrupo.innerText = 'Biológicos';
+        divLiGrupo.setAttribute('class', 'li-'+ grupo)
+        divLiGrupo.setAttribute('id', 'li-' + grupo + e)
+    }
+    if(tipo == "Ergonômicos"){
+        grupo = 'ergonomico';
+        divLiGrupo.innerText = 'Ergonômicos';
+        divLiGrupo.setAttribute('class', 'li-'+ grupo)
+        divLiGrupo.setAttribute('id', 'li-' + grupo + e)
+    }
+    if(tipo == "Acidentes"){
+        grupo = 'acidente';
+        divLiGrupo.innerText = 'Acidentes';
+        divLiGrupo.setAttribute('class', 'li-'+ grupo)
+        divLiGrupo.setAttribute('id', 'li-' + grupo + e)
     }
     lnk.setAttribute('onclick', 'collapseListRisco('+ grupo +')');
 
-    let grupoFExist = document.querySelector('.li-fisico');
-    let grupoQExist = document.querySelector('.li-quimico');
+    let grupoFExist = document.getElementById('li-fisico' + e);
+    let grupoQExist = document.getElementById('li-quimico' + e);
+    let grupoEExist = document.getElementById('li-ergonomico' + e);
+    let grupoBExist = document.getElementById('li-biologico' + e);
+    let grupoAExist = document.getElementById('li-acidente' + e);
 
-    if(!grupoFExist){
+    if(grupoFExist == null){
         lnk.appendChild(icoG);
         divGrupo.appendChild(lnk);
         divGrupo.appendChild(divLiGrupo);
         liGrupo.appendChild(divGrupo);
         ul.appendChild(liGrupo);
+        grupoFExist = document.getElementById('li-fisico' + e);
     }
-    if(!grupoQExist){
+    else if(grupoQExist == null){
         lnk.appendChild(icoG);
         divGrupo.appendChild(lnk);
         divGrupo.appendChild(divLiGrupo);
         liGrupo.appendChild(divGrupo);
         ul.appendChild(liGrupo);
+        grupoQExist = document.getElementById('li-quimico' + e);
+    }
+    else if(grupoEExist == null){
+        lnk.appendChild(icoG);
+        divGrupo.appendChild(lnk);
+        divGrupo.appendChild(divLiGrupo);
+        liGrupo.appendChild(divGrupo);
+        ul.appendChild(liGrupo);
+        grupoQExist = document.getElementById('li-ergonomico' + e);
+    }
+    else if(grupoBExist == null){
+        lnk.appendChild(icoG);
+        divGrupo.appendChild(lnk);
+        divGrupo.appendChild(divLiGrupo);
+        liGrupo.appendChild(divGrupo);
+        ul.appendChild(liGrupo);
+        grupoQExist = document.getElementById('li-biologico' + e);
+    }
+    else if(grupoAExist == null){
+        lnk.appendChild(icoG);
+        divGrupo.appendChild(lnk);
+        divGrupo.appendChild(divLiGrupo);
+        liGrupo.appendChild(divGrupo);
+        ul.appendChild(liGrupo);
+        grupoQExist = document.getElementById('li-acidente' + e);
     }
 
 }

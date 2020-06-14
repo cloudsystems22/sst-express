@@ -11,10 +11,10 @@ const gerencRiscosController = {
     grupos:async(req,res) => {
         let { id } = req.session.usuario;
         let { setores_id } = req.body;
-        console.log(req.body);
-        let gruposRiscos = await perigos_ges.findAll({attributes:['setores_id'], group:['tipo'], include:[{model:agentes_riscos, as:'agentes_riscos', attributes:['tipo']}]});
+        //console.log(req.body);
+        let gruposRiscos = await perigos_ges.findAll({where:{ setores_id }, attributes:['setores_id'], group:['tipo'], include:[{model:agentes_riscos, as:'agentes_riscos', attributes:['id', 'tipo']}]});
         //let riscos = await agentes_riscos.findAll();
-        //console.log(gruposRiscos);
+        console.log(gruposRiscos);
         res.send(gruposRiscos);
     },
     riscos:async(req,res) =>{

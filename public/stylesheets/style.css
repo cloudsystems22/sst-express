@@ -403,6 +403,15 @@ main{
   font-size: 9pt;
   text-align: center;
 }
+.li-ergonomico{
+  border-radius: 3px;
+  background-color: hsl(51, 91%, 44%);
+  color: #FFFFFF;
+  width: 180px;
+  height: 20px;
+  padding: 3px;
+  margin-left: 3px;
+}
 .riscos-biologico{
   border-radius: 3px;
   background-color: hsl(27, 93%, 42%);
@@ -414,6 +423,15 @@ main{
   font-size: 9pt;
   text-align: center;
 }
+.li-biologico{
+  border-radius: 3px;
+  background-color: hsl(27, 93%, 42%);
+  color: #FFFFFF;
+  width: 180px;
+  height: 20px;
+  padding: 3px;
+  margin-left: 3px;
+}
 .riscos-acidentes{
   border-radius: 3px;
   background-color: hsl(224, 91%, 47%);
@@ -424,6 +442,15 @@ main{
   height: 30px;
   font-size: 9pt;
   text-align: center;
+}
+.li-acidente{
+  border-radius: 3px;
+  background-color: hsl(224, 91%, 47%);
+  color: #FFFFFF;
+  width: 180px;
+  height: 20px;
+  padding: 3px;
+  margin-left: 3px;
 }
 
 /* .li-riscos{
