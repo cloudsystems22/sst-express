@@ -20,6 +20,9 @@ const agentes_riscos = (sequelize, DataTypes) => {
             timestamps:false
         }
     );
+    agentesRiscos.associate = (models) => {
+        agentesRiscos.hasMany(models.perigos_ges, {foreignKey:'agentes_riscos_id', as:'perigos_ges'})
+    }
     return agentesRiscos;
 
 }

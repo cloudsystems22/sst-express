@@ -237,6 +237,11 @@ main{
   transition: all 500ms linear;
 }
 
+.cps-center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .capsula-setor p{
   margin: 0;
   padding: 0;
@@ -343,6 +348,10 @@ main{
 }
 
 /* Riscos Ocupacionais */
+.div-gruporisco{
+  height: 25px;
+  margin-left: 10px;
+}
 .riscos-fisicos{
   border-radius: 3px;
   background-color: #29bd04;
@@ -354,6 +363,15 @@ main{
   font-size: 9pt;
   text-align: center;
 }
+.li-fisico{
+  border-radius: 3px;
+  background-color: #29bd04;
+  color: #FFFFFF;
+  width: 180px;
+  height: 20px;
+  padding: 3px;
+  margin-left: 3px;
+}
 .riscos-quimicos{
   border-radius: 3px;
   background-color: hsl(0, 96%, 38%);
@@ -364,6 +382,15 @@ main{
   height: 30px;
   font-size: 9pt;
   text-align: center;
+}
+.li-quimico{
+  border-radius: 3px;
+  background-color: hsl(0, 96%, 38%);
+  color: #FFFFFF;
+  width: 180px;
+  height: 20px;
+  padding: 3px;
+  margin-left: 3px;
 }
 .riscos-ergonomico{
   border-radius: 3px;
@@ -407,10 +434,23 @@ main{
   list-style: none;
   padding-left: 5px;
   padding-top: 3px;
+  width: 220px;
+}
+
+.lst-riscos-center{
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .lista-riscos li{
   font-size: 9pt;
+}
+
+.lista-risco{
+  list-style: none;
+  margin-left: 0;
+  padding-left: 25px;
+  margin-bottom: 5px;
 }
 
 @media (max-width: 1440px) and (max-height: 1024px){

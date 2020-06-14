@@ -139,7 +139,7 @@ function listaRiscos(grupo, e, filtro){
         
         listRiscos.forEach(arrayRiscos => {
             let liRisco = document.createElement('li');
-            liRisco.innerHTML = '<a href="#" id="linkRs'+ arrayRiscos.id +'" onclick="addRisco('+ arrayRiscos.id + ')"><i id="ico'+ arrayRiscos.id +'" class="fas fa-plus-circle"></i></a> ' + arrayRiscos.risco;
+            liRisco.innerHTML = '<a href="#" id="linkRs'+ arrayRiscos.id +'" onclick="addRisco('+ arrayRiscos.id + ', '+ e +')"><i id="ico'+ arrayRiscos.id +'" class="fas fa-plus-circle"></i></a> ' + arrayRiscos.risco;
             ulRiscos.appendChild(liRisco);  
 
         })    
@@ -151,11 +151,113 @@ function listaRiscos(grupo, e, filtro){
 }
 
 
-function addRisco(e){
+function addRisco(e, s){
     let a = document.getElementById('linkRs'+e);
     let i = document.getElementById('ico'+e);
-    a.style.textDecoration = 'none';
-    i.setAttribute('class', 'fas fa-minus-circle');
-    i.style.color = '#696868';
+    let riscoSetor = {
+        agentes_riscos_id:e,
+        setores_id:s
+    }
+
+    let settings = {
+        method:'POST',
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body:JSON.stringify(riscoSetor)
+    }
+    fetch('/gerencRiscos/create', settings)
+    .then(function (response){
+        return response.json();
+    })
+    .then(function (dados){
+        //console.log(dados);
+        gruposAded(s);
+        // a.style.textDecoration = 'none';
+        // i.setAttribute('class', 'fas fa-minus-circle');
+        // i.style.color = '#696868';
+    }).catch(function (error){
+        alert('Erro ao carregar risco! ' + error);
+    })
     //alert("Clicou em: " + e);
+}
+
+function gruposAded(e){
+    let settings = {
+        method:'POST',
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body:JSON.stringify({setores_id:e})
+    }
+    fetch('/gerencRiscos/grupos', settings)
+    .then(function (response){
+        return response.json();
+    })
+    .then(function (dados){
+        dados.forEach(element => {
+            listGroupRiscos(element.setores_id, element.agentes_riscos.tipo);
+        })
+    })
+}
+
+
+function listGroupRiscos(e, tipo){
+    console.log('Setor: ' + e + ' grupo: ' + tipo);
+    let ul = document.getElementById('ulGruposRisco' + e);
+    let liGrupo = document.createElement('li');
+   
+    let divGrupo = document.createElement('div');
+    divGrupo.setAttribute('class', 'row div-gruporisco');
+
+    let lnk = document.createElement('a');
+    lnk.setAttribute('href', '#');
+    
+    let icoG = document.createElement('i');
+    icoG.setAttribute('class', 'fas fa-chevron-circle-down');
+    
+    let divLiGrupo = document.createElement('div');
+    let grupo;
+    if(tipo == "Físicos"){
+        grupo = 'fisico';
+        divLiGrupo.innerText = 'Físicos';
+        divLiGrupo.setAttribute('class', 'li-'+ grupo)
+    }
+    if(tipo == "Químicos"){
+        grupo = 'quimico';
+        divLiGrupo.innerText = 'Químicos';
+        divLiGrupo.setAttribute('class', 'li-'+ grupo)
+    }
+    lnk.setAttribute('onclick', 'collapseListRisco('+ grupo +')');
+
+    let grupoFExist = document.querySelector('.li-fisico');
+    let grupoQExist = document.querySelector('.li-quimico');
+
+    if(!grupoFExist){
+        lnk.appendChild(icoG);
+        divGrupo.appendChild(lnk);
+        divGrupo.appendChild(divLiGrupo);
+        liGrupo.appendChild(divGrupo);
+        ul.appendChild(liGrupo);
+    }
+    if(!grupoQExist){
+        lnk.appendChild(icoG);
+        divGrupo.appendChild(lnk);
+        divGrupo.appendChild(divLiGrupo);
+        liGrupo.appendChild(divGrupo);
+        ul.appendChild(liGrupo);
+    }
+
+}
+
+function collapseListRisco(e){
+    let lstRisco = document.getElementById(e);
+    lstRisco.classList.toggle('collapse');
+    let eff = lstRisco.classList.value;
+    let icog = document.getElementById('icoG'+e);
+    if(eff){
+        icog.setAttribute('class', 'fas fa-chevron-circle-down');
+    } else{
+        icog.setAttribute('class', 'fas fa-chevron-circle-up')
+    }
 }

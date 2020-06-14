@@ -1,12 +1,18 @@
-const { agentes_riscos } = require('../models');
+const { agentes_riscos, perigos_ges } = require('../models');
 
 // Setores.findAll({include:'Clientes'}).then(
 //     data => {
 //         console.log(data.map(s => s.toJSON()));
 //     }
 // )
-agentes_riscos.findAll({ attributes:['tipo'], group:['tipo'] }).then(
-    data => {
+// agentes_riscos.findAll({ attributes:['tipo'], group:['tipo'] }).then(
+//     data => {
+//         console.log(data.map(r => r.toJSON()));
+//     }
+// )
+
+agentes_riscos.findAll({include:[{model:perigos_ges, as:'perigos_ges'}]}).then(
+    data =>{
         console.log(data.map(r => r.toJSON()));
     }
 )
