@@ -25,14 +25,14 @@ const gerencRiscosController = {
 
     },
     delete:async(req,res) => {
-        let {id } = req.body;
-        //console.log(req.body);
+        let { id, tipo } = req.body;
+        console.log(req.body);
         await perigos_ges.destroy({
             where: { id }
         })
-        //let agentesRiscos = await perigos_ges.findAll({where:{ clientes_id: idCliente }})
-        let sucesso = true;
-        res.send(sucesso);
+        let agentesRiscos = await perigos_ges.findAll({include:[{model:agentes_riscos, as: 'agentes_riscos', where:{ tipo }}]})
+        //console.log(agentesRiscos);
+        res.send(agentesRiscos);
     }
 }
 

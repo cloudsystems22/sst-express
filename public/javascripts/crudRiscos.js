@@ -221,55 +221,61 @@ function listGroupRiscos(e, tipo){
     
     let divLiGrupo = document.createElement('div');
     let grupo;
+    let GGrupo;
     if(tipo == "Físicos"){
         grupo = 'fisico';
-        liGrupo.setAttribute('id', 'G'+grupo+e);
+        GGrupo = 'G'+grupo+e;
+        liGrupo.setAttribute('id', GGrupo);
         divLiGrupo.innerText = 'Físicos';
         icoG.setAttribute('id', 'icoG'+grupo+e)
         lnk.setAttribute('onclick', 'collapseListRisco("'+ 'ulG' + grupo + e +'", "'+grupo+e+'")')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
-        riscosAded(e, 'G'+grupo+e, tipo)
+        riscosAded(e, GGrupo, tipo)
     }
     if(tipo == "Químicos"){
         grupo = 'quimico';
-        liGrupo.setAttribute('id', 'G'+grupo+e);
+        GGrupo = 'G'+grupo+e;
+        liGrupo.setAttribute('id', GGrupo);
         divLiGrupo.innerText = 'Químicos';
         icoG.setAttribute('id', 'icoG'+grupo+e)
         lnk.setAttribute('onclick', 'collapseListRisco("'+ 'ulG' + grupo + e +'", "'+grupo+e+'")')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
-        riscosAded(e, 'G'+grupo+e, tipo)
+        riscosAded(e, GGrupo, tipo)
     }
     if(tipo == "Biológicos"){
         grupo = 'biologico';
-        liGrupo.setAttribute('id', 'G'+grupo+e);
+        GGrupo = 'G'+grupo+e;
+        liGrupo.setAttribute('id', GGrupo);
         divLiGrupo.innerText = 'Biológicos';
         icoG.setAttribute('id', 'icoG'+grupo+e)
         lnk.setAttribute('onclick', 'collapseListRisco("'+ 'ulG' + grupo + e +'", "'+grupo+e+'")')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
-        riscosAded(e, 'G'+grupo+e, tipo)
+        riscosAded(e, GGrupo, tipo)
     }
     if(tipo == "Ergonômicos"){
         grupo = 'ergonomico';
-        liGrupo.setAttribute('id', 'G'+grupo+e);
+        GGrupo = 'G'+grupo+e;
+        liGrupo.setAttribute('id', GGrupo);
         divLiGrupo.innerText = 'Ergonômicos';
         icoG.setAttribute('id', 'icoG'+grupo+e)
         lnk.setAttribute('onclick', 'collapseListRisco("'+ 'ulG' + grupo + e +'", "'+grupo+e+'")')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
-        riscosAded(e, 'G'+grupo+e, tipo)
+        riscosAded(e, GGrupo, tipo)
     }
     if(tipo == "Acidentes"){
         grupo = 'acidente';
-        liGrupo.setAttribute('id', 'G'+grupo+e);
+        GGrupo = 'G'+grupo+e;
+        liGrupo.setAttribute('id', GGrupo);
         divLiGrupo.innerText = 'Acidentes';
         icoG.setAttribute('id', 'icoG'+grupo+e)
         lnk.setAttribute('onclick', 'collapseListRisco('+ 'ulG' + grupo + e +', "'+grupo+e+'")')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
-        riscosAded(e, 'G'+grupo+e, tipo)
+        riscosAded(e, GGrupo, tipo)
     }
     
     let grupoFExist = document.getElementById('li-fisico' + e);
@@ -321,21 +327,20 @@ function listGroupRiscos(e, tipo){
 
 }
 
-function riscosAded(e, i, filtro){
+function riscosAded(e, i, f){
     //console.log('setor: ' + e + ' li: ' + i + ' risco: ' + filtro)
     let settings = {
         method:'POST',
         headers:{
             "Content-Type":"application/json"
         },
-        body:JSON.stringify({setores_id:e, tipo:filtro})
+        body:JSON.stringify({setores_id:e, tipo:f})
     }
     fetch('/gerencRiscos/agentes', settings)
     .then(function (response){
         return response.json();
     })
     .then(function (dados){
-        console.log(dados);
         let liGRiscos = document.getElementById(i);
         let ulRiscos = document.createElement('ul');
         ulRiscos.setAttribute('class', 'lista-risco');
@@ -347,8 +352,13 @@ function riscosAded(e, i, filtro){
         dados.forEach(arrayRiscos => {
             let liRisco = document.createElement('li');
             liRisco.setAttribute('id', arrayRiscos.id);
-            liRisco.innerHTML = '<a href="#"><i class="fas fa-minus-circle"></i></a>' + arrayRiscos.agentes_riscos.risco;
+            //liRisco.innerHTML = '<a href="#" onclick="apagarRisco('+ e +', '+ arrayRiscos.id +', '+ g +', '+ filtro +')"><i class="fas fa-minus-circle"></i></a>' + arrayRiscos.agentes_riscos.risco;
+            let idRisco = arrayRiscos.id;
+            let f = "'"+ arrayRiscos.agentes_riscos.tipo +"'";
+            let g = "'" + i +"'"
+            liRisco.innerHTML = '<a href="#" id="link'+ arrayRiscos.id +'" onclick="apagarRisco(' + e + ', ' + idRisco + ', ' + f + ', ' + g + ')"><i class="fas fa-minus-circle"></i></a>' + arrayRiscos.agentes_riscos.risco;
             ulRiscos.appendChild(liRisco);
+
         })
         liGRiscos.appendChild(ulRiscos);
         //console.log(dados);
@@ -364,7 +374,6 @@ function collapseListRisco(e, i){
 
     let eff = lstRisco.classList.value;
     let icog = document.getElementById('icoG'+i);
-    console.log(eff);
     if(eff == 'lista-risco collapse'){
         icog.setAttribute('class', 'fas fa-chevron-circle-down');
     } else if(eff == 'lista-risco'){
@@ -372,20 +381,52 @@ function collapseListRisco(e, i){
     }
 }
 
-function apagarRisco(e){
+function apagarRisco(e, id, f, g){
+    //console.log(e + ' ' + id + ' ' + f + ' ' + g);
     let settings = {
         method:'POST',
         headers:{
             "Content-Type":"application/json"
         },
-        body:JSON.stringify({id:e})
+        body:JSON.stringify({id:id, tipo: f})
     }
     fetch('/gerencRiscos/delete', settings)
     .then(function (response) {
         return response.json();
     })
     .then(function (dados){
-        let ul = document.getElementById('ulGruposRisco' + e);
+        let grup;
+        switch(f){
+            case "Físicos" :
+                grup = 'fisico';
+                break; 
+            
+            case "Químicos" :
+                grup = 'quimico';
+                break;
+
+            case "Biológicos" :
+                grup = 'biologico';
+                break;
+                
+            case "Ergonômicos" :
+                grup = 'ergonomico';
+                break;
+
+            case "Acidentes" :
+                grup = 'acidente';
+                break;
+
+        }
+        let ulGriscos = document.getElementById('ulGruposRisco' + e);
+        let ul = document.getElementById('ulG' + grup + e);
+        let li = document.getElementById(id);
+        ul.removeChild(li);
+        if(dados.length == 0){
+            console.log(dados);
+            let liGriscos = document.getElementById(g);
+            ulGriscos.removeChild(liGriscos);
+        }
 
     }).catch(function (error){
         alert("Erro ao deletar esse risco! " + error);
