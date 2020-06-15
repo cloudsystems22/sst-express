@@ -1,3 +1,4 @@
+const { response } = require("express");
 
 function fechaBarra(e){
     let barraRisco = document.getElementById('brRiscos' + e);
@@ -184,7 +185,7 @@ function addRisco(e, s){
 }
 
 function gruposAded(e){
-    console.log(e)
+    // console.log(e)
     let settings = {
         method:'POST',
         headers:{
@@ -197,7 +198,7 @@ function gruposAded(e){
         return response.json();
     })
     .then(function (dados){
-        console.log(dados);
+        // console.log(dados);
         let ulGRiscos = document.getElementById('ulGruposRisco' + e);
         ulGRiscos.innerText = '';
         dados.forEach(element => {
@@ -216,7 +217,7 @@ function listGroupRiscos(e, tipo){
 
     let lnk = document.createElement('a');
     lnk.setAttribute('href', '#');
-    
+        
     let icoG = document.createElement('i');
     icoG.setAttribute('class', 'fas fa-chevron-circle-down');
     
@@ -224,36 +225,50 @@ function listGroupRiscos(e, tipo){
     let grupo;
     if(tipo == "Físicos"){
         grupo = 'fisico';
+        liGrupo.setAttribute('id', 'G'+grupo+e);
         divLiGrupo.innerText = 'Físicos';
+        icoG.setAttribute('id', 'icoG'+grupo+e)
+        lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
     }
     if(tipo == "Químicos"){
         grupo = 'quimico';
+        liGrupo.setAttribute('id', 'G'+grupo+e);
         divLiGrupo.innerText = 'Químicos';
+        icoG.setAttribute('id', 'icoG'+grupo+e)
+        lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
     }
     if(tipo == "Biológicos"){
         grupo = 'biologico';
+        liGrupo.setAttribute('id', 'G'+grupo+e);
         divLiGrupo.innerText = 'Biológicos';
+        icoG.setAttribute('id', 'icoG'+grupo+e)
+        lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
     }
     if(tipo == "Ergonômicos"){
         grupo = 'ergonomico';
+        liGrupo.setAttribute('id', 'G'+grupo+e);
         divLiGrupo.innerText = 'Ergonômicos';
+        icoG.setAttribute('id', 'icoG'+grupo+e)
+        lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
     }
     if(tipo == "Acidentes"){
         grupo = 'acidente';
+        liGrupo.setAttribute('id', 'G'+grupo+e);
         divLiGrupo.innerText = 'Acidentes';
+        icoG.setAttribute('id', 'icoG'+grupo+e)
+        lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
     }
-    lnk.setAttribute('onclick', 'collapseListRisco('+ grupo +')');
-
+    
     let grupoFExist = document.getElementById('li-fisico' + e);
     let grupoQExist = document.getElementById('li-quimico' + e);
     let grupoEExist = document.getElementById('li-ergonomico' + e);
@@ -303,11 +318,42 @@ function listGroupRiscos(e, tipo){
 
 }
 
+function riscosAded(e, i){
+    let settings = {
+        method:'POST',
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({setores_id:e})
+    }
+    fetch('/gerencRiscos/riscos', settings)
+    .then(function (){
+        return response.json();
+    })
+    .then(function (dados){
+        let liGRiscos = document.getElementById('G' + i);
+        let ulRiscos = document.createElement('ul');
+        ulRiscos.setAttribute('class', 'lista-risco collapse');
+
+        let liRisco = document.createElement('li');
+        let minusCircle = document.createElement('i');
+        i.setAttribute('class', 'fas fa-minus');
+
+        
+        //console.log(dados);
+    }).catch(function (error){
+        alert("Erro ao carregar risco adicionado! " + error);
+    })
+
+}
+
 function collapseListRisco(e){
     let lstRisco = document.getElementById(e);
     lstRisco.classList.toggle('collapse');
+
     let eff = lstRisco.classList.value;
     let icog = document.getElementById('icoG'+e);
+    console.log(icog);
     if(eff){
         icog.setAttribute('class', 'fas fa-chevron-circle-down');
     } else{
