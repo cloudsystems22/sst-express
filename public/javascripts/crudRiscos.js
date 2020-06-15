@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 function fechaBarra(e){
     let barraRisco = document.getElementById('brRiscos' + e);
     barraRisco.classList.toggle('visivel');
@@ -231,6 +229,7 @@ function listGroupRiscos(e, tipo){
         lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
+        riscosAded(e, 'G'+grupo+e, tipo)
     }
     if(tipo == "Químicos"){
         grupo = 'quimico';
@@ -240,6 +239,7 @@ function listGroupRiscos(e, tipo){
         lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
+        riscosAded(e, 'G'+grupo+e, tipo)
     }
     if(tipo == "Biológicos"){
         grupo = 'biologico';
@@ -249,6 +249,7 @@ function listGroupRiscos(e, tipo){
         lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
+        riscosAded(e, 'G'+grupo+e, tipo)
     }
     if(tipo == "Ergonômicos"){
         grupo = 'ergonomico';
@@ -258,6 +259,7 @@ function listGroupRiscos(e, tipo){
         lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
+        riscosAded(e, 'G'+grupo+e, tipo)
     }
     if(tipo == "Acidentes"){
         grupo = 'acidente';
@@ -267,6 +269,7 @@ function listGroupRiscos(e, tipo){
         lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
+        riscosAded(e, 'G'+grupo+e, tipo)
     }
     
     let grupoFExist = document.getElementById('li-fisico' + e);
@@ -318,7 +321,8 @@ function listGroupRiscos(e, tipo){
 
 }
 
-function riscosAded(e, i){
+function riscosAded(e, i, filtro){
+    console.log('setor: ' + e + ' li: ' + i + ' risco: ' + filtro)
     let settings = {
         method:'POST',
         headers:{
@@ -327,17 +331,25 @@ function riscosAded(e, i){
         body:JSON.stringify({setores_id:e})
     }
     fetch('/gerencRiscos/riscos', settings)
-    .then(function (){
+    .then(function (response){
         return response.json();
     })
     .then(function (dados){
-        let liGRiscos = document.getElementById('G' + i);
+        // console.log(dados);
+        let liGRiscos = document.getElementById(i);
         let ulRiscos = document.createElement('ul');
         ulRiscos.setAttribute('class', 'lista-risco collapse');
+        ulRiscos.setAttribute('id', 'ul'+i+e)
+        
+        let listRiscos = dados.filter(r => r.agentes_riscos.tipo == filtro);
+        console.log(listRiscos);
 
-        let liRisco = document.createElement('li');
-        let minusCircle = document.createElement('i');
-        i.setAttribute('class', 'fas fa-minus');
+        listRiscos.forEach(arrayRiscos => {
+            let liRisco = document.createElement('li');
+            liRisco.innerHTML = '<a href="#"><i class="fas fa-minus-circle"></i></a>' + riscos;
+            ulRiscos.appendChild(liRisco);
+        })
+
 
         
         //console.log(dados);

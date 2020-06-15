@@ -17,7 +17,8 @@ const gerencRiscosController = {
     riscos:async(req,res) =>{
         let { id } = req.session.usuario;
         let { setores_id } = req.body;
-        let riscos = await perigos_ges.findAll({where:{ setores_id }});
+        let riscos = await perigos_ges.findAll({where:{ setores_id }, include:[{model:agentes_riscos, as:'agentes_riscos'}]});
+        console.log(riscos);
         res.send(riscos);
 
     },
