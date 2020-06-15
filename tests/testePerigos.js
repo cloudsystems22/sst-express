@@ -6,8 +6,10 @@ const { agentes_riscos, perigos_ges } = require('../models');
 //         console.log(data.map(p => p.toJSON()));
 //     }
 // )
+let setores_id = 3;
+let tipo = 'Biológicos';
 
-perigos_ges.findAll({attributes:['id', 'setores_id', 'risco'], include:[{model:agentes_riscos, as:'agentes_riscos'}]}).then(
+perigos_ges.findAll({where:{ setores_id }, attributes:['id', 'setores_id', 'risco'], include:[{model:agentes_riscos, as:'agentes_riscos', where:{ tipo }}]}).then(
     data => {
         console.log(data.map(p => p.toJSON()));
     }

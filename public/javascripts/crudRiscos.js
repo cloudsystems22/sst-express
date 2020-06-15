@@ -217,7 +217,7 @@ function listGroupRiscos(e, tipo){
     lnk.setAttribute('href', '#');
         
     let icoG = document.createElement('i');
-    icoG.setAttribute('class', 'fas fa-chevron-circle-down');
+    icoG.setAttribute('class', 'fas fa-chevron-circle-up');
     
     let divLiGrupo = document.createElement('div');
     let grupo;
@@ -226,7 +226,7 @@ function listGroupRiscos(e, tipo){
         liGrupo.setAttribute('id', 'G'+grupo+e);
         divLiGrupo.innerText = 'Físicos';
         icoG.setAttribute('id', 'icoG'+grupo+e)
-        lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
+        lnk.setAttribute('onclick', 'collapseListRisco("'+ 'ulG' + grupo + e +'", "'+grupo+e+'")')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
         riscosAded(e, 'G'+grupo+e, tipo)
@@ -236,7 +236,7 @@ function listGroupRiscos(e, tipo){
         liGrupo.setAttribute('id', 'G'+grupo+e);
         divLiGrupo.innerText = 'Químicos';
         icoG.setAttribute('id', 'icoG'+grupo+e)
-        lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
+        lnk.setAttribute('onclick', 'collapseListRisco("'+ 'ulG' + grupo + e +'", "'+grupo+e+'")')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
         riscosAded(e, 'G'+grupo+e, tipo)
@@ -246,7 +246,7 @@ function listGroupRiscos(e, tipo){
         liGrupo.setAttribute('id', 'G'+grupo+e);
         divLiGrupo.innerText = 'Biológicos';
         icoG.setAttribute('id', 'icoG'+grupo+e)
-        lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
+        lnk.setAttribute('onclick', 'collapseListRisco("'+ 'ulG' + grupo + e +'", "'+grupo+e+'")')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
         riscosAded(e, 'G'+grupo+e, tipo)
@@ -256,7 +256,7 @@ function listGroupRiscos(e, tipo){
         liGrupo.setAttribute('id', 'G'+grupo+e);
         divLiGrupo.innerText = 'Ergonômicos';
         icoG.setAttribute('id', 'icoG'+grupo+e)
-        lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
+        lnk.setAttribute('onclick', 'collapseListRisco("'+ 'ulG' + grupo + e +'", "'+grupo+e+'")')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
         riscosAded(e, 'G'+grupo+e, tipo)
@@ -266,7 +266,7 @@ function listGroupRiscos(e, tipo){
         liGrupo.setAttribute('id', 'G'+grupo+e);
         divLiGrupo.innerText = 'Acidentes';
         icoG.setAttribute('id', 'icoG'+grupo+e)
-        lnk.setAttribute('onclick', 'collapseListRisco('+ grupo + e +')')
+        lnk.setAttribute('onclick', 'collapseListRisco('+ 'ulG' + grupo + e +', "'+grupo+e+'")')
         divLiGrupo.setAttribute('class', 'li-'+ grupo)
         divLiGrupo.setAttribute('id', 'li-' + grupo + e)
         riscosAded(e, 'G'+grupo+e, tipo)
@@ -322,36 +322,35 @@ function listGroupRiscos(e, tipo){
 }
 
 function riscosAded(e, i, filtro){
-    console.log('setor: ' + e + ' li: ' + i + ' risco: ' + filtro)
+    //console.log('setor: ' + e + ' li: ' + i + ' risco: ' + filtro)
     let settings = {
         method:'POST',
         headers:{
             "Content-Type":"application/json"
         },
-        body:JSON.stringify({setores_id:e})
+        body:JSON.stringify({setores_id:e, tipo:filtro})
     }
-    fetch('/gerencRiscos/riscos', settings)
+    fetch('/gerencRiscos/agentes', settings)
     .then(function (response){
         return response.json();
     })
     .then(function (dados){
-        // console.log(dados);
+        console.log(dados);
         let liGRiscos = document.getElementById(i);
         let ulRiscos = document.createElement('ul');
-        ulRiscos.setAttribute('class', 'lista-risco collapse');
-        ulRiscos.setAttribute('id', 'ul'+i+e)
+        ulRiscos.setAttribute('class', 'lista-risco');
+        ulRiscos.setAttribute('id', 'ul'+i)
         
-        let listRiscos = dados.filter(r => r.agentes_riscos.tipo == filtro);
-        console.log(listRiscos);
+        // let listRiscos = dados.filter(r => r.agentes_riscos.tipo == filtro);
+        // console.log(listRiscos);
 
-        listRiscos.forEach(arrayRiscos => {
+        dados.forEach(arrayRiscos => {
             let liRisco = document.createElement('li');
-            liRisco.innerHTML = '<a href="#"><i class="fas fa-minus-circle"></i></a>' + riscos;
+            liRisco.setAttribute('id', arrayRiscos.id);
+            liRisco.innerHTML = '<a href="#"><i class="fas fa-minus-circle"></i></a>' + arrayRiscos.agentes_riscos.risco;
             ulRiscos.appendChild(liRisco);
         })
-
-
-        
+        liGRiscos.appendChild(ulRiscos);
         //console.log(dados);
     }).catch(function (error){
         alert("Erro ao carregar risco adicionado! " + error);
@@ -359,16 +358,36 @@ function riscosAded(e, i, filtro){
 
 }
 
-function collapseListRisco(e){
+function collapseListRisco(e, i){
     let lstRisco = document.getElementById(e);
     lstRisco.classList.toggle('collapse');
 
     let eff = lstRisco.classList.value;
-    let icog = document.getElementById('icoG'+e);
-    console.log(icog);
-    if(eff){
+    let icog = document.getElementById('icoG'+i);
+    console.log(eff);
+    if(eff == 'lista-risco collapse'){
         icog.setAttribute('class', 'fas fa-chevron-circle-down');
-    } else{
+    } else if(eff == 'lista-risco'){
         icog.setAttribute('class', 'fas fa-chevron-circle-up')
     }
+}
+
+function apagarRisco(e){
+    let settings = {
+        method:'POST',
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({id:e})
+    }
+    fetch('/gerencRiscos/delete', settings)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (dados){
+        let ul = document.getElementById('ulGruposRisco' + e);
+
+    }).catch(function (error){
+        alert("Erro ao deletar esse risco! " + error);
+    })
 }

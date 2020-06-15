@@ -14,19 +14,25 @@ const gerencRiscosController = {
         let gruposRiscos = await perigos_ges.findAll({where:{ setores_id }, attributes:['setores_id'], group:['tipo'], include:[{model:agentes_riscos, as:'agentes_riscos', attributes:['id', 'tipo']}]});
         res.send(gruposRiscos);
     },
-    riscos:async(req,res) =>{
+    agentes:async(req,res) =>{
         let { id } = req.session.usuario;
-        let { setores_id } = req.body;
-        let riscos = await perigos_ges.findAll({where:{ setores_id }, include:[{model:agentes_riscos, as:'agentes_riscos'}]});
-        console.log(riscos);
-        res.send(riscos);
+        let { setores_id, tipo } = req.body;
+        let agentesRiscos = await perigos_ges.findAll({where:{ setores_id }, include:[{model:agentes_riscos, as:'agentes_riscos', where:{ tipo }}]});
+        res.send(agentesRiscos);
 
     },
     update:async(req,res) => {
 
     },
     delete:async(req,res) => {
-
+        let {id } = req.body;
+        //console.log(req.body);
+        await perigos_ges.destroy({
+            where: { id }
+        })
+        //let agentesRiscos = await perigos_ges.findAll({where:{ clientes_id: idCliente }})
+        let sucesso = true;
+        res.send(sucesso);
     }
 }
 

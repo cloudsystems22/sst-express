@@ -50,10 +50,12 @@
 }
 
 .barra-grupos{
-    margin-left: 5px;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    margin-top: 35px !important;
     height: auto;
     left: 256px;
-    width: 200px;
+    width: 240px;
     background-color: #FFFFFF;
     box-shadow: 0 0 10px #696868;
     border: solid 1px hsl(0, 2%, 78%);
@@ -66,7 +68,7 @@
     width: 100%;
     height: 100vh;
     left: 0;
-    background-color: hsla(0, 0%, 100%, 0.877);
+    background-color: hsla(0, 0%, 100%, 0.973);
     opacity: 1;
     transition: opacity 0.1s;
     z-index: 12;
@@ -89,18 +91,7 @@
 
 
 /* Riscos Ocupacionais */
-.grupo-fisicos{
-    border-radius: 100%;
-    background-color: #29bd04;
-    color:#FFFFFF;
-    font-weight: bold;
-    padding: 3px;
-    width: 50px;
-    height: 50px;
-    position: relative;
-    top: 92px;
-    left: -250px;
-}
+
 
 @media (max-width:1440px){
     .barra-riscos{
