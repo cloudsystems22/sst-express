@@ -12,7 +12,7 @@ const setoresController = {
     },
     load:async(req,res) => {
         let { id } = req.body;
-        let setor = await Setores.findAll({where: { id }});
+        let setor = await Setores.findAll({where: { id }, include:[{model:perigos_ges, as:'perigos_ges', include:[{model:agentes_riscos, as: 'agentes_riscos', attributes:['tipo']}]}]});
         res.send(setor);
     },
     update:async(req,res) =>{

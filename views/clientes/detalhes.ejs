@@ -41,13 +41,13 @@
                         <div class="col-md-9">
                             <p>
                                 <span id='setor-<%=s.id %>'><%=s.setores %> </span> 
-                                <a href="#" onclick="posicao('<%=s.id %>')" data-toggle="modal" data-target="#modalSetor"><i class="fas fa-edit"></i></a>
-                                <a href="#" onclick="removSetor('<%=s.id %>')"><i class="fas fa-times"></i></a> 
+                                <a href="#" title="Editar Setor" onclick="posicao('<%=s.id %>')" data-toggle="modal" data-target="#modalSetor"><i class="fas fa-edit"></i></a>
+                                <a href="#" title="Excluir Setor" onclick="removSetor('<%=s.id %>')"><i class="fas fa-times"></i></a> 
                             </p>
                             
                         </div>
                         <div class="col-md-3">
-                            <a href="#" title='Novo Risco' onclick="barraRiscos('<%=s.id %>')"><i class="fas fa-plus-circle"></i></a>
+                            <a href="#" title='Gerenciar Risco' onclick="barraRiscos('<%=s.id %>')"><i class="fas fa-plus-circle"></i></a>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,15 @@
 
                     </div>
                 </div>
-                
+                <ul class="lista-riscos lst-riscos-center">
+                <% let gruposRiscos = s.perigos_ges; %>
+               
+                <% gruposRiscos.forEach(array => { %>
+                    <p><%=array.agentes_riscos.tipo %></p>
+              
+                <% }) %>
+
+                </ul>
             </div>
             <div class="detalhes-setor" id="detailSetor<%=s.id %>">
                 <div class="row">

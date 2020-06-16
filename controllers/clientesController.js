@@ -1,4 +1,4 @@
-let { sequelize,  Usuario, nivelAcessoUsuario, Licensa, Clientes, ClientesLicensa } = require('../models');
+let { sequelize,  Usuario, nivelAcessoUsuario, Licensa, Clientes, ClientesLicensa, Setores, perigos_ges, agentes_riscos } = require('../models');
 const clientesController = {
     index:async(req, res) => {
         let { id } = req.session.usuario;
@@ -28,7 +28,17 @@ const clientesController = {
         let { idcli } = req.query;
         let usuarioAcesso = await nivelAcessoUsuario.findAll({include:['Usuario', 'niveisAcesso'], where: { usuario_id: id }});
         let licensa = await Licensa.findOne({where: { usuario_id: id }});
-        let cliente = await Clientes.findOne({include:['Setores'], where: { id:idcli }});
+        let cliente = await Clientes.findOne({
+            where: { id:idcli },
+            include:[{model:Setores, as:'Setores', include:[
+                {
+                    model:perigos_ges, as:'perigos_ges', include:[{
+                        model:agentes_riscos,
+                        as:'agentes_riscos'
+                    }]
+                }
+            ]}]
+        });
         res.render('clientes/detalhes', { title:'Detalhes - ', cliente, usuarioAcesso });
     },
     form:async(req, res) => {

@@ -59,7 +59,8 @@ const perigos_ges = (sequelize, DataTypes) => {
         }
     );
     perigosGes.associate = (models) => {
-        perigosGes.belongsTo(models.agentes_riscos, {foreignKey:'agentes_riscos_id', as:'agentes_riscos'})
+        perigosGes.belongsTo(models.agentes_riscos, {foreignKey:'agentes_riscos_id', as:'agentes_riscos'});
+        perigosGes.belongsTo(models.Setores, {foreignKey:'setores_id', as:'Setores'});
     }
     return perigosGes;
 
