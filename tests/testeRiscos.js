@@ -1,4 +1,4 @@
-const { agentes_riscos, perigos_ges } = require('../models');
+const { agentes_riscos, perigos_ges, Setores } = require('../models');
 
 // Setores.findAll({include:'Clientes'}).then(
 //     data => {

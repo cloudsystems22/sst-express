@@ -1,4 +1,4 @@
-INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Ruídos', 'Físicos');
+INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`, `cor`, `hexadecimal`) VALUES ('Ruídos', 'Físicos', 'verde');
 INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Vibrações', 'Físicos');
 INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Radiações Ionizantes', 'Físicos');
 INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Radiações não Ionizantes', 'Físicos');
@@ -13,12 +13,12 @@ INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Neblinas', 'Quím
 INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Gases', 'Químicos');
 INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Vapores', 'Químicos');
 INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Substâncias, compostos ou produtos químicos em geral', 'Químicos');
-INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Vírus', 'Biológico');
-INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Bactérias', 'Biológico');
-INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Protozoários', 'Biológica');
-INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Fungos', 'Bilógico');
-INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Parasitas', 'Bilógico');
-INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Bacilos', 'Biológico');
+INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Vírus', 'Biológicos');
+INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Bactérias', 'Biológicos');
+INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Protozoários', 'Biológicos');
+INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Fungos', 'Bilógicos');
+INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Parasitas', 'Bilógicos');
+INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Bacilos', 'Biológicos');
 INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Esforço físico intenso', 'Ergonômicos');
 INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Levantamento e transporte manual de peso', 'Ergonômicos');
 INSERT INTO `jsst`.`agentes_riscos` (`risco`, `tipo`) VALUES ('Exigência de postura inadequada', 'Ergonômicos');

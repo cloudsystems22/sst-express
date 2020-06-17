@@ -12,8 +12,10 @@ const agentes_riscos = (sequelize, DataTypes) => {
                 type:DataTypes.STRING(150),
                 allowNull: false
             },
-            tipo: { type:DataTypes.STRING(45) },
-            danos: { type: DataTypes.STRING(450) }
+            tipo: { type:DataTypes.STRING(50) },
+            danos: { type: DataTypes.STRING(450) },
+            cor: {type:DataTypes.STRING(45)},
+            hexadecimal: {type:DataTypes.STRING(45)}
         },
         {
             tableMame:'agentes_riscos',
@@ -21,7 +23,7 @@ const agentes_riscos = (sequelize, DataTypes) => {
         }
     );
     agentesRiscos.associate = (models) => {
-        agentesRiscos.hasMany(models.perigos_ges, {foreignKey:'agentes_riscos_id', as:'perigos_ges'})
+        //agentesRiscos.hasMany(models.perigos_ges, {foreignKey:'agentes_riscos_id', as:'perigos_ges'})
     }
     return agentesRiscos;
 
