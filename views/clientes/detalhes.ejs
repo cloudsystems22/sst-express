@@ -66,14 +66,20 @@
 
                     </div>
                 </div>
-                <ul class="lista-riscos lst-riscos-center">
-                <% let gruposRiscos = s.perigos_ges; %>
-               
-                <% gruposRiscos.forEach(array => { %>
-                    <p><%=array.agentes_riscos.tipo %></p>
-              
-                <% }) %>
-
+                <ul class="lista-riscos lst-riscos-center" id="ulRiscosDetalhes<%s.id %>">
+                  
+                   
+                     <!-- <li><div class="row div-gruporisco"><a href="#" onclick="collapseListRisco('fisicos')"><i id='icoGfisicos' class="fas fa-chevron-circle-down"></i></a><div class="li-fisico">Físicos</div></div>
+                                <ul id='fisicos' class="lista-risco collapse">
+                                    <li><a href="#"><i class="fas fa-minus-circle"></i></a> Ruídos</li>
+                                    <li><a href="#"><i class="fas fa-minus-circle"></i></a> Frio</li>
+                                </ul>
+                            </li>
+                            <li><div class="row div-gruporisco"><a href="#" onclick="collapseListRisco('quimicos')"><i id='icoGquimicos' class="fas fa-chevron-circle-down"></i></a><div class="li-quimico">Químicos</div></div>
+                                <ul id='quimicos' class="lista-risco collapse">
+                                    <li><a href="#"><i class="fas fa-minus-circle"></i></a> Poeiras</li>
+                                </ul>
+                            </li> -->
                 </ul>
             </div>
             <div class="detalhes-setor" id="detailSetor<%=s.id %>">
@@ -135,17 +141,7 @@
                             </p>
                         </div>
                         <ul class="lista-riscos lst-riscos-center" id="ulGruposRisco<%=s.id %>">
-                            <!-- <li><div class="row div-gruporisco"><a href="#" onclick="collapseListRisco('fisicos')"><i id='icoGfisicos' class="fas fa-chevron-circle-down"></i></a><div class="li-fisico">Físicos</div></div>
-                                <ul id='fisicos' class="lista-risco collapse">
-                                    <li><a href="#"><i class="fas fa-minus-circle"></i></a> Ruídos</li>
-                                    <li><a href="#"><i class="fas fa-minus-circle"></i></a> Frio</li>
-                                </ul>
-                            </li>
-                            <li><div class="row div-gruporisco"><a href="#" onclick="collapseListRisco('quimicos')"><i id='icoGquimicos' class="fas fa-chevron-circle-down"></i></a><div class="li-quimico">Químicos</div></div>
-                                <ul id='quimicos' class="lista-risco collapse">
-                                    <li><a href="#"><i class="fas fa-minus-circle"></i></a> Poeiras</li>
-                                </ul>
-                            </li> -->
+                           
                         </ul>
                     </div>
                 </div>

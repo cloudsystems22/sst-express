@@ -39,6 +39,7 @@ const clientesController = {
                 }
             ]}]
         });
+        
         res.render('clientes/detalhes', { title:'Detalhes - ', cliente, usuarioAcesso });
     },
     form:async(req, res) => {
