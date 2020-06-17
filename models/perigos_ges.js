@@ -13,10 +13,6 @@ const perigos_ges = (sequelize, DataTypes) => {
                 allowNull:false
             },
             fase:{type:DataTypes.STRING(45)},
-            agentes_riscos_id: {
-                type:DataTypes.INTEGER,
-                allowNull:false
-            },
             danos:{
                 type:DataTypes.STRING(150)
             },
@@ -38,16 +34,16 @@ const perigos_ges = (sequelize, DataTypes) => {
             monitoramento:{
                 type:DataTypes.STRING(50)
             },
-            imgfonte1:{
+            Image1:{
                 type:DataTypes.STRING(45)
             },
-            imgfonte2:{
+            Image2:{
                 type:DataTypes.STRING(45)
             },
-            imgfonte3:{
+            Image3:{
                 type:DataTypes.STRING(45)
             },
-            setores_id:{
+            setores_riscos_id:{
                 type:DataTypes.INTEGER,
                 allowNull:false
             }
@@ -59,8 +55,7 @@ const perigos_ges = (sequelize, DataTypes) => {
         }
     );
     perigosGes.associate = (models) => {
-        perigosGes.belongsTo(models.agentes_riscos, {foreignKey:'agentes_riscos_id', as:'agentes_riscos'});
-        perigosGes.belongsTo(models.Setores, {foreignKey:'setores_id', as:'Setores'});
+        perigosGes.belongsTo(models.setores_riscos, {foreignKey:'setores_riscos_id', as:'setores_riscos'});
     }
     return perigosGes;
 
