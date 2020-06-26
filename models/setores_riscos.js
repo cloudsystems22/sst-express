@@ -23,8 +23,8 @@ const setores_riscos = (sequelize, DataTypes) => {
         }
     )
     setoresRiscos.associate = (models) => {
-        setoresRiscos.hasMany(models.Setores, {foreignKey:'setores_id', as:'Setores' });
-        setoresRiscos.hasMany(models.agentes_riscos, {foreignKey:'agentes_riscos_id', as:'agentes_riscos'});
+        setoresRiscos.belongsTo(models.Setores, {foreignKey:'setores_id', as:'Setores' });
+        setoresRiscos.belongsTo(models.agentes_riscos, {foreignKey:'agentes_riscos_id', as:'agentes_riscos'});
     }
     return setoresRiscos;
 }

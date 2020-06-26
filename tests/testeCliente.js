@@ -1,5 +1,4 @@
-const {sequelize, Clientes, Setores, perigos_ges, agentes_riscos, ClientesLicensa, Licensa } = require('../models');
-const setoresController = require('../controllers/setoresController');
+const {sequelize, Clientes, Setores, setores_riscos, perigos_ges, agentes_riscos, ClientesLicensa, Licensa } = require('../models');
 
 // ClientesLicensa.findAll({include:'Clientes', include:'Licensa'}).then(
 //     data => {
@@ -13,15 +12,16 @@ const setoresController = require('../controllers/setoresController');
 // )
 
 Clientes.findAll({
-    where: { id: 4},
-    include:[{model:Setores, as:'Setores', include:[
-        {
-            model:perigos_ges, as:'perigos_ges', include:[{
-                model:agentes_riscos,
-                as:'agentes_riscos'
+    include:[{model:Setores, as:'Setores', 
+                include:[{
+                    model:setores_riscos, as:'setores_riscos', 
+                    include:[{
+                        model:agentes_riscos, as:'agentes_riscos',
+                        attributes:['tipo', 'hexadecimal'],
+                        group:['tipo']
+                    }]
+                }]
             }]
-        }
-    ]}]
 }).then(
     data => {
         console.log(data.map(c => c.toJSON()));

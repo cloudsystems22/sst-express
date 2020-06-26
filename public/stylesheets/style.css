@@ -144,7 +144,7 @@ main{
 
 .capsula-empresa{
   border-radius: 7px;
-  width: 200px;
+  width: 280px;
   height: 40px;
   background-color: dodgerblue;
   padding: 7px;
@@ -352,6 +352,15 @@ main{
   height: 25px;
   margin-left: 10px;
 }
+.li-grisco{
+  border-radius: 3px;
+  /* background-color: #29bd04; */
+  color: #FFFFFF;
+  width: 180px;
+  height: 20px;
+  padding: 3px;
+  margin-left: 3px;
+}
 .riscos-fisicos{
   border-radius: 3px;
   background-color: #29bd04;
@@ -374,8 +383,8 @@ main{
 }
 .riscos-quimicos{
   border-radius: 3px;
-  background-color: hsl(0, 96%, 38%);
-  color:#FFFFFF;
+  background-color: #d80606;
+  color: #FFFFFF;
   font-weight: bold;
   padding: 3px;
   width: 238px;
@@ -385,7 +394,7 @@ main{
 }
 .li-quimico{
   border-radius: 3px;
-  background-color: hsl(0, 96%, 38%);
+  background-color: #d80606;
   color: #FFFFFF;
   width: 180px;
   height: 20px;
@@ -394,7 +403,7 @@ main{
 }
 .riscos-ergonomico{
   border-radius: 3px;
-  background-color: hsl(51, 91%, 44%);
+  background-color: #f1c70a;
   color:#FFFFFF;
   font-weight: bold;
   padding: 3px;
@@ -405,7 +414,7 @@ main{
 }
 .li-ergonomico{
   border-radius: 3px;
-  background-color: hsl(51, 91%, 44%);
+  background-color: #f1c70a;
   color: #FFFFFF;
   width: 180px;
   height: 20px;
@@ -414,7 +423,7 @@ main{
 }
 .riscos-biologico{
   border-radius: 3px;
-  background-color: hsl(27, 93%, 42%);
+  background-color: #ce6108;
   color:#FFFFFF;
   font-weight: bold;
   padding: 3px;
@@ -425,7 +434,7 @@ main{
 }
 .li-biologico{
   border-radius: 3px;
-  background-color: hsl(27, 93%, 42%);
+  background-color: #ce6108;
   color: #FFFFFF;
   width: 180px;
   height: 20px;
@@ -434,7 +443,7 @@ main{
 }
 .riscos-acidentes{
   border-radius: 3px;
-  background-color: hsl(224, 91%, 47%);
+  background-color:#0751c0;
   color:#FFFFFF;
   font-weight: bold;
   padding: 3px;

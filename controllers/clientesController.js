@@ -1,4 +1,4 @@
-let { sequelize,  Usuario, nivelAcessoUsuario, Licensa, Clientes, ClientesLicensa, Setores, perigos_ges, agentes_riscos } = require('../models');
+let { sequelize,  Usuario, nivelAcessoUsuario, Licensa, Clientes, ClientesLicensa, Setores, perigos_ges, setores_riscos, agentes_riscos } = require('../models');
 const clientesController = {
     index:async(req, res) => {
         let { id } = req.session.usuario;
@@ -30,17 +30,12 @@ const clientesController = {
         let licensa = await Licensa.findOne({where: { usuario_id: id }});
         let cliente = await Clientes.findOne({
             where: { id:idcli },
-            include:[{model:Setores, as:'Setores', include:[
-                {
-                    model:perigos_ges, as:'perigos_ges', include:[{
-                        model:agentes_riscos,
-                        as:'agentes_riscos'
-                    }]
-                }
-            ]}]
+            include:[{model:Setores, as:'Setores'}]
         });
-        
-        res.render('clientes/detalhes', { title:'Detalhes - ', cliente, usuarioAcesso });
+        let gruposRiscos = await setores_riscos.findAll({attributes:['setores_id'], group:['tipo', 'setores_id'], include:[{model:Setores, as:'Setores', where:{ clientes_id: idcli }}, {model:agentes_riscos, as:'agentes_riscos', attributes:['tipo', 'hexadecimal']}]})
+        let agentesRiscos = await setores_riscos.findAll({include:[{model:Setores, as:'Setores', where:{ clientes_id: idcli }}, {model:agentes_riscos, as:'agentes_riscos'}]})
+        console.log(gruposRiscos);
+        res.render('clientes/detalhes', { title:'Detalhes - ', cliente, gruposRiscos, agentesRiscos, usuarioAcesso });
     },
     form:async(req, res) => {
         let { id } = req.session.usuario;

@@ -7,6 +7,7 @@ function fechaBarra(e){
 
     let ulGRiscos = document.getElementById('ulGruposRisco' + e);
     ulGRiscos.innerText = '';
+    window.location.reload();
 }
 function barraRiscos(e){
     // var el = document.getElementById('cpsl-' + e);
@@ -166,7 +167,7 @@ function addRisco(e, s){
         },
         body:JSON.stringify(riscoSetor)
     }
-    fetch('/gerencRiscos/create', settings)
+    fetch('/setoresriscos/create', settings)
     .then(function (response){
         return response.json();
     })
@@ -191,12 +192,12 @@ function gruposAded(e){
         },
         body:JSON.stringify({setores_id:e})
     }
-    fetch('/gerencRiscos/grupos', settings)
+    fetch('/setoresriscos/grupos', settings)
     .then(function (response){
         return response.json();
     })
     .then(function (dados){
-        // console.log(dados);
+        //console.log(dados);
         let ulGRiscos = document.getElementById('ulGruposRisco' + e);
         ulGRiscos.innerText = '';
         dados.forEach(element => {
@@ -336,7 +337,7 @@ function riscosAded(e, i, f){
         },
         body:JSON.stringify({setores_id:e, tipo:f})
     }
-    fetch('/gerencRiscos/agentes', settings)
+    fetch('/setoresriscos/agentes', settings)
     .then(function (response){
         return response.json();
     })
@@ -384,13 +385,13 @@ function collapseListRisco(e, i){
 function apagarRisco(e, id, f, g){
     //console.log(e + ' ' + id + ' ' + f + ' ' + g);
     let settings = {
-        method:'POST',
+        method:'DELETE',
         headers:{
             "Content-Type":"application/json"
         },
         body:JSON.stringify({id:id, tipo: f})
     }
-    fetch('/gerencRiscos/delete', settings)
+    fetch('/setoresriscos/delete', settings)
     .then(function (response) {
         return response.json();
     })
