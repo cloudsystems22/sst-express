@@ -511,20 +511,22 @@ main{
   background-color: #FFFFFF;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 4px;
+  border-radius: 7px;
 }
 
 .header-setor{
   padding: 15px;
 }
 
-.grupo-riscos{
+.grupos-riscos{
   width: 1000px;
   height: 15px;
-  background-color: #29bd04;
+  /* background-color: #29bd04; */
   margin-top: 5px;
-  
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 @media (max-width: 1440px) and (max-height: 1024px){
     #formCadastro{

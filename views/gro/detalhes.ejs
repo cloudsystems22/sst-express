@@ -55,8 +55,34 @@
                 </div>
             </div>
             <div class="col-md-12">
-               <div class="grupo-riscos">
-    
+               <div class="grupos-riscos flex flex-wrap">
+                <% for(let g of gruposRiscos) { %>
+                    <% if (g.agentes_riscos.tipo == "Físicos") { %>
+                    <div class="li-fisico">
+                        Físicos
+                    </div>
+                    <% } %>
+                    <% if (g.agentes_riscos.tipo == "Químicos") { %>
+                    <div class="li-quimico">
+                        Químicos
+                    </div>
+                    <% } %>
+                    <% if (g.agentes_riscos.tipo == "Biológicos") { %>
+                    <div class="li-biologico">
+                        Biológicos
+                    </div>
+                    <% } %>
+                    <% if (g.agentes_riscos.tipo == "Ergonômicos") { %>
+                    <div class="li-ergonomico">
+                        Ergonômicos
+                    </div>
+                    <% } %>
+                    <% if (g.agentes_riscos.tipo == "Acidentes") { %>
+                    <div class="li-acidente">
+                        Acidentes
+                    </div>
+                    <% } %>
+                <% } %>
                </div>
             </div>
         </div>
