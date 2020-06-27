@@ -1,5 +1,13 @@
-const { agentes_riscos, perigos_ges } = require('../models');
+const { Setores, agentes_riscos, setores_riscos, perigos_ges } = require('../models');
 const gerencRiscosController = {
+    details:async(req,res) => {
+        let usuario = req.session.usuario;
+        let { id } = req.query;
+        let setor = await Setores.findOne({ where: { id }});
+        let gruposRiscos = await setores_riscos.findAll({attributes:['setores_id'], group:['tipo', 'setores_id'], include:[{model:Setores, as:'Setores', where:{ id }}, {model:agentes_riscos, as:'agentes_riscos', attributes:['tipo', 'hexadecimal']}]})
+        let agentesRiscos = await setores_riscos.findAll({include:[{model:Setores, as:'Setores', where:{ id }}, {model:agentes_riscos, as:'agentes_riscos'}]})
+        res.render('gro/detalhes', {setor, gruposRiscos, agentesRiscos});
+    },
     create:async(req,res) => {
         let { id } = req.session.usuario;
         let { fase, agentes_riscos_id, danos, fonte_geradora, intensidade, tecnica_util, risco, monitoramento, imgfonte1, imgfonte2, imgfonte3, setores_id } = req.body;
@@ -7,19 +15,6 @@ const gerencRiscosController = {
         //console.log(data);
         let riscoGer = await perigos_ges.create({data, fase, agentes_riscos_id, danos, fonte_geradora, intensidade, tecnica_util, risco, monitoramento, imgfonte1, imgfonte2, imgfonte3, setores_id });
         res.send(riscoGer);
-    },
-    grupos:async(req,res) => {
-        let { id } = req.session.usuario;
-        let { setores_id } = req.body;
-        let gruposRiscos = await perigos_ges.findAll({where:{ setores_id }, attributes:['setores_id'], group:['tipo'], include:[{model:agentes_riscos, as:'agentes_riscos', attributes:['id', 'tipo']}]});
-        res.send(gruposRiscos);
-    },
-    agentes:async(req,res) =>{
-        let { id } = req.session.usuario;
-        let { setores_id, tipo } = req.body;
-        let agentesRiscos = await perigos_ges.findAll({where:{ setores_id }, include:[{model:agentes_riscos, as:'agentes_riscos', where:{ tipo }}]});
-        res.send(agentesRiscos);
-
     },
     update:async(req,res) => {
 

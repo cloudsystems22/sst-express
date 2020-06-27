@@ -12,7 +12,9 @@ const perigos_ges = (sequelize, DataTypes) => {
                 type:DataTypes.DATE,
                 allowNull:false
             },
-            fase:{type:DataTypes.STRING(45)},
+            fase:{
+                type:DataTypes.STRING(45)
+            },
             danos:{
                 type:DataTypes.STRING(150)
             },
@@ -28,11 +30,23 @@ const perigos_ges = (sequelize, DataTypes) => {
             tecnica_util:{
                 type:DataTypes.STRING(50)
             },
+            pequ:{
+                type:DataTypes.STRING(150)
+            },
+            grand:{
+                type:DataTypes.STRING(150)
+            },
             risco:{
                 type:DataTypes.STRING(50)
             },
+            in:{
+                type:DataTypes.STRING(5)
+            },
+            defin_acoe:{
+                type:DataTypes.STRING(250)
+            },
             monitoramento:{
-                type:DataTypes.STRING(50)
+                type:DataTypes.STRING(250)
             },
             Image1:{
                 type:DataTypes.STRING(45)

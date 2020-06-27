@@ -38,16 +38,16 @@
             <div class="coluna-setor" id='col-setor-<%=s.id %>'>
                 <div class="capsula-setor" id="cpsl-<%=s.id %>">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <p>
                                 <span id='setor-<%=s.id %>'><%=s.setores %> </span> 
-                                <a href="#" title="Editar Setor" onclick="posicao('<%=s.id %>')" data-toggle="modal" data-target="#modalSetor"><i class="fas fa-edit"></i></a>
-                                <a href="#" title="Excluir Setor" onclick="removSetor('<%=s.id %>')"><i class="fas fa-times"></i></a> 
                             </p>
                             
                         </div>
-                        <div class="col-md-3">
-                            <a href="#" title='Gerenciar Risco' onclick="barraRiscos('<%=s.id %>')"><i class="fas fa-plus-circle"></i></a>
+                        <div class="col-md-4">
+                            <a href="#" title="Editar Setor" onclick="posicao('<%=s.id %>')" data-toggle="modal" data-target="#modalSetor"><i class="fas fa-edit"></i></a>
+                            <a href="#" title="Excluir Setor" onclick="removSetor('<%=s.id %>')"><i class="fas fa-times"></i></a> 
+                            <a href="#" title='Gerenciar Risco' onclick="barraRiscos('<%=s.id %>')"><i class="fas fa-hard-hat"></i></a>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                                     <i id='icoGfisicos' class="fas fa-chevron-circle-down"></i>
                                 </a><div class="li-fisico"><%=g.agentes_riscos.tipo %></div>
                             </div>
-                            <% let agenteRisco = agentesRiscos.filter(r => r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                            <% let agenteRisco = agentesRiscos.filter(r => r.setores_id == s.id && r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
                             
                             <ul id='fisico' class="lista-risco">
                             <% for(let r of agenteRisco) { %>
@@ -92,7 +92,7 @@
                                         <i id='icoGquimicos' class="fas fa-chevron-circle-down"></i>
                                     </a><div class="li-quimico"><%=g.agentes_riscos.tipo %></div>
                                 </div>
-                                <% let agenteRisco = agentesRiscos.filter(r => r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                                <% let agenteRisco = agentesRiscos.filter(r => r.setores_id == s.id && r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
                             
                                 <ul id='quimico' class="lista-risco">
                                 <% for(let r of agenteRisco) { %>
@@ -108,7 +108,7 @@
                                         <i id='icoGbiologicos' class="fas fa-chevron-circle-down"></i>
                                     </a><div class="li-biologico"><%=g.agentes_riscos.tipo %></div>
                                 </div>
-                                <% let agenteRisco = agentesRiscos.filter(r => r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                                <% let agenteRisco = agentesRiscos.filter(r => r.setores_id == s.id && r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
                             
                                 <ul id='biologico' class="lista-risco">
                                 <% for(let r of agenteRisco) { %>
@@ -124,7 +124,7 @@
                                         <i id='icoGergonomicos' class="fas fa-chevron-circle-down"></i>
                                     </a><div class="li-ergonomico"><%=g.agentes_riscos.tipo %></div>
                                 </div>
-                                <% let agenteRisco = agentesRiscos.filter(r => r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                                <% let agenteRisco = agentesRiscos.filter(r => r.setores_id == s.id && r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
                             
                                 <ul id='ergonomico' class="lista-risco">
                                 <% for(let r of agenteRisco) { %>
@@ -140,7 +140,7 @@
                                         <i id='icoGacidentes' class="fas fa-chevron-circle-down"></i>
                                     </a><div class="li-acidente"><%=g.agentes_riscos.tipo %></div>
                                 </div>
-                                <% let agenteRisco = agentesRiscos.filter(r => r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                                <% let agenteRisco = agentesRiscos.filter(r => r.setores_id == s.id && r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
                             
                                 <ul id='acidente' class="lista-risco">
                                 <% for(let r of agenteRisco) { %>
@@ -218,9 +218,16 @@
                     <div class="col-md-12">
                         <hr>
                         <div class="capsula-setor-riscos cps-center">
-                            <p>
-                                <%=s.setores %>
-                            </p>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <p>
+                                        <%=s.setores %>
+                                    </p>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="/gerencriscos?id=<%=s.id%>" target="_blank" title='Gerenciar Risco'><i class="fas fa-hard-hat"></i></a>
+                                </div>
+                            </div>
                         </div>
                         <ul class="lista-riscos lst-riscos-center" id="ulGruposRisco<%=s.id %>">
                            

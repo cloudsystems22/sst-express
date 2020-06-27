@@ -253,7 +253,7 @@ function atualizarDetalhes(e){
         setores: document.getElementById('txtDSetor' + e).value,
         descricao: document.getElementById('txtareaDSetor' + e).value,
         num_func_m: document.getElementById('txtDNFM'+ e).value,
-        num_func_f: document.getElementById('txtDNFF' + e).velue,
+        num_func_f: document.getElementById('txtDNFF' + e).value,
         clientes_id: document.getElementById('hddIdCliente').value
     };
     let settings = {

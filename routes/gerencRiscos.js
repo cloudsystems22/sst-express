@@ -16,8 +16,7 @@ let upload = multer({ storage: storage});
 const gerencRiscosController = require('../controllers/gerencRiscosController');
 const authMiddlewares = require('../middlewares/authMiddleware');
 
-router.post('/grupos', authMiddlewares, gerencRiscosController.grupos);
-router.post('/agentes', authMiddlewares, gerencRiscosController.agentes);
+router.get('/', authMiddlewares, gerencRiscosController.details)
 router.post('/create', authMiddlewares, gerencRiscosController.create);
 router.post('/update', authMiddlewares, gerencRiscosController.update);
 router.post('/delete', authMiddlewares, gerencRiscosController.delete);

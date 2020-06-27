@@ -34,7 +34,7 @@ const clientesController = {
         });
         let gruposRiscos = await setores_riscos.findAll({attributes:['setores_id'], group:['tipo', 'setores_id'], include:[{model:Setores, as:'Setores', where:{ clientes_id: idcli }}, {model:agentes_riscos, as:'agentes_riscos', attributes:['tipo', 'hexadecimal']}]})
         let agentesRiscos = await setores_riscos.findAll({include:[{model:Setores, as:'Setores', where:{ clientes_id: idcli }}, {model:agentes_riscos, as:'agentes_riscos'}]})
-        console.log(gruposRiscos);
+        //console.log(gruposRiscos);
         res.render('clientes/detalhes', { title:'Detalhes - ', cliente, gruposRiscos, agentesRiscos, usuarioAcesso });
     },
     form:async(req, res) => {
