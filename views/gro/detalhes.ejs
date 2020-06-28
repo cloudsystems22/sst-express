@@ -66,12 +66,11 @@
                         <% agente.forEach(a => { %>
                             <div class="list-risco">
                                 <div class="row">
-                                    <div class="col-md-7">
+                                    <div class="col-md-9">
                                         <%=a.agentes_riscos.risco %>
                                     </div>
-                                    <div class="col-md-5">
-                                        <a href="#"><i class="fas fa-edit"></i></a>
-                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                    <div class="col-md-3">
+                                        <a href="#" onclick="abrirPlanRiscos('<%=agente[0].id %>')"><i class="fas fa-edit"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -86,12 +85,11 @@
                         <% agente.forEach(a => { %>
                             <div class="list-risco">
                                 <div class="row">
-                                    <div class="col-md-7">
+                                    <div class="col-md-9">
                                         <%=a.agentes_riscos.risco %>
                                     </div>
-                                    <div class="col-md-5">
-                                        <a href="#"><i class="fas fa-edit"></i></a>
-                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                    <div class="col-md-3">
+                                        <a href="#" onclick="abrirPlanRiscos('<%=agente[0].id %>')"><i class="fas fa-edit"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -106,12 +104,11 @@
                         <% agente.forEach(a => { %>
                             <div class="list-risco">
                                 <div class="row">
-                                    <div class="col-md-7">
+                                    <div class="col-md-9">
                                         <%=a.agentes_riscos.risco %>
                                     </div>
-                                    <div class="col-md-5">
-                                        <a href="#"><i class="fas fa-edit"></i></a>
-                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                    <div class="col-md-3">
+                                        <a href="#" onclick="abrirPlanRiscos('<%=agente[0].id %>')"><i class="fas fa-edit"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -126,12 +123,11 @@
                         <% agente.forEach(a => { %>
                             <div class="list-risco">
                                 <div class="row">
-                                    <div class="col-md-7">
+                                    <div class="col-md-9">
                                         <%=a.agentes_riscos.risco %>
                                     </div>
-                                    <div class="col-md-5">
-                                        <a href="#"><i class="fas fa-edit"></i></a>
-                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                    <div class="col-md-3">
+                                        <a href="#" onclick="abrirPlanRiscos('<%=agente[0].id %>')"><i class="fas fa-edit"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -146,19 +142,77 @@
                         <% agente.forEach(a => { %>
                             <div class="list-risco">
                                 <div class="row">
-                                    <div class="col-md-7">
+                                    <div class="col-md-9">
                                         <%=a.agentes_riscos.risco %>
                                     </div>
-                                    <div class="col-md-5">
-                                        <a href="#"><i class="fas fa-edit"></i></a>
-                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                    <div class="col-md-3">
+                                        <a href="#" onclick="abrirPlanRiscos('<%=agente[0].id %>')"><i class="fas fa-edit"></i></a>
                                     </div>
                                 </div>
                             </div>
                         <% }) %>
                     </div>
                     <% } %>
+                <!-- Gerenciamento risco -->
+                <div class="ger-risco" id="planRisco<%=agente[0].id %>">
+                    <div class="row">
+                        <div class="col-md-12">
+                           <div class="head-riscos">
+                               <div class="head-risc-inter">
+                                   <div class="row">
+                                       <div class="col-md-2">
+                                         <p>Danos</p>
+                                       </div>
+                                       <div class="col-md-1">
+                                        <p>Padrões Legais /
+                                            Limite de Exposição</p>
+                                      </div>
+                                      <div class="col-md-1">
+                                        <p>Fonte geradora</p>
+                                      </div>
+                                      <div class="col-md-1">
+                                        <p>Intensidade</p>
+                                      </div>
+                                      <div class="col-md-1">
+                                        <p>Tecnica utilizada</p>
+                                      </div>
+                                      <div class="col-md-1">
+                                        <p>P</p>
+                                      </div>
+                                      <div class="col-md-1">
+                                        <p>G</p>
+                                      </div>
+                                      <div class="col-md-1">
+                                        <p>Riscos</p>
+                                      </div>
+                                      <div class="col-md-1">
+                                        <p>IN</p>
+                                      </div>
+                                      <div class="col-md-1">
+                                          <p>Definições de ações
+                                            necessárias e prioridades</p>
+                                      </div>
+                                      <div class="col-md-1">
+                                          <p>Critério para monitoração da
+                                            exposição</p>
+                                      </div>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="input-riscos">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                </div>
+                
                 <% } %>
+
                </div>
             </div>
         </div>
@@ -175,8 +229,6 @@
 
 <!-- Requisições ajax -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="../javascripts/detalhesCliente.js"></script>
-<script src="../javascripts/crudSetor.js"></script>
-<script src="../javascripts/crudRiscos.js"></script>
-<script src="../javascripts/dashboard.js"></script>
+
+<script src="../javascripts/crudGerRiscos.js"></script>
 </html>

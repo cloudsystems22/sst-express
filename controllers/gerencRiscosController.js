@@ -6,7 +6,8 @@ const gerencRiscosController = {
         let setor = await Setores.findOne({ where: { id }});
         let gruposRiscos = await setores_riscos.findAll({attributes:['setores_id'], group:['tipo', 'setores_id'], include:[{model:Setores, as:'Setores', where:{ id }}, {model:agentes_riscos, as:'agentes_riscos', attributes:['tipo', 'hexadecimal']}]})
         let agentesRiscos = await setores_riscos.findAll({include:[{model:Setores, as:'Setores', where:{ id }}, {model:agentes_riscos, as:'agentes_riscos'}]})
-        res.render('gro/detalhes', {setor, gruposRiscos, agentesRiscos});
+        console.log(agentesRiscos);
+        res.render('gro/planilhagro', {setor, gruposRiscos, agentesRiscos});
     },
     create:async(req,res) => {
         let { id } = req.session.usuario;

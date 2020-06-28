@@ -96,8 +96,113 @@
     width: 160px;
     margin-left: 20px;
 }
-/* Riscos Ocupacionais */
 
+.table-plan-riscos {
+    width: 98%;
+    font-size: 9pt;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.head-riscos{
+    background-color: #470BF2;
+    color: #FFFFFF;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    border: none;
+}
+.head-riscos th{
+    width: 7%;
+}
+.head-riscos tr{
+    height: 30px;
+}
+.head-riscos tr th{
+    text-align: center;
+}
+.head-risc-inter{
+    padding: 5px;
+}
+.corpo-table-riscos{
+    background-color: #FFFFFF;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    border: none;
+}
+.corpo-table-riscos td{
+    width: 7%;
+}
+
+.corpo-table-riscos input{
+    border: 0;
+    background-color: #FFFFFF;
+    border-bottom: solid 1px #f5f0f0;
+    height: 35px;
+    margin-left: 3px;
+    width: 90%;
+}
+.corpo-table-riscos select{
+    width: 90%;
+    border: 0;
+    height: 35px;
+    font-size: 9pt;
+    border-bottom: solid 1px #f5f0f0;
+}
+.option-alto{
+    background-color: #f18585;
+    color: #FFFFFF;
+}
+.option-medio{
+    background-color: #f7dfad;
+    color: #FFFFFF;
+}
+.option-baixo{
+    background-color: #d4f39a;
+    color: #FFFFFF;
+}
+
+/* Riscos Ocupacionais */
+.plan-grupo-fisico{
+    background-color: #51E80A;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+}
+
+.plan-grupo-quimico{
+    background-color: #F00707;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+}
+.plan-grupo-biologico{
+    background-color: #B55007;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+}
+.plan-grupo-ergonomico{
+    background-color: #f5b733;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+}
+.plan-grupo-acidente{
+    background-color: #0b5cf2;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+}
+.agente-risco{
+    font-size: 12pt;
+    color: #918e8e;
+    font-weight: bold;
+    margin-left: 9px;
+}
 
 @media (max-width:1440px){
     .barra-riscos{
