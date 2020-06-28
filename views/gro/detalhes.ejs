@@ -57,29 +57,105 @@
             <div class="col-md-12">
                <div class="grupos-riscos flex flex-wrap">
                 <% for(let g of gruposRiscos) { %>
+                    <% let agente = agentesRiscos.filter(r => r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
                     <% if (g.agentes_riscos.tipo == "Físicos") { %>
-                    <div class="li-fisico">
-                        Físicos
+                    <div>
+                        <div class="li-fisico">
+                            Físicos
+                        </div>
+                        <% agente.forEach(a => { %>
+                            <div class="list-risco">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <%=a.agentes_riscos.risco %>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <a href="#"><i class="fas fa-edit"></i></a>
+                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
                     </div>
                     <% } %>
                     <% if (g.agentes_riscos.tipo == "Químicos") { %>
-                    <div class="li-quimico">
-                        Químicos
+                    <div>
+                        <div class="li-quimico">
+                            Químicos
+                        </div>
+                        <% agente.forEach(a => { %>
+                            <div class="list-risco">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <%=a.agentes_riscos.risco %>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <a href="#"><i class="fas fa-edit"></i></a>
+                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
                     </div>
                     <% } %>
                     <% if (g.agentes_riscos.tipo == "Biológicos") { %>
-                    <div class="li-biologico">
-                        Biológicos
+                    <div>
+                        <div class="li-biologico">
+                            Biológicos
+                        </div>
+                        <% agente.forEach(a => { %>
+                            <div class="list-risco">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <%=a.agentes_riscos.risco %>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <a href="#"><i class="fas fa-edit"></i></a>
+                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
                     </div>
                     <% } %>
                     <% if (g.agentes_riscos.tipo == "Ergonômicos") { %>
-                    <div class="li-ergonomico">
-                        Ergonômicos
+                    <div>
+                        <div class="li-ergonomico">
+                            Ergonômicos
+                        </div>
+                        <% agente.forEach(a => { %>
+                            <div class="list-risco">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <%=a.agentes_riscos.risco %>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <a href="#"><i class="fas fa-edit"></i></a>
+                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
                     </div>
                     <% } %>
                     <% if (g.agentes_riscos.tipo == "Acidentes") { %>
-                    <div class="li-acidente">
-                        Acidentes
+                    <div>
+                        <div class="li-acidente">
+                            Acidentes
+                        </div>
+                        <% agente.forEach(a => { %>
+                            <div class="list-risco">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <%=a.agentes_riscos.risco %>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <a href="#"><i class="fas fa-edit"></i></a>
+                                        <a href="#"><i class="fas fa-plus-circle"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
                     </div>
                     <% } %>
                 <% } %>

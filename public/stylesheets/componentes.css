@@ -89,7 +89,13 @@
     text-decoration: none;
 }
 
-
+.list-risco{
+    background-color: #FFFFFF;
+    margin:3px;
+    padding: 3px;
+    width: 160px;
+    margin-left: 20px;
+}
 /* Riscos Ocupacionais */
 
 
