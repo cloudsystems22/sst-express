@@ -1,4 +1,5 @@
 const { Setores, agentes_riscos, setores_riscos, perigos_ges } = require('../models');
+const { Op } = require("sequelize");
 const gerencRiscosController = {
     details:async(req,res) => {
         let usuario = req.session.usuario;
@@ -11,10 +12,17 @@ const gerencRiscosController = {
     },
     create:async(req,res) => {
         let { id } = req.session.usuario;
-        let { data, fase, agentes_riscos_id, danos, fonte_geradora, intensidade, tecnica_util, risco, monitoramento, setores_riscos_id } = req.body;
+        let { data, fase, agentes_riscos_id, descr_risco, danos, fonte_geradora, intensidade, tecnica_util, risco, monitoramento, setores_riscos_id } = req.body;
         console.log(req.body);
-        let riscoGer = await perigos_ges.create({data, fase, agentes_riscos_id, danos, fonte_geradora, intensidade, tecnica_util, risco, monitoramento, setores_riscos_id });
+        let riscoGer = await perigos_ges.create({data, fase, agentes_riscos_id, descr_risco, danos, fonte_geradora, intensidade, tecnica_util, risco, monitoramento, setores_riscos_id });
+        console.log(riscoGer);
         res.send(riscoGer);
+    },
+    carrega:async(req,res) => {
+        let { setores_riscos_id, data } = req.body;
+        let riscoGes = await perigos_ges.findAll({ where:{ [Op.and]: [{setores_riscos_id}, {data}] }});
+        console.log(riscoGes);
+        res.send(riscoGes);
     },
     update:async(req,res) => {
 

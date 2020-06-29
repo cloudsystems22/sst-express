@@ -28,7 +28,7 @@ const perigos_ges = (sequelize, DataTypes) => {
                 type:DataTypes.STRING(450)
             },
             intensidade:{
-                type:DataTypes.STRING(5)
+                type:DataTypes.STRING(50)
             },
             tecnica_util:{
                 type:DataTypes.STRING(50)
@@ -72,7 +72,7 @@ const perigos_ges = (sequelize, DataTypes) => {
         }
     );
     perigosGes.associate = (models) => {
-        //perigosGes.belongsTo(models.setores_riscos, {foreignKey:'setores_riscos_id', as:'setores_riscos'});
+        perigosGes.belongsTo(models.setores_riscos, {foreignKey:'setores_riscos_id', as:'setores_riscos'});
     }
     return perigosGes;
 

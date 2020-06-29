@@ -64,8 +64,8 @@
                                     </div>
                                     <div class="col-md-2">
                                         <select name="" id="faseGes" class="form-control">
-                                            <option value="">Antecipação</option>
-                                            <option value="">Reconhecimento</option>
+                                            <option value="Antecipação">Antecipação</option>
+                                            <option value="Reconhecimento">Reconhecimento</option>
                                         </select>
                                     </div>
 
@@ -161,7 +161,7 @@
                                 <td><input type="text" id="inputIn<%=a.id %>" /></td>
                                 <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
                                 <td><input type="text" id="inputMonit<%=a.id %>"/></td>
-                                <td><a href="#"><i class="fas fa-sync-alt"></i></a></td>
+                                <td><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-sync-alt"></i></a></td>
                               </tr>
                             </tbody>
                            <% }) %>
@@ -214,7 +214,7 @@
                                     <td><input type="text" id="inputIn<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
                                     <td><input type="text" id="inputMonit<%=a.id %>"/></td>
-                                    <td><a href="#"><i class="fas fa-sync-alt"></i></a></td>
+                                    <td><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-sync-alt"></i></a></td>
                                    </tr>
                                  </tbody>
                                 <% }) %>
@@ -267,7 +267,7 @@
                                     <td><input type="text" id="inputIn<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
                                     <td><input type="text" id="inputMonit<%=a.id %>"/></td>
-                                    <td><a href="#"><i class="fas fa-sync-alt"></i></a></td>
+                                    <td><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-sync-alt"></i></a></td>
                                    </tr>
                                  </tbody>
                                 <% }) %>
@@ -320,7 +320,7 @@
                                     <td><input type="text" id="inputIn<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
                                     <td><input type="text" id="inputMonit<%=a.id %>"/></td>
-                                    <td><a href="#"><i class="fas fa-sync-alt"></i></a></td>
+                                    <td><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-sync-alt"></i></a></td>
                                    </tr>
                                  </tbody>
                                 <% }) %>
@@ -373,7 +373,7 @@
                                     <td><input type="text" id="inputIn<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
                                     <td><input type="text" id="inputMonit<%=a.id %>"/></td>
-                                    <td><a href="#"><i class="fas fa-sync-alt"></i></a></td>
+                                    <td><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-sync-alt"></i></a></td>
                                    </tr>
                                  </tbody>
                                 <% }) %>

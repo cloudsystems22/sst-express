@@ -18,6 +18,7 @@ const authMiddlewares = require('../middlewares/authMiddleware');
 
 router.get('/', authMiddlewares, gerencRiscosController.details)
 router.post('/create', authMiddlewares, gerencRiscosController.create);
+router.post('/carrega', authMiddlewares, gerencRiscosController.carrega);
 router.post('/update', authMiddlewares, gerencRiscosController.update);
 router.post('/delete', authMiddlewares, gerencRiscosController.delete);
 
