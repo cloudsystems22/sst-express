@@ -15,6 +15,9 @@ const perigos_ges = (sequelize, DataTypes) => {
             fase:{
                 type:DataTypes.STRING(45)
             },
+            descr_risco:{
+                type:DataTypes.STRING(150)
+            },
             danos:{
                 type:DataTypes.STRING(150)
             },
