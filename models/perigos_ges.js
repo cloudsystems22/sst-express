@@ -42,7 +42,7 @@ const perigos_ges = (sequelize, DataTypes) => {
             risco:{
                 type:DataTypes.STRING(50)
             },
-            in:{
+            inn:{
                 type:DataTypes.STRING(5)
             },
             defin_acoe:{

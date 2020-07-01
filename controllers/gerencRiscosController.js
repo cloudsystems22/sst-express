@@ -12,11 +12,12 @@ const gerencRiscosController = {
     },
     create:async(req,res) => {
         let { id } = req.session.usuario;
-        let { data, fase, agentes_riscos_id, descr_risco, danos, fonte_geradora, intensidade, tecnica_util, risco, monitoramento, setores_riscos_id } = req.body;
+        let { data, fase, agentes_riscos_id, descr_risco, lim_expo, danos, fonte_geradora, intensidade, tecnica_util, pequ, grand, risco, inn, defin_acoe, monitoramento, setores_riscos_id } = req.body;
         //console.log(req.body);
-        let riscoGer = await perigos_ges.create({data, fase, agentes_riscos_id, descr_risco, danos, fonte_geradora, intensidade, tecnica_util, risco, monitoramento, setores_riscos_id });
+        let riscoGer = await perigos_ges.create({data, fase, agentes_riscos_id, descr_risco, lim_expo, danos, fonte_geradora, intensidade, tecnica_util, pequ, grand, risco, inn, defin_acoe, monitoramento, setores_riscos_id });
         //console.log(riscoGer);
-        res.send(riscoGer);
+        let riscoGes = await perigos_ges.findAll({where:{ id:riscoGer.id }, include:[{model:setores_riscos, as:'setores_riscos', include:[{model:agentes_riscos, as:'agentes_riscos'}]}]});
+        res.send(riscoGes);
     },
     carrega:async(req,res) => {
         let { setores_id, data } = req.body;
@@ -25,7 +26,11 @@ const gerencRiscosController = {
         res.send(riscoGes);
     },
     update:async(req,res) => {
-
+        //let { id } = req.session.usuario;
+        let { id, data, fase, agentes_riscos_id, descr_risco, lim_expo, danos, fonte_geradora, intensidade, tecnica_util, pequ, grand, risco, inn, defin_acoe, monitoramento, setores_riscos_id } = req.body;
+        let riscoGer = await perigos_ges.update({data, fase, agentes_riscos_id, descr_risco, lim_expo, danos, fonte_geradora, intensidade, tecnica_util, pequ, grand, risco, inn, defin_acoe, monitoramento, setores_riscos_id }, {where: { id }});
+        console.log(riscoGer);
+        res.send(riscoGer);
     },
     delete:async(req,res) => {
         let { id, tipo } = req.body;

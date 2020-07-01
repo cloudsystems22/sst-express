@@ -119,10 +119,12 @@
                            <% agente.forEach(a => { %>
                             <tbody>
                               <tr id="<%=a.id %>">
+                                <input type="hidden" id="hddIdRiscoAt<%=a.id %>" value="<%=a.id %>">
                                 <td class="plan-grupo-fisico">F</td>
                                 <td class="agente-risco">
                                     <%=a.agentes_riscos.risco %>
-                                    <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>" onchange="riscosInputs('<%=a.id %>')">
+                                    <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                    <input type="hidden" id="hddIdGes<%=a.id %>">
                                 </td>
                                 <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
                                 <td><input type="text" id="inputDanos<%=a.id %>" /></td>
@@ -161,7 +163,7 @@
                                 <td><input type="text" id="inputIn<%=a.id %>" /></td>
                                 <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
                                 <td><input type="text" id="inputMonit<%=a.id %>"/></td>
-                                <td><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-sync-alt"></i></a></td>
+                                <td id="tdBtns<%=a.id %>"><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-plus-circle"></i></a></td>
                               </tr>
                             </tbody>
                            <% }) %>
@@ -176,6 +178,7 @@
                                      <td class="agente-risco">
                                         <%=a.agentes_riscos.risco %>
                                         <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                        <input type="hidden" id="hddIdGes<%=a.id %>">
                                     </td>
                                     <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDanos<%=a.id %>" /></td>
@@ -214,7 +217,7 @@
                                     <td><input type="text" id="inputIn<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
                                     <td><input type="text" id="inputMonit<%=a.id %>"/></td>
-                                    <td><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-sync-alt"></i></a></td>
+                                    <td id="tdBtns<%=a.id %>"><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-plus-circle"></i></a></td>
                                    </tr>
                                  </tbody>
                                 <% }) %>
@@ -229,6 +232,7 @@
                                      <td class="agente-risco">
                                         <%=a.agentes_riscos.risco %>
                                         <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                        <input type="hidden" id="hddIdGes<%=a.id %>">
                                     </td>
                                     <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDanos<%=a.id %>" /></td>
@@ -267,7 +271,7 @@
                                     <td><input type="text" id="inputIn<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
                                     <td><input type="text" id="inputMonit<%=a.id %>"/></td>
-                                    <td><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-sync-alt"></i></a></td>
+                                    <td id="tdBtns<%=a.id %>"><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-plus-circle"></i></a></td>
                                    </tr>
                                  </tbody>
                                 <% }) %>
@@ -282,6 +286,7 @@
                                      <td class="agente-risco">
                                         <%=a.agentes_riscos.risco %>
                                         <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                        <input type="hidden" id="hddIdGes<%=a.id %>">
                                     </td>
                                     <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDanos<%=a.id %>" /></td>
@@ -320,7 +325,7 @@
                                     <td><input type="text" id="inputIn<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
                                     <td><input type="text" id="inputMonit<%=a.id %>"/></td>
-                                    <td><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-sync-alt"></i></a></td>
+                                    <td id="tdBtns<%=a.id %>"><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-plus-circle"></i></a></td>
                                    </tr>
                                  </tbody>
                                 <% }) %>
@@ -335,6 +340,7 @@
                                      <td class="agente-risco">
                                         <%=a.agentes_riscos.risco %>
                                         <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                        <input type="hidden" id="hddIdGes<%=a.id %>">
                                     </td>
                                     <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDanos<%=a.id %>" /></td>
@@ -373,7 +379,7 @@
                                     <td><input type="text" id="inputIn<%=a.id %>" /></td>
                                     <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
                                     <td><input type="text" id="inputMonit<%=a.id %>"/></td>
-                                    <td><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-sync-alt"></i></a></td>
+                                    <td id="tdBtns<%=a.id %>"><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-plus-circle"></i></a></td>
                                    </tr>
                                  </tbody>
                                 <% }) %>
