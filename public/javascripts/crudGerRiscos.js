@@ -1,6 +1,8 @@
 document.addEventListener('load', function (){
+    alert("!")
     let data = document.getElementById('dateGes').value;
     
+    let riscosGes;
 })
 
 function abrirPlanRiscos(e){
@@ -39,6 +41,7 @@ function incluirGes(e){
         })
         .then(function (dados){
             console.log(dados);
+            
             // document.getElementById('setor-'+ e).innerText = dados[0].setores;
             // let setorDetail = document.getElementById('detailSetor' + e);
             // setorDetail.classList.toggle('visivel');
@@ -54,16 +57,40 @@ function carregaRisco(dt, setId){
         headers:{
             "Content-Type":"application/json",
         },
-        body:JSON.stringify({data:dt, setores_riscos_id: setId})
+        body:JSON.stringify({data:dt, setores_id: setId})
     }
     fetch('/gerencriscos/carrega', settings)
         .then(function (response){
             return response.json();
         })
         .then(function (dados){
-            console.log(dados);
-            
+            riscosGes = dados;
+            //console.log(riscosGes.filter(r => r.setores_riscos.agentes_riscos_id == 2));
+            console.log(riscosGes);
+            dados.forEach(r => {
+                let id = r.setores_riscos.id;
+                riscosInputs(id);
+            })
+
         }).catch(function (error){
             alert("Erro ao apagar setor!" + error);
         })
 }
+
+function riscosInputs(id){
+    console.log(id);
+    let risco = riscosGes.filter(r => r.setores_riscos.id == id);
+    //console.log(riscosGes.filter(r => r.setores_riscos.id == id));
+    console.log(risco);
+    document.getElementById('inputDescrRiscos' + id).value = risco[0].descr_risco;
+    console.log(document.getElementById('inputDescrRiscos' + id));
+    document.getElementById('inputDanos' + id).value = risco[0].danos;
+
+}
+
+let dataGes = document.getElementById('dateGes');
+dataGes.addEventListener('change', function() {
+    let valData = document.getElementById('dateGes').value;
+    let setId = document.getElementById('hddSetorId').value;
+    carregaRisco(valData, setId);
+})

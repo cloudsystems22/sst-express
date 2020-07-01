@@ -7,21 +7,21 @@ const gerencRiscosController = {
         let setor = await Setores.findOne({ where: { id }});
         let gruposRiscos = await setores_riscos.findAll({attributes:['setores_id'], group:['tipo', 'setores_id'], include:[{model:Setores, as:'Setores', where:{ id }}, {model:agentes_riscos, as:'agentes_riscos', attributes:['tipo', 'hexadecimal']}]})
         let agentesRiscos = await setores_riscos.findAll({include:[{model:Setores, as:'Setores', where:{ id }}, {model:agentes_riscos, as:'agentes_riscos'}]})
-        console.log(agentesRiscos);
+        //console.log(agentesRiscos);
         res.render('gro/planilhagro', {setor, gruposRiscos, agentesRiscos});
     },
     create:async(req,res) => {
         let { id } = req.session.usuario;
         let { data, fase, agentes_riscos_id, descr_risco, danos, fonte_geradora, intensidade, tecnica_util, risco, monitoramento, setores_riscos_id } = req.body;
-        console.log(req.body);
+        //console.log(req.body);
         let riscoGer = await perigos_ges.create({data, fase, agentes_riscos_id, descr_risco, danos, fonte_geradora, intensidade, tecnica_util, risco, monitoramento, setores_riscos_id });
-        console.log(riscoGer);
+        //console.log(riscoGer);
         res.send(riscoGer);
     },
     carrega:async(req,res) => {
-        let { setores_riscos_id, data } = req.body;
-        let riscoGes = await perigos_ges.findAll({ where:{ [Op.and]: [{setores_riscos_id}, {data}] }});
-        console.log(riscoGes);
+        let { setores_id, data } = req.body;
+        let riscoGes = await perigos_ges.findAll({where:{ data }, include:[{model:setores_riscos, as:'setores_riscos', where:{ setores_id }, include:[{model:agentes_riscos, as:'agentes_riscos'}]}]});
+        //console.log(riscoGes);
         res.send(riscoGes);
     },
     update:async(req,res) => {

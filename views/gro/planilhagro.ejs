@@ -122,7 +122,7 @@
                                 <td class="plan-grupo-fisico">F</td>
                                 <td class="agente-risco">
                                     <%=a.agentes_riscos.risco %>
-                                    <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                    <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>" onchange="riscosInputs('<%=a.id %>')">
                                 </td>
                                 <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
                                 <td><input type="text" id="inputDanos<%=a.id %>" /></td>

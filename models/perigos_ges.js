@@ -9,7 +9,7 @@ const perigos_ges = (sequelize, DataTypes) => {
                 autoIncrement:true
             },
             data:{
-                type:DataTypes.DATE,
+                type:DataTypes.DATEONLY,
                 allowNull:false
             },
             fase:{
