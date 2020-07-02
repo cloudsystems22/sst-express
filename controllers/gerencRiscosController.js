@@ -6,7 +6,7 @@ const gerencRiscosController = {
         let { id } = req.query;
         //let setor = await Setores.findOne({ where: { id }});
         let riscosGes = await perigos_ges.findAll({ include:[{model:setores_riscos, as:'setores_riscos', include:[{model:agentes_riscos, as:'agentes_riscos', where:{ id }}]}]});
-        //console.log(agentesRiscos);
+        console.log(riscosGes);
         res.render('gro/detalhes', { riscosGes });
     },
     planilha:async(req,res) => {

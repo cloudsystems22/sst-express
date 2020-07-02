@@ -16,7 +16,9 @@
 </head>
 <body>
     <div id="main">
-        
+        <% riscosGes.forEach (r => { %>
+            <p><%=r.data %> - <%=r.id %> </p>
+        <% }) %>
     </div>
     
 </body>
