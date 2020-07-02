@@ -4,6 +4,14 @@ const gerencRiscosController = {
     details:async(req,res) => {
         let usuario = req.session.usuario;
         let { id } = req.query;
+        //let setor = await Setores.findOne({ where: { id }});
+        let riscosGes = await perigos_ges.findAll({ include:[{model:setores_riscos, as:'setores_riscos', include:[{model:agentes_riscos, as:'agentes_riscos', where:{ id }}]}]});
+        //console.log(agentesRiscos);
+        res.render('gro/detalhes', { riscosGes });
+    },
+    planilha:async(req,res) => {
+        let usuario = req.session.usuario;
+        let { id } = req.query;
         let setor = await Setores.findOne({ where: { id }});
         let gruposRiscos = await setores_riscos.findAll({attributes:['setores_id'], group:['tipo', 'setores_id'], include:[{model:Setores, as:'Setores', where:{ id }}, {model:agentes_riscos, as:'agentes_riscos', attributes:['tipo', 'hexadecimal']}]})
         let agentesRiscos = await setores_riscos.findAll({include:[{model:Setores, as:'Setores', where:{ id }}, {model:agentes_riscos, as:'agentes_riscos'}]})
