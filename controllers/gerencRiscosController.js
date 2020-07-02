@@ -3,11 +3,14 @@ const { Op } = require("sequelize");
 const gerencRiscosController = {
     details:async(req,res) => {
         let usuario = req.session.usuario;
+        let usuarioAcesso = await nivelAcessoUsuario.findAll({include:['Usuario', 'niveisAcesso'], where: { usuario_id: usuario.id }});
+        let licensa = await Licensa.findOne({where: { usuario_id: usuario.id }})
+        let clientesLicensa = await ClientesLicensa.findAll({include:['Clientes'], where: {licensa_id: licensa.id }});
         let { id } = req.query;
         //let setor = await Setores.findOne({ where: { id }});
-        let riscosGes = await perigos_ges.findAll({ include:[{model:setores_riscos, as:'setores_riscos', include:[{model:agentes_riscos, as:'agentes_riscos', where:{ id }}]}]});
+        let riscosGes = await perigos_ges.findAll({ include:[{where:{ id }, model:setores_riscos, as:'setores_riscos', include:[{model:agentes_riscos, as:'agentes_riscos'}]}]});
         console.log(riscosGes);
-        res.render('gro/detalhes', { riscosGes });
+        res.render('gro/detalhes', { title:'Detalhes riscos', riscosGes, usuarioAcesso, clientesLicensa });
     },
     planilha:async(req,res) => {
         let usuario = req.session.usuario;

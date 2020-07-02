@@ -22,7 +22,7 @@ const { agentes_riscos, perigos_ges, Setores, setores_riscos } = require('../mod
 //     }
 // )
 
-setores_riscos.findAll({include:[{model:Setores, as:'Setores', where:{ clientes_id: 1 }}, {model:agentes_riscos, as:'agentes_riscos'}]}).then(
+setores_riscos.findAll({include:[{model:Setores, as:'Setores', where:{ clientes_id: 1 }}, {model:agentes_riscos, as:'agentes_riscos', where:{ id: 2 }}]}).then(
     data => {
         console.log(data.map(s => s.toJSON()));
     }
