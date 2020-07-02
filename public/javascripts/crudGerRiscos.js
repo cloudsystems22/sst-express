@@ -86,7 +86,12 @@ function carregaRisco(dt, setId){
                     riscosInputs(id);
                 })
             } else {
-               limpaCampos();
+                let input = document.querySelectorAll('.input-id-risco');
+                input.forEach(i => {
+                    let id = i.value;
+                    limpaCampos(id);
+                })
+
             }
             //console.log(riscosGes.filter(r => r.setores_riscos.agentes_riscos_id == 2));
             //console.log(riscosGes);
@@ -124,15 +129,21 @@ function riscosInputs(id){
         document.getElementById('inputIn' + id).value = risco[0].inn;
         document.getElementById('inputDefAc' + id).value = risco[0].defin_acoe;
         document.getElementById('inputMonit' + id).value = risco[0].monitoramento;
-    } else {
-      
-    }
+    } 
     //console.log(riscosGes.filter(r => r.setores_riscos.id == id));
    
 
 }
 
 function limpaCampos(id){
+    let tdbtns = document.getElementById('tdBtns' + id);
+    tdbtns.innerText = '';
+    let link = document.createElement('a');
+    link.setAttribute('href', '#');
+    link.setAttribute('onclick', 'incluirGes('+ id +')');
+    link.innerHTML = '<i class="fas fa-plus-circle"></i>';
+    tdbtns.appendChild(link);
+
     document.getElementById('hddIdGes' + id).value = '';
     document.getElementById('inputDescrRiscos' + id).value = '';
     document.getElementById('inputDanos' + id).value = '';
@@ -140,10 +151,10 @@ function limpaCampos(id){
     document.getElementById('inputFont' + id).value = '';
     document.getElementById('inputInts' + id).value = '';
     
-    document.getElementById('slcTecnica' + id).value = '';
-    document.getElementById('slcPequ' + id).value = '';
-    document.getElementById('slcGrand' + id).value = '';
-    document.getElementById('slcRisc' + id).value = '';
+    document.getElementById('slcTecnica' + id).value = 'Qualitativa';
+    document.getElementById('slcPequ' + id).value = '1';
+    document.getElementById('slcGrand' + id).value = '1';
+    document.getElementById('slcRisc' + id).value = '1';
 
     document.getElementById('inputIn' + id).value = '';
     document.getElementById('inputDefAc' + id).value = '';

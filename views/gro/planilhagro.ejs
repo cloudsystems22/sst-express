@@ -119,7 +119,7 @@
                            <% agente.forEach(a => { %>
                             <tbody>
                               <tr id="<%=a.id %>">
-                                <input type="hidden" id="hddIdRiscoAt<%=a.id %>" value="<%=a.id %>">
+                                <input type="hidden" id="hddIdRiscoAt<%=a.id %>" class="input-id-risco" value="<%=a.id %>">
                                 <td class="plan-grupo-fisico">F</td>
                                 <td class="agente-risco">
                                     <%=a.agentes_riscos.risco %>
@@ -174,6 +174,7 @@
                                 <% agente.forEach(a => { %>
                                  <tbody>
                                    <tr id="<%=a.id %>">
+                                     <input type="hidden" id="hddIdRiscoAt<%=a.id %>" class="input-id-risco" value="<%=a.id %>">
                                      <td class="plan-grupo-quimico">Q</td>
                                      <td class="agente-risco">
                                         <%=a.agentes_riscos.risco %>
@@ -227,7 +228,8 @@
                             <table class="corpo-table-riscos">
                                 <% agente.forEach(a => { %>
                                  <tbody>
-                                   <tr id="<%=a.id %>">
+                                   <tr id="<%=a.id %>" class='linhas-riscos'>
+                                     <input type="hidden" id="hddIdRiscoAt<%=a.id %>" class="input-id-risco" value="<%=a.id %>">
                                      <td class="plan-grupo-biologico">B</td>
                                      <td class="agente-risco">
                                         <%=a.agentes_riscos.risco %>
@@ -281,7 +283,8 @@
                             <table class="corpo-table-riscos">
                                 <% agente.forEach(a => { %>
                                  <tbody>
-                                   <tr id="<%=a.id %>">
+                                   <tr id="<%=a.id %>" class='linhas-riscos'>
+                                     <input type="hidden" id="hddIdRiscoAt<%=a.id %>" class="input-id-risco" value="<%=a.id %>">
                                      <td class="plan-grupo-ergonomico">E</td>
                                      <td class="agente-risco">
                                         <%=a.agentes_riscos.risco %>
@@ -335,7 +338,8 @@
                             <table class="corpo-table-riscos">
                                 <% agente.forEach(a => { %>
                                  <tbody>
-                                   <tr id="<%=a.id %>">
+                                   <tr id="<%=a.id %>" class='linhas-riscos'>
+                                     <input type="hidden" id="hddIdRiscoAt<%=a.id %>" class="input-id-risco" value="<%=a.id %>">
                                      <td class="plan-grupo-acidente">A</td>
                                      <td class="agente-risco">
                                         <%=a.agentes_riscos.risco %>
