@@ -12,6 +12,8 @@ router.post('/cadastro', usersController.insert);
 router.get('/login', usersController.login);
 router.post('/login', usersController.logar);
 
+router.get('/logout', usersController.logout);
+
 
 //Controle de API Usuario
 router.get('/api/usuarios', usersAPIController.index);

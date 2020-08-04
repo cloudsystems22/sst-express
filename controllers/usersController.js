@@ -59,6 +59,17 @@ const usersController = {
 
         //redirecionando para página inicial
         res.redirect('/');
+    },
+
+    logout:(req, res) => {
+        //req.logout();
+        req.session = null;
+        res.redirect('/users/login');
+        // req.session.destroy((err) => {
+
+        //     res.clearCookie('express.sid', { path: '/' });
+        // });
+
     }
 }
 
