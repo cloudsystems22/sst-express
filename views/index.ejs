@@ -1,0 +1,172 @@
+
+    <%- include('./shared/header') %>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Área de Trabalho</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Compartilhar</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Exportar</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            Esta semana
+          </button>
+        </div>
+      </div>
+<!-- 
+      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+      <div class="painel-principal">
+          <div class="row">
+            <div class="col-4">
+              <div class="painel"></div>
+            </div>
+            <div class="col-4">
+              <div class="painel"></div>
+            </div>
+            <div class="col-4">
+              <div class="painel"></div>
+            </div>
+          </div>
+      </div>
+
+      <h2>Planilha PGR</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <!-- <th>#</th> -->
+              <th>Mês</th>
+              <th>Setor</th>
+              <th>Fase</th>
+              <th>Atividade <br>condição</th>
+              <th>Risco</th>
+              <th>Possíveis <br>consequências</th>
+              <th>G</th>
+              <th>P</th>
+              <th>GXP</th>
+              <th>PSIF</th>
+              <th>Medidas Correção</th>
+            </tr>
+          </thead>
+          <tbody id='relatorio-gro'>
+            <!-- <tr>
+              <td>1</td>
+              <td>Jan</td>
+              <td>Setor 1</td>
+              <td>34mt</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>1</td>
+              <td>4</td>
+              <td>4</td>
+              <td>Risco X</td>
+              <td>sit</td>
+              <td>sit</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jan</td>
+              <td>Setor 2</td>
+              <td>34mt</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>1</td>
+              <td>4</td>
+              <td>4</td>
+              <td>Risco X</td>
+              <td>sit</td>
+              <td>sit</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Fev</td>
+              <td>Setor 3</td>
+              <td>34mt</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>1</td>
+              <td>4</td>
+              <td>4</td>
+              <td>Risco X</td>
+              <td>sit</td>
+              <td>sit</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Fev</td>
+              <td>Setor 4</td>
+              <td>34mt</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>1</td>
+              <td>4</td>
+              <td>4</td>
+              <td>Risco X</td>
+              <td>sit</td>
+              <td>sit</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Mrc</td>
+              <td>Setor 5</td>
+              <td>34mt</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>1</td>
+              <td>4</td>
+              <td>4</td>
+              <td>Risco X</td>
+              <td>sit</td>
+              <td>sit</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Mrc</td>
+              <td>Setor 6</td>
+              <td>34mt</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>1</td>
+              <td>4</td>
+              <td>4</td>
+              <td>Risco X</td>
+              <td>sit</td>
+              <td>sit</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Abr</td>
+              <td>Setor 7</td>
+              <td>34mt</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</td>
+              <td>1</td>
+              <td>4</td>
+              <td>4</td>
+              <td>Risco X</td>
+              <td>sit</td>
+              <td>sit</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+  </div>
+</div>
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+        <script src="../assets/dist/js/bootstrap.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+       
+        <!-- Requisições ajax -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        
+        <script src="../javascripts/dashboard.js"></script>
+        <script src="../javascripts/relvisual.js"></script>
+  </body>
+</html>

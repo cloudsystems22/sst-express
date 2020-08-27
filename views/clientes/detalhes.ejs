@@ -1,0 +1,264 @@
+<%- include('../shared/header') %>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">
+            <span>
+                <% if(cliente.logo) { %>
+                    <img src="<%=cliente.logo %>" alt="" class="logo-orgempresa">
+                <% } else { %>
+                    <img src="./images/imginexist.png" alt="" class="logo-orgempresa">
+                <% } %>
+            </span>
+             <%=cliente.razao_social %>
+        </h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2" id='menu-interno'>
+            
+          </div>
+        
+        </div>
+     </div>
+     <div class="container-flex">
+        <div class="capsula-empresa">
+            <div class="row">
+                <div class="col-md-9">
+                    <p><%=cliente.razao_social %></p>
+                    <p><%=cliente.cnpj %></p><input type="hidden" value='<%=cliente.id %>' id='hddIdCliente'>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" onclick="creatNovoSetor()" id="btnNSetor" title='Novo Setor'><i class="fas fa-plus-circle fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex flex-wrap" id='flex-setores'>
+             
+         <% for(let s of cliente.Setores) { %>
+            <div class="coluna-setor" id='col-setor-<%=s.id %>'>
+                <div class="capsula-setor" id="cpsl-<%=s.id %>">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>
+                                <span id='setor-<%=s.id %>'><%=s.setores %> </span> 
+                            </p>
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <a href="#" title="Editar Setor" onclick="posicao('<%=s.id %>')" data-toggle="modal" data-target="#modalSetor"><i class="fas fa-edit"></i></a>
+                            <a href="#" title="Excluir Setor" onclick="removSetor('<%=s.id %>')"><i class="fas fa-times"></i></a> 
+                            <a href="#" title='Gerenciar Risco' onclick="barraRiscos('<%=s.id %>')"><i class="fas fa-hard-hat"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="capsula-editar" id="cpsl-edit-<%=s.id %>">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <form action="">
+                                <input type="text" id='textSetores-<%=s.id%>' class="form-control input-setor" value="<%=s.setores %>">
+                            </form>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#" title="Cancelar" id="" onclick="cancelar('<%=s.id %>')"><i class="fas fa-times"></i></a>
+                            <a href="#" title="Salvar" onclick="atualizar('<%=s.id %>')"><i class="fas fa-check"></i></a>
+                            <a href="#" title="Detalhes" onclick="visualDetalhes('<%=s.id %>')"><i class="fas fa-info-circle"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+                <ul class="lista-riscos lst-riscos-center" id="ulRiscosDetalhes<%s.id %>">
+                    <% let gruposSetor = gruposRiscos.filter(g => g.setores_id == s.id); %>
+                    <% for(let g of gruposSetor ) {%>
+                        <% if(g.agentes_riscos.tipo == 'Físicos') {%>
+                        <li>
+                            <div class="row div-gruporisco">
+                                <a href="#" onclick="collapseListRisco('fisicos')">
+                                    <i id='icoGfisicos' class="fas fa-chevron-circle-down"></i>
+                                </a><div class="li-fisico"><%=g.agentes_riscos.tipo %></div>
+                            </div>
+                            <% let agenteRisco = agentesRiscos.filter(r => r.setores_id == s.id && r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                            
+                            <ul id='fisico' class="lista-risco">
+                            <% for(let r of agenteRisco) { %>
+                                <li><a href="/gerencRiscos/details?id=<%=r.id %>"><%=r.agentes_riscos.risco %></a></li>
+                            <% } %>
+                            </ul>
+                        </li>
+                        <% } %>
+                        <% if(g.agentes_riscos.tipo == 'Químicos') {%>
+                            <li>
+                                <div class="row div-gruporisco">
+                                    <a href="#" onclick="collapseListRisco('quimicos')">
+                                        <i id='icoGquimicos' class="fas fa-chevron-circle-down"></i>
+                                    </a><div class="li-quimico"><%=g.agentes_riscos.tipo %></div>
+                                </div>
+                                <% let agenteRisco = agentesRiscos.filter(r => r.setores_id == s.id && r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                            
+                                <ul id='quimico' class="lista-risco">
+                                <% for(let r of agenteRisco) { %>
+                                    <li><a href="/gerencRiscos/details?id=<%=r.id %>"><%=r.agentes_riscos.risco %></a></li>
+                                <% } %>
+                                </ul>
+                            </li>
+                        <% } %>
+                        <% if(g.agentes_riscos.tipo == 'Biológicos') {%>
+                            <li>
+                                <div class="row div-gruporisco">
+                                    <a href="#" onclick="collapseListRisco('biologicos')">
+                                        <i id='icoGbiologicos' class="fas fa-chevron-circle-down"></i>
+                                    </a><div class="li-biologico"><%=g.agentes_riscos.tipo %></div>
+                                </div>
+                                <% let agenteRisco = agentesRiscos.filter(r => r.setores_id == s.id && r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                            
+                                <ul id='biologico' class="lista-risco">
+                                <% for(let r of agenteRisco) { %>
+                                    <li><a href="/gerencRiscos/details?id=<%=r.id %>"><%=r.agentes_riscos.risco %></a></li>
+                                <% } %>
+                                </ul>
+                            </li>
+                        <% } %>
+                        <% if(g.agentes_riscos.tipo == 'Ergonômicos') {%>
+                            <li>
+                                <div class="row div-gruporisco">
+                                    <a href="#" onclick="collapseListRisco('ergonomicos')">
+                                        <i id='icoGergonomicos' class="fas fa-chevron-circle-down"></i>
+                                    </a><div class="li-ergonomico"><%=g.agentes_riscos.tipo %></div>
+                                </div>
+                                <% let agenteRisco = agentesRiscos.filter(r => r.setores_id == s.id && r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                            
+                                <ul id='ergonomico' class="lista-risco">
+                                <% for(let r of agenteRisco) { %>
+                                    <li><a href="/gerencRiscos/details?id=<%=r.id %>"><%=r.agentes_riscos.risco %></a></li>
+                                <% } %>
+                                </ul>
+                            </li>
+                        <% } %>
+                        <% if(g.agentes_riscos.tipo == 'Acidentes') {%>
+                            <li>
+                                <div class="row div-gruporisco">
+                                    <a href="#" onclick="collapseListRisco('acidentes')">
+                                        <i id='icoGacidentes' class="fas fa-chevron-circle-down"></i>
+                                    </a><div class="li-acidente"><%=g.agentes_riscos.tipo %></div>
+                                </div>
+                                <% let agenteRisco = agentesRiscos.filter(r => r.setores_id == s.id && r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                            
+                                <ul id='acidente' class="lista-risco">
+                                <% for(let r of agenteRisco) { %>
+                                    <li><a href="/gerencRiscos/details?id=<%=r.id %>"><%=r.agentes_riscos.risco %></a></li>
+                                <% } %>
+                                </ul>
+                            </li>
+                        <% } %>
+                    <% } %>
+                   
+                     <!-- <li><div class="row div-gruporisco"><a href="#" onclick="collapseListRisco('fisicos')"><i id='icoGfisicos' class="fas fa-chevron-circle-down"></i></a><div class="li-fisico">Físicos</div></div>
+                                <ul id='fisicos' class="lista-risco collapse">
+                                    <li><a href="#"><i class="fas fa-minus-circle"></i></a> Ruídos</li>
+                                    <li><a href="#"><i class="fas fa-minus-circle"></i></a> Frio</li>
+                                </ul>
+                            </li>
+                            <li><div class="row div-gruporisco"><a href="#" onclick="collapseListRisco('quimicos')"><i id='icoGquimicos' class="fas fa-chevron-circle-down"></i></a><div class="li-quimico">Químicos</div></div>
+                                <ul id='quimicos' class="lista-risco collapse">
+                                    <li><a href="#"><i class="fas fa-minus-circle"></i></a> Poeiras</li>
+                                </ul>
+                            </li> -->
+                </ul>
+            </div>
+            <div class="detalhes-setor" id="detailSetor<%=s.id %>">
+                <div class="row">
+                   
+                        <div class="col-md-12">
+                            <h3>Detalhes do Setor</h3>
+                            <a href="#" onclick="cancelDetalhes('<%=s.id %>')"><i class="fas fa-times fa-2x"></i></a>
+                            <hr>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Setor</label>
+                            <input type="text" id="txtDSetor<%=s.id %>" class="form-control" value="<%=s.setores %>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Nº Func Masculinos</label>
+                            <input type="text" id="txtDNFM<%=s.id %>" class="form-control" value="<%=s.num_func_m %>">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Nº Func Femininos</label>
+                            <input type="text" id="txtDNFF<%=s.id %>" class="form-control" value="<%=s.num_func_f %>">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="">Descrição</label>
+                            <textarea name="" id="txtareaDSetor<%=s.id %>" class="form-control"><%=s.descricao %></textarea>
+                            <hr>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="button" onclick="atualizarDetalhes('<%=s.id %>')" class="btnAtualDSetor">Atualizar</button>
+                        </div>
+
+                    
+                </div>
+            </div>
+                
+            <div class="barra-riscos" id="brRiscos<%=s.id %>">
+                <div class="row">
+                    <div class="col-md-10">
+                        <span>NR-5 Anexo IV</span>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#" class="fechar-barra-riscos" onclick="fechaBarra('<%=s.id %>')"><i class="fas fa-times fa-2x"></i></a>
+                    </div>
+                </div> 
+               
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="flex flex-wrap" id="lstgruposRisco<%=s.id %>">
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                        <div class="capsula-setor-riscos cps-center">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <p>
+                                        <%=s.setores %>
+                                    </p>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="/gerencriscos?id=<%=s.id%>" target="_blank" title='Gerenciar Risco'><i class="fas fa-hard-hat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="lista-riscos lst-riscos-center" id="ulGruposRisco<%=s.id %>">
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+          
+         <% } %>
+       
+           
+        </div>
+         
+     </div>
+   
+
+</main>
+
+</div>
+</div>
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+        <script src="../assets/dist/js/bootstrap.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+       
+        <!-- Requisições ajax -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="../javascripts/detalhesCliente.js"></script>
+        <script src="../javascripts/crudSetor.js"></script>
+        <script src="../javascripts/crudRiscos.js"></script>
+        <script src="../javascripts/dashboard.js"></script></body>
+</html>

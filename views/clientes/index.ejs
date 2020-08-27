@@ -1,0 +1,84 @@
+<%- include('../shared/header') %>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2"><span data-feather="users"></span> Clientes</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2" id='menu-interno'>
+          <a type="button" href="/clientes/form" class="btn btn-sm btn-outline-secondary">Novo Cliente</a>
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Exportar</button> -->
+          </div>
+          <!-- <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            Esta semana
+          </button> -->
+          <form class="form-inline mr-auto">
+            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar...">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+          </form>
+        </div>
+     </div>
+     <div class="container-flex">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th></th>
+                <th scope="col">#</th>
+                <th scope="col">CNPJ</th>
+                <th scope="col">Razão Social</th>
+                <th scope="col">Nome Fantasia</th>
+                <th scope="col">Email</th>
+                <th scope="col">Telefone</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let c of clientesLicensa) { %>
+              <tr>
+                <td>
+                   <% if(c.Clientes.logo) { %>
+                    <a href="/clientes/details?idcli=<%=c.Clientes.id %>">
+                      <img src="<%=c.Clientes.logo %>" alt="" class="logo-tabela">
+                    </a>
+                   <% } else { %>
+                    <a href="/clientes/details?idcli=<%=c.Clientes.id %>">
+                      <img src="./images/imginexist.png" alt="" class="logo-tabela">
+                    </a>
+                   <% } %>
+                </td>
+                <th scope="row"><%=c.Clientes.id %></th>
+                <td><%=c.Clientes.cnpj %></td>
+                <td><%=c.Clientes.razao_social %></td>
+                <td><%=c.Clientes.nome_fantasia %></td>
+                <td><%=c.Clientes.email %></td>
+                <td><%=c.Clientes.fone %></td>
+                <td>
+                    <a href="/clientes/form?idcli=<%=c.Clientes.id %>" title='Editar Cliente'><i class="fas fa-edit"></i></a>
+                    <a href="/clientes/details?idcli=<%=c.Clientes.id %>" title='Detalhes Cliente'><i class="fas fa-archive"></i></a>
+                </td>
+              </tr>
+             <% } %>
+            </tbody>
+          </table>
+          
+         
+
+     </div>
+
+</main>
+
+
+</div>
+</div>
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+        <script src="../assets/dist/js/bootstrap.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+       
+        <!-- Requisições ajax -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="../javascripts/crudCliente.js"></script>
+        <script src="../javascripts/dashboard.js"></script></body>
+</html>

@@ -1,0 +1,173 @@
+<%- include('../shared/header') %>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Área de Trabalho</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary">Compartilhar</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary">Exportar</button>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+          <span data-feather="calendar"></span>
+          Esta semana
+        </button>
+      </div>
+    </div>
+<!-- 
+    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+    <div class="painel-principal">
+        <div class="row">
+          
+          <% clienteSetor.forEach(c => {%>
+          <div class="col-4">
+            <div class="painel">
+                <div class="logo-cliente">
+                    <% if(c.logo) { %>
+                        <a href="/clientes/details?idcli=<%=c.id %>">
+                          <img src="<%=c.logo %>" alt="" class="logo-tabela">
+                        </a>
+                       <% } else { %>
+                        <a href="/clientes/details?idcli=<%=c.id %>">
+                          <img src="./images/imginexist.png" alt="" class="logo-tabela">
+                        </a>
+                    <% } %>
+                </div>
+                <div class="dados-cliente">
+                  <input type="hidden" id='hddId' value="<%=c.id %>">
+                  <span><%=c.razao_social %></span>
+                  <span><%=c.cnpj %></span>
+                </div>
+                <% let datas = datasAval.filter(e => e.setores_riscos.Setores.clientes_id == c.id ); %>
+                <div class="calend-aval">
+                  <div class="input-group">
+                    <select name="" id="hddData<%=c.id %>" class="form-control">
+                      <% datas.forEach(d => { %>
+                        <%  let dataAval = new Date(d.data+"T00:00:00");
+                            let dia = (dataAval.getDate() < 10) ? "0" + dataAval.getDate() : dataAval.getDate(); 
+                            let mes = ((dataAval.getMonth() + 1) < 10) ? "0" + (dataAval.getMonth() + 1) : (dataAval.getMonth() + 1); 
+                            let ano = dataAval.getFullYear(); %>
+                       <option value="<%=d.data %>"><%= dia + "/" + mes + "/" + ano %></option>
+                      <% }) %>
+                    </select>
+                    <div class="input-group-prepend">
+                      <a href="#!" id='btn-aval' onclick="clienteSetores('<%=c.id %>')"><i class="far fa-calendar-alt fa-2x"></i></a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <% }) %>
+
+          <!-- <div class="col-4">
+            <div class="painel"></div>
+          </div>
+          <div class="col-4">
+            <div class="painel"></div>
+          </div> -->
+        </div>
+    </div>
+
+    <!-- <h2>Planilha </h2> -->
+    <div class="table-responsive" id="planilhas">
+        <table class="table-ges">
+          <thead class="header-ges">
+            <tr>
+              <td>TABELA DE INDICAÇÃO DE PERIGOS POR GES (Grupo de Exposição Similar)</td>
+              <td>00/00/2020</td>
+            </tr>
+          </thead>
+
+        </table>
+        <table class="table-ges">
+          <thead class="head-setor" id='headerSetor'>
+            <tr>
+              <td colspan="6" class="td-normal">GES <span class="id-ges">12</span></td>
+            </tr>
+            <tr>
+              <td class="td-normal">Setor:</td>
+              <td class="td-bold">ADMINITRATIVO</td>
+              <td class="td-normal">Total de trabalhadores expostos:</td>
+              <td class="td-bold">12 masc. 13 fem. total: 25</td>
+              <td class="td-normal">Fase:</td>
+              <td class="td-bold">ANTECIPAÇÃO</td>
+            </tr>
+            <tr>
+              <td colspan="6" class="td-normal">Descrição do setor:</td>
+            </tr>
+            <tr>
+              <td colspan="6" class="td-bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus neque impedit quidem laudantium praesentium minus recusandae, temporibus laborum consequuntur cumque adipisci velit consequatur voluptates! Itaque iure quae eos nam nesciunt.</td>
+            </tr>
+          </thead>
+
+        </table>
+        <table class="table-aval">
+          <thead class="head-aval">
+            <tr>
+              <td>Agente / <br>Tipo</td>
+              <td>Perigo/ fonte de risco</td>
+              <td>Dano</td>
+              <td>Limite de exposição</td>
+              <td>Fonte geradora</td>
+              <td>Intensidade</td>
+              <td>Tecnica</td>
+              <td>P</td>
+              <td>G</td>
+              <td>Risco</td>
+              <td>IN</td>
+              <td>Ações</td>
+              <td>Monitoramento</td>
+            </tr>
+          </thead>
+          <tbody class="corpo-aval">
+            <tr>
+              <td>F</td>
+              <td>Risco</td>
+              <td>Auditivo</td>
+              <td>85db(a)</td>
+              <td>Pistola de ar</td>
+              <td>90db(a)</td>
+              <td>Quantitativa</td>
+              <td>3 - pouco</td>
+              <td>2 - reversivel</td>
+              <td>Médio</td>
+              <td>0</td>
+              <td>Manter o controle</td>
+              <td>Anual(P12)</td>
+            </tr>
+            <tr>
+              <td>F</td>
+              <td>Risco</td>
+              <td>Auditivo</td>
+              <td>85db(a)</td>
+              <td>Pistola de ar</td>
+              <td>90db(a)</td>
+              <td>Quantitativa</td>
+              <td>3 - pouco</td>
+              <td>2 - reversivel</td>
+              <td>Médio</td>
+              <td>0</td>
+              <td>Manter o controle</td>
+              <td>Anual(P12)</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </main>
+
+</div>
+</div>
+      <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+      <script src="../assets/dist/js/bootstrap.bundle.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+     
+      <!-- Requisições ajax -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      
+      <script src="../javascripts/dashboard.js"></script>
+      <script src="../javascripts/clientespgr.js"></script>
+      
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TABELA DE IDENTIFICAÇÃO DE PERIGOS POR GES (Grupo de Exposição Similar)</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="../stylesheets/flex.css">
+    <link rel="stylesheet" href="../stylesheets/componentes.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div id="main">
+        <div class="row">
+            <div class="col-md-12">
+                <p id="titulo-plan">
+                    <span>TABELA DE IDENTIFICAÇÃO DE PERIGOS POR GES (Grupo de Exposição Similar)</span>
+                </p>
+            </div>
+            <div class="col-md-12">
+                <div id="descr-setor">
+                    <div class="header-setor">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p>Id: <b><%=setor.id %></b> - </p>
+                                <input type="hidden" value="<%=setor.id %>" id='hddSetorId'>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Setor: <b><%=setor.setores %></b></p>
+                            </div>
+                            <div class="col-md-2">
+                                <p>Nº Func. Masc: <b><%=setor.num_func_m %></b></p>
+                            </div>
+                            <div class="col-md-2">
+                                <p>Nº Func. Fem: <b><%=setor.num_func_f %></b></p>
+                            </div>
+                            <div class="col-md-2">
+                                <%  let numM = Number(setor.num_func_m);
+                                    let numF = Number(setor.num_func_f);
+                                    let totalFunc = numM + numF %>
+                                <p>Total Func.: <b><%=totalFunc %></b></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>Descrição do setor</p>
+                                <p><b><%=setor.descricao %></b></p>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <% let hoje = new Date();
+                                        let dia = hoje.getDate().toString().padStart(2, '0');
+                                        let mes = (hoje.getMonth()+1).toString().padStart(2, '0');
+                                        let ano = hoje.getFullYear();
+                                        let dataFormatada = ano + "-" + mes + "-" + dia;
+                                        %>
+                                        <input type="date" class="form-control" value="<%=dataFormatada %>" id="dateGes">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select name="" id="faseGes" class="form-control">
+                                            <option value="Antecipação">Antecipação</option>
+                                            <option value="Reconhecimento">Reconhecimento</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table-plan-riscos">
+                            <thead class="head-riscos">
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th colspan="2">Perfil de Exposição</th>
+                                    <th colspan="4">Avaliação do risco</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th>Agente</th>
+                                    <th>Perigo</th>
+                                    <th>Risco</th>
+                                    <th>Dano</th>
+                                    <th>Limite</th>
+                                    <th>Fonte</th>
+                                    <th>Intens</th>
+                                    <th>Tecnica</th>
+                                    <th>P</th>
+                                    <th>G</th>
+                                    <th>Risco</th>
+                                    <th>IN</th>
+                                    <th>Ações prioridade</th>
+                                    <th>Monitoração</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    <% for(let g of gruposRiscos) { %>
+                    <% let agente = agentesRiscos.filter(r => r.agentes_riscos.tipo == g.agentes_riscos.tipo) %>
+                        <% if (g.agentes_riscos.tipo == "Físicos") { %>
+                         <table class="corpo-table-riscos">
+                           <% agente.forEach(a => { %>
+                            <tbody>
+                              <tr id="<%=a.id %>">
+                                <input type="hidden" id="hddIdRiscoAt<%=a.id %>" class="input-id-risco" value="<%=a.id %>">
+                                <td class="plan-grupo-fisico">F</td>
+                                <td class="agente-risco">
+                                    <%=a.agentes_riscos.risco %>
+                                    <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                    <input type="hidden" id="hddIdGes<%=a.id %>">
+                                </td>
+                                <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
+                                <td><input type="text" id="inputDanos<%=a.id %>" /></td>
+                                <td><input type="text" id="inputLimExp<%=a.id %>" /></td>
+                                <td><input type="text" id="inputFont<%=a.id %>" /></td>
+                                <td><input type="text" id="inputInts<%=a.id %>" /></td>
+                                <td>
+                                    <select name="" id="slcTecnica<%=a.id %>">
+                                        <option value="Qualitativa">Qualitativa</option>
+                                        <option value="Quantitativa">Quantitativa</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="" id="slcPequ<%=a.id %>">
+                                        <option value="1">Exposição Baixa</option>
+                                        <option value="2">Exposição Moderada</option>
+                                        <option value="3">Exposição Importante</option>
+                                        <option value="4">Exposição Excessiva</option>
+                                    </select> 
+                                </td>
+                                <td>
+                                    <select name="" id="slcGrand<%=a.id %>">
+                                        <option value="1">Leve, reversível</option>
+                                        <option value="2">Severo, reversível</option>
+                                        <option value="3">Severo, irreversível</option>
+                                        <option value="4">Incapacitante, fatal</option>
+                                    </select> 
+                                </td>
+                                <td> 
+                                    <select name="" id="slcRisc<%=a.id %>">
+                                        <option value="1" class="option-alto">Alto</option>
+                                        <option value="2" class="option-medio">Médio</option>
+                                        <option value="3" class="option-baixo">Baixo</option>
+                                    </select> 
+                                </td>
+                                <td><input type="text" id="inputIn<%=a.id %>" /></td>
+                                <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
+                                <td><input type="text" id="inputMonit<%=a.id %>"/></td>
+                                <td id="tdBtns<%=a.id %>"><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-plus-circle"></i></a></td>
+                              </tr>
+                            </tbody>
+                           <% }) %>
+                        </table>         
+                        <% } %>
+                        <% if (g.agentes_riscos.tipo == "Químicos") { %>
+                            <table class="corpo-table-riscos">
+                                <% agente.forEach(a => { %>
+                                 <tbody>
+                                   <tr id="<%=a.id %>">
+                                     <input type="hidden" id="hddIdRiscoAt<%=a.id %>" class="input-id-risco" value="<%=a.id %>">
+                                     <td class="plan-grupo-quimico">Q</td>
+                                     <td class="agente-risco">
+                                        <%=a.agentes_riscos.risco %>
+                                        <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                        <input type="hidden" id="hddIdGes<%=a.id %>">
+                                    </td>
+                                    <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputDanos<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputLimExp<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputFont<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputInts<%=a.id %>" /></td>
+                                    <td>
+                                        <select name="" id="slcTecnica<%=a.id %>">
+                                            <option value="Qualitativa">Qualitativa</option>
+                                            <option value="Quantitativa">Quantitativa</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="" id="slcPequ<%=a.id %>">
+                                            <option value="1">Exposição Baixa</option>
+                                            <option value="2">Exposição Moderada</option>
+                                            <option value="3">Exposição Importante</option>
+                                            <option value="4">Exposição Excessiva</option>
+                                        </select> 
+                                    </td>
+                                    <td>
+                                        <select name="" id="slcGrand<%=a.id %>">
+                                            <option value="1">Leve, reversível</option>
+                                            <option value="2">Severo, reversível</option>
+                                            <option value="3">Severo, irreversível</option>
+                                            <option value="4">Incapacitante, fatal</option>
+                                        </select> 
+                                    </td>
+                                    <td> 
+                                        <select name="" id="slcRisc<%=a.id %>">
+                                            <option value="1" class="option-alto">Alto</option>
+                                            <option value="2" class="option-medio">Médio</option>
+                                            <option value="3" class="option-baixo">Baixo</option>
+                                        </select> 
+                                    </td>
+                                    <td><input type="text" id="inputIn<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputMonit<%=a.id %>"/></td>
+                                    <td id="tdBtns<%=a.id %>"><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-plus-circle"></i></a></td>
+                                   </tr>
+                                 </tbody>
+                                <% }) %>
+                             </table>      
+                        <% } %>
+                        <% if (g.agentes_riscos.tipo == "Biológicos") { %>
+                            <table class="corpo-table-riscos">
+                                <% agente.forEach(a => { %>
+                                 <tbody>
+                                   <tr id="<%=a.id %>" class='linhas-riscos'>
+                                     <input type="hidden" id="hddIdRiscoAt<%=a.id %>" class="input-id-risco" value="<%=a.id %>">
+                                     <td class="plan-grupo-biologico">B</td>
+                                     <td class="agente-risco">
+                                        <%=a.agentes_riscos.risco %>
+                                        <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                        <input type="hidden" id="hddIdGes<%=a.id %>">
+                                    </td>
+                                    <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputDanos<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputLimExp<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputFont<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputInts<%=a.id %>" /></td>
+                                    <td>
+                                        <select name="" id="slcTecnica<%=a.id %>">
+                                            <option value="Qualitativa">Qualitativa</option>
+                                            <option value="Quantitativa">Quantitativa</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="" id="slcPequ<%=a.id %>">
+                                            <option value="1">Exposição Baixa</option>
+                                            <option value="2">Exposição Moderada</option>
+                                            <option value="3">Exposição Importante</option>
+                                            <option value="4">Exposição Excessiva</option>
+                                        </select> 
+                                    </td>
+                                    <td>
+                                        <select name="" id="slcGrand<%=a.id %>">
+                                            <option value="1">Leve, reversível</option>
+                                            <option value="2">Severo, reversível</option>
+                                            <option value="3">Severo, irreversível</option>
+                                            <option value="4">Incapacitante, fatal</option>
+                                        </select> 
+                                    </td>
+                                    <td> 
+                                        <select name="" id="slcRisc<%=a.id %>">
+                                            <option value="1" class="option-alto">Alto</option>
+                                            <option value="2" class="option-medio">Médio</option>
+                                            <option value="3" class="option-baixo">Baixo</option>
+                                        </select> 
+                                    </td>
+                                    <td><input type="text" id="inputIn<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputMonit<%=a.id %>"/></td>
+                                    <td id="tdBtns<%=a.id %>"><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-plus-circle"></i></a></td>
+                                   </tr>
+                                 </tbody>
+                                <% }) %>
+                             </table>       
+                        <% } %>
+                        <% if (g.agentes_riscos.tipo == "Ergonômicos") { %>
+                            <table class="corpo-table-riscos">
+                                <% agente.forEach(a => { %>
+                                 <tbody>
+                                   <tr id="<%=a.id %>" class='linhas-riscos'>
+                                     <input type="hidden" id="hddIdRiscoAt<%=a.id %>" class="input-id-risco" value="<%=a.id %>">
+                                     <td class="plan-grupo-ergonomico">E</td>
+                                     <td class="agente-risco">
+                                        <%=a.agentes_riscos.risco %>
+                                        <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                        <input type="hidden" id="hddIdGes<%=a.id %>">
+                                    </td>
+                                    <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputDanos<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputLimExp<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputFont<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputInts<%=a.id %>" /></td>
+                                    <td>
+                                        <select name="" id="slcTecnica<%=a.id %>">
+                                            <option value="Qualitativa">Qualitativa</option>
+                                            <option value="Quantitativa">Quantitativa</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="" id="slcPequ<%=a.id %>">
+                                            <option value="1">Exposição Baixa</option>
+                                            <option value="2">Exposição Moderada</option>
+                                            <option value="3">Exposição Importante</option>
+                                            <option value="4">Exposição Excessiva</option>
+                                        </select> 
+                                    </td>
+                                    <td>
+                                        <select name="" id="slcGrand<%=a.id %>">
+                                            <option value="1">Leve, reversível</option>
+                                            <option value="2">Severo, reversível</option>
+                                            <option value="3">Severo, irreversível</option>
+                                            <option value="4">Incapacitante, fatal</option>
+                                        </select> 
+                                    </td>
+                                    <td> 
+                                        <select name="" id="slcRisc<%=a.id %>">
+                                            <option value="1" class="option-alto">Alto</option>
+                                            <option value="2" class="option-medio">Médio</option>
+                                            <option value="3" class="option-baixo">Baixo</option>
+                                        </select> 
+                                    </td>
+                                    <td><input type="text" id="inputIn<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputMonit<%=a.id %>"/></td>
+                                    <td id="tdBtns<%=a.id %>"><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-plus-circle"></i></a></td>
+                                   </tr>
+                                 </tbody>
+                                <% }) %>
+                             </table>       
+                        <% } %>
+                        <% if (g.agentes_riscos.tipo == "Acidentes") { %>
+                            <table class="corpo-table-riscos">
+                                <% agente.forEach(a => { %>
+                                 <tbody>
+                                   <tr id="<%=a.id %>" class='linhas-riscos'>
+                                     <input type="hidden" id="hddIdRiscoAt<%=a.id %>" class="input-id-risco" value="<%=a.id %>">
+                                     <td class="plan-grupo-acidente">A</td>
+                                     <td class="agente-risco">
+                                        <%=a.agentes_riscos.risco %>
+                                        <input type="hidden" id="hddAgRisc" value="<%=a.agentes_riscos.id %>">
+                                        <input type="hidden" id="hddIdGes<%=a.id %>">
+                                    </td>
+                                    <td><input type="text" id="inputDescrRiscos<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputDanos<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputLimExp<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputFont<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputInts<%=a.id %>" /></td>
+                                    <td>
+                                        <select name="" id="slcTecnica<%=a.id %>">
+                                            <option value="Qualitativa">Qualitativa</option>
+                                            <option value="Quantitativa">Quantitativa</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="" id="slcPequ<%=a.id %>">
+                                            <option value="1">Exposição Baixa</option>
+                                            <option value="2">Exposição Moderada</option>
+                                            <option value="3">Exposição Importante</option>
+                                            <option value="4">Exposição Excessiva</option>
+                                        </select> 
+                                    </td>
+                                    <td>
+                                        <select name="" id="slcGrand<%=a.id %>">
+                                            <option value="1">Leve, reversível</option>
+                                            <option value="2">Severo, reversível</option>
+                                            <option value="3">Severo, irreversível</option>
+                                            <option value="4">Incapacitante, fatal</option>
+                                        </select> 
+                                    </td>
+                                    <td> 
+                                        <select name="" id="slcRisc<%=a.id %>">
+                                            <option value="1" class="option-alto">Alto</option>
+                                            <option value="2" class="option-medio">Médio</option>
+                                            <option value="3" class="option-baixo">Baixo</option>
+                                        </select> 
+                                    </td>
+                                    <td><input type="text" id="inputIn<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputDefAc<%=a.id %>" /></td>
+                                    <td><input type="text" id="inputMonit<%=a.id %>"/></td>
+                                    <td id="tdBtns<%=a.id %>"><a href="#" onclick="incluirGes('<%=a.id %>')"><i class="fas fa-plus-circle"></i></a></td>
+                                   </tr>
+                                 </tbody>
+                                <% }) %>
+                             </table>  
+                        <% } %>
+                    <% } %>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+<script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+<script src="../assets/dist/js/bootstrap.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+<!-- Requisições ajax -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script src="../javascripts/crudGerRiscos.js"></script>
+</html>
